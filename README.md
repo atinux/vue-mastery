@@ -5,7 +5,10 @@
 ## Requirements
 
 We need to install firebase tools to deploy.
+
+``` bash
 $ npm install -g firebase-tools
+```
 
 ## Firebase Setup
 
