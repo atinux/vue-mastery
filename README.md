@@ -1,6 +1,6 @@
 # Vue Mastery
 
-> Vue Mastery is using Nuxt and Firebase to auth users without a server
+> The ultimate learning resource for Vue developers
 
 ## Requirements
 
