@@ -18,7 +18,7 @@
       </div>
 
       <div class="form-group">
-        <p><nuxt-link to="/account/signup">I don't have an account</nuxt-link></p>
+        <p><nuxt-link to="/account/signup">Signup</nuxt-link></p>
       </div>
 
       <div class="form-group">
