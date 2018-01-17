@@ -12,6 +12,12 @@
         <input class="form-control" type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput">
       </dd>
     </dl>
+    <dl class="form-group">
+      <label class="text-inherit">
+        <input type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')">
+        I want to receive occasional emails about new educational content
+        </label>
+    </dl>
     <div class="form-group">
       <div class="flash" v-if="formSuccess.length > 0" v-text="formSuccess"></div>
       <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
@@ -32,7 +38,8 @@ export default {
     return {
       newData: {
         displayName: '',
-        image: ''
+        image: '',
+        subscribedToMailingList: false
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
@@ -42,6 +49,7 @@ export default {
   mounted () {
     this.newData.displayName = this.account.displayName
     this.newData.image = this.account.image
+    this.newData.subscribedToMailingList = this.account.subscribedToMailingList
   },
   methods: {
     resetFormMessages () {
