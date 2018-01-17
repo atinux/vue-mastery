@@ -4,7 +4,7 @@
       <div class="form-group">
         <label>Email</label>
         <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email">
+          <input class="form-control" v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email">
         </div>
         <p class="help is-danger" v-if="invalidEmail">This email is invalid</p>
       </div>
