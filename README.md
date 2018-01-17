@@ -25,6 +25,16 @@ module.exports = {
 }
 ```
 
+#### Configuration keys
+
+To use MailerLite, SparkPost, and stripe we need to configure enviroment keys using this command:
+
+``` bash
+$ firebase functions:config:set mailerlite.key="THE KEY"
+$ firebase functions:config:set sparkpost.key="THE KEY"
+$ firebase functions:config:set stripe.token="THE KEY"
+```
+
 #### Rules
 
 In order to keep other users from writing to paths they don't own, we need to add some rules to the database:
