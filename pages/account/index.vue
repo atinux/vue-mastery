@@ -40,7 +40,7 @@ import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
 
 export default {
-  // middleware: 'authenticated', // checking if auth'd with firebase kinda sucks as the middleware is triggered before firebase is ready
+  middleware: 'authenticated',
   components: {
     EditAccountForm
   },

@@ -86,6 +86,17 @@ const createStore = () => {
             this.dispatch('resetUser')
           })
       },
+      userRetrievePassword ({ state }, account) {
+        return firebase.auth()
+          .sendPasswordResetEmail(account.email)
+          .then(() => {
+            // Email sent.
+            console.log(`Retreive password for the account ${account.email}`)
+          }).catch((error) => {
+            // An error happened.
+            console.log(`Can't send retrieve password email. Error:  ${error}`)
+          })
+      },
       userUpdate ({ state }, newData) {
         return firebase.database().ref(`accounts/${state.user.uid}`).update({
           displayName: newData.displayName,

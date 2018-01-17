@@ -22,6 +22,10 @@
       </div>
 
       <div class="form-group">
+        <p><nuxt-link to="/account/password">Forgot your password?</nuxt-link></p>
+      </div>
+
+      <div class="form-group">
         <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
       </div>
 
