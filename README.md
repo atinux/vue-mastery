@@ -34,6 +34,11 @@ $ firebase functions:config:set mailerlite.key="THE KEY"
 $ firebase functions:config:set sparkpost.key="THE KEY"
 $ firebase functions:config:set stripe.token="THE KEY"
 ```
+To list the current config:
+
+``` bash
+$ functions:config:get
+```
 
 #### Rules
 
