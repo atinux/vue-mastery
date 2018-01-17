@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "firebase-admin": "~5.4.2",
-    "firebase-functions": "^0.7.1"
+    "firebase-functions": "^0.7.1",
+    "mailerlite": "^0.4.0",
+    "sparkpost": "^2.1.2"
   },
   "private": true
 }
