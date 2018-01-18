@@ -3,6 +3,7 @@ node_modules
 
 # logs
 npm-debug.log
+firebase-debug.log
 
 # Nuxt build
 .nuxt
