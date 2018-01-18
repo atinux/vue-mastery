@@ -34,7 +34,13 @@ const createStore = () => {
         return firebase.auth()
           .createUserWithEmailAndPassword(account.email, account.password)
           .then((user) => {
-            return createNewAccount(user)
+            user.sendEmailVerification().then(() => {
+              // Email sent.
+              return createNewAccount(user)
+            }).catch((error) => {
+              // An error happened.
+              console.log(`Can't create the new account. Error:  ${error}`)
+            })
           })
       },
       userGoogleLogin ({ commit }) {
