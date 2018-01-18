@@ -27,6 +27,7 @@ exports.subscribeUserToMailerlite = functions.database.ref('/accounts/{uid}').on
 })
 
 // Sends an email to the user when he forget his password.
+// TODO: remove this if we don't use sparkpost. (NB: this as not been tested)
 exports.sendEmailForgetPassword = functions.database.ref('/users/{uid}').onWrite(event => {
   const snapshot = event.data
   const val = snapshot.val()
@@ -64,6 +65,7 @@ exports.createCustomer = functions.auth.user().onCreate(event => {
       console.log(res)
     })
 
+  // TODO: remove this if we don't use strip. (NB: this as not been tested)
   // register Stripe user
   // return stripe.customers.create({
   //   email: user.email
