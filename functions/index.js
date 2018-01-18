@@ -89,12 +89,7 @@ function subscribeUserToMailerList (user, mailerliteListId) {
 function UnSubscribeUserToMailerList (user, mailerliteListId) {
   // This doesn't work and return 'Empty email address' probably because the library is using old mailerlite API V1
   // TODO: rewrite this using mailerlite API V2
-  // return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
-  //   .then((res) => {
-  //     console.log(res)
-  //   })
-
-  return mailerliteSubscribers.unsubscribeSubscriber(user.email)
+  return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
     .then((res) => {
       console.log(res)
     })

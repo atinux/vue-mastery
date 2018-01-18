@@ -11,7 +11,7 @@
   "dependencies": {
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1",
-    "mailerlite": "^0.4.0",
+    "mailerlite": "git+https://github.com/pieer/mailerlite-sdk-nodejs.git",
     "sparkpost": "^2.1.2"
   },
   "private": true
