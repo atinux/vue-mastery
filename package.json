@@ -14,10 +14,11 @@
   },
   "dependencies": {
     "@nuxtjs/pwa": "^2.0.4",
-    "firebase": "^4.8.1",
+    "firebase": "^4.8.2",
+    "firebase-admin": "^5.8.1",
     "firebase-auth": "^0.1.2",
     "nuxt": "^1.0.0-rc11",
-    "vuexfire": "^2.3.0"
+    "vuexfire": "^3.0.0-alpha.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
