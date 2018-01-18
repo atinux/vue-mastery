@@ -6,7 +6,7 @@ const SparkPost = require('sparkpost')
 
 // Configure Mailerlite
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
-const mailerliteListId = '8738992'
+const mailerliteListId = '9028842' // "VueMastery.com New Users" group
 const mailerliteSubscribers = mailerlite.Subscribers
 
 // Configure stripe
@@ -85,7 +85,14 @@ function subscribeUserToMailerList (user, mailerliteListId) {
 }
 
 function UnSubscribeUserToMailerList (user, mailerliteListId) {
-  return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
+  // This doesn't work and return 'Empty email address' probably because the library is using old mailerlite API V1
+  // TODO: rewrite this using mailerlite API V2
+  // return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
+  //   .then((res) => {
+  //     console.log(res)
+  //   })
+
+  return mailerliteSubscribers.unsubscribeSubscriber(user.email)
     .then((res) => {
       console.log(res)
     })
