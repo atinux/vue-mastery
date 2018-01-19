@@ -2,10 +2,11 @@ import firebase from 'firebase'
 
 export default function ({
   isServer,
-  redirect
+  redirect,
+  store
 }) {
   // the server can never be authed for a single account
-  if (isServer && !firebase.apps.length) {
+  if (!isServer && !store.getters.isAuthenticated && !firebase.apps.length) {
     redirect('/account/login')
   }
 }

@@ -1,11 +1,11 @@
-import firebase from 'firebase'
+// import firebase from 'firebase'
 
 export default function ({
   isServer,
   store,
   redirect
 }) {
-  if (!isServer && (store.getters.isAuthenticated && firebase.auth().currentUser)) {
-    return redirect('/account')
-  }
+  // if (!isServer && (store.getters.isAuthenticated && firebase.auth().currentUser)) {
+  //   return redirect('/account')
+  // }
 }

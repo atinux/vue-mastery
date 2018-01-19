@@ -15,6 +15,10 @@ module.exports = {
         rel: 'stylesheet',
         type: 'text/css',
         href: '/primer.css'
+      },
+      {
+        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+        rel: 'stylesheet'
       }
     ]
   },
@@ -22,7 +26,7 @@ module.exports = {
    ** Global CSS
    */
   css: [
-    '~/assets/css/style.css'
+    '~/assets/css/style.styl'
   ],
   /*
    ** Site Modules
@@ -38,7 +42,7 @@ module.exports = {
    ** Router config
    */
   router: {
-    // middleware: 'check-auth'
+    // middleware: 'authenticated'
   },
   plugins: [
     {
