@@ -9,7 +9,8 @@ function createNewAccount (user) {
   return docRef.set({
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,
-    image: user.newImage || '/images/default-profile.png' // supply a default profile image for all users
+    image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
+    subscribedToMailingList: true
   })
 }
 
@@ -107,6 +108,7 @@ const createStore = () => {
           })
       },
       userUpdate ({ state }, newData) {
+        console.log(newData)
         return firebase.firestore().collection('accounts').doc(state.user.uid).set({
           displayName: newData.displayName,
           subscribedToMailingList: newData.subscribedToMailingList
