@@ -11,11 +11,6 @@ function createNewAccount (user) {
     email: user.email,
     image: user.newImage || '/images/default-profile.png' // supply a default profile image for all users
   })
-  // return firebase.database().ref(`accounts/${user.uid}`).set({
-  //   displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
-  //   email: user.email,
-  //   image: user.newImage || '/images/default-profile.png' // supply a default profile image for all users
-  // })
 }
 
 const createStore = () => {
@@ -31,12 +26,7 @@ const createStore = () => {
     },
     actions: {
       setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
-        console.log('tabarnacle', bindFirebaseRef)
-        return bindFirebaseRef('account', firebase.firestore().collection('account').doc(path))
-          .then(function (user, test) {
-            console.log('finaly', user, test)
-          })
-        // return bindFirebaseRef('account', firebase.firestore().ref(path))
+        return bindFirebaseRef('account', firebase.firestore().collection('accounts').doc(path))
       }),
       resetUser ({
         state
@@ -121,18 +111,11 @@ const createStore = () => {
           displayName: newData.displayName,
           subscribedToMailingList: newData.subscribedToMailingList
         }, { merge: true })
-        // return firebase.database().ref(`accounts/${state.user.uid}`).update({
-        //   displayName: newData.displayName,
-        //   subscribedToMailingList: newData.subscribedToMailingList
-        // })
       },
       userUpdateImage ({ state }, image) {
         return firebase.firestore().collection('accounts').doc(state.user.uid).set({
           image
         }, { merge: true })
-        // return firebase.database().ref(`accounts/${state.user.uid}`).update({
-        //   image
-        // })
       }
     },
     mutations: {
