@@ -1,5 +1,6 @@
 import firebaseConfig from '~/firebase'
 import firebase from 'firebase'
+import * as types from '~/store/mutation-types'
 
 export default function ({
   store,
@@ -11,7 +12,7 @@ export default function ({
 
   return firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      store.commit('setUser', user)
+      store.commit(types.SET_USER, user)
     }
   })
 }
