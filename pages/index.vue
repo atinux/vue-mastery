@@ -10,10 +10,22 @@
         .hero-placeholder
           .hero-play
 
+    .container
+      CourseList
+
 </template>
 
 <script>
+import CourseList from '~/components/courses/List'
+
 export default {
+  middleware: 'anonymous',
+  head: {
+    title: 'Home page'
+  },
+  components: {
+    CourseList
+  }
 }
 </script>
 
