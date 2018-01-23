@@ -8,8 +8,8 @@
 
       nav.navbar(role="navigation" aria-label="main navigation")
         .navbar-main
-          nuxt-link.navbar-item(to="/courses") Courses
-          nuxt-link.navbar-item(to="/about") About
+          router-link.navbar-item(to="/courses") Courses
+          router-link.navbar-item(to="/about") About
         .navbar-secondary(v-cloak v-if="user")
           button.btn(type="button" v-on:click="signOut") Sign Out
           nuxt-link.navbar-profile(to="/account")
@@ -65,7 +65,7 @@ $green = #39B982
   display flex
   justify-content center
   align-items center
-  
+
   &:hover
     border-color $green
     background #ffffff
@@ -103,6 +103,10 @@ $green = #39B982
   font-family "Source Sans Pro"
   font-size 20px
   padding-right 52px
+
+  &.nuxt-link-active
+    text-decoration: underline
+
   &:last-child
     padding-right 0
 
