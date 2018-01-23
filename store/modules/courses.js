@@ -5,7 +5,8 @@ import { firebaseAction } from 'vuexfire'
 // initial state
 const state = {
   all: [],
-  course: null
+  course: null,
+  lessons: []
 }
 
 // getters
@@ -22,10 +23,15 @@ const actions = {
     return bindFirebaseRef('all', firebase.firestore().collection(path))
   }),
   getCourse: firebaseAction(({ bindFirebaseRef }, path) => {
-    firebase.firestore().collection('courses').doc('27db1KQV2BiGkHUpabSX').get().then((result) => {
-      console.log('result', result.lessons)
-    })
-    return bindFirebaseRef('course', firebase.firestore().collection('courses').doc(path))
+    const coursesRef = firebase.firestore().collection('courses')
+    const query = coursesRef.where('title', '==', path)
+    return bindFirebaseRef('course', query)
+  }),
+
+  getLessons: firebaseAction(({ bindFirebaseRef }, path) => {
+    const coursesRef = firebase.firestore().collection('courses')
+    const query = coursesRef.where('title', '==', path).collection('lessons')
+    return bindFirebaseRef('course', query)
   })
 }
 

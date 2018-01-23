@@ -7,7 +7,6 @@
           h3 {{ course.title }}
           p {{ course.description }}
 </template>
-  
 
 <script>
 import { mapState } from 'vuex'
