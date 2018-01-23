@@ -1,5 +1,9 @@
 {
   "rules": {
+    "flamelink": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
     "accounts": {
       "$uid": {
         ".read": "$uid === auth.uid",
