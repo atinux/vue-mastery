@@ -13,10 +13,14 @@
     .container
       CourseList
 
+    .container
+      DustinTestModule
+
 </template>
 
 <script>
 import CourseList from '~/components/courses/List'
+import DustinTestModule from '~/components/static/DustinTestModule'
 
 export default {
   middleware: 'anonymous',
@@ -24,7 +28,8 @@ export default {
     title: 'Home page'
   },
   components: {
-    CourseList
+    CourseList,
+    DustinTestModule
   }
 }
 </script>
