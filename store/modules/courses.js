@@ -1,42 +1,79 @@
-import * as firebase from 'firebase'
-import 'firebase/firestore'
-import { firebaseAction } from 'vuexfire'
+import * as types from '../mutation-types'
 
 // initial state
 const state = {
-  all: [],
+  firelink: null,
+  courses: null,
   course: null,
-  lessons: []
+  lessons: null
 }
 
 // getters
 const getters = {
-  allCourses: state => state.all
+  content: state => state.firelink,
+  allCourses: state => state.courses,
+  course: state => state.course,
+  lessons: state => state.lessons
 }
 
 // actions
 const actions = {
-  getAllCourses: firebaseAction(({ bindFirebaseRef }, path) => {
-    firebase.firestore().collection('courses').get().then((result) => {
-      console.log('results', result)
-    })
-    return bindFirebaseRef('all', firebase.firestore().collection(path))
-  }),
-  getCourse: firebaseAction(({ bindFirebaseRef }, path) => {
-    const coursesRef = firebase.firestore().collection('courses')
-    const query = coursesRef.where('title', '==', path)
-    return bindFirebaseRef('course', query)
-  }),
+  getAllCourses ({ commit, state }) {
+    return state.firelink.content.get('courses', {
+      populate: [
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        }
+      ]})
+      .then(courses => {
+        commit(types.RECEIVE_COURSES, { courses })
+      })
+  },
+  getCourse ({ commit, state }, id) {
+    return state.firelink.content.get('courses', id, {
+      populate: [
+        {
+          field: 'image',
+          subFields: [ 'image' ]
+        },
+        {
+          field: 'lessons',
+          subFields: [ 'lessons' ]
+        }
+      ]})
+      .then(course => {
+        commit(types.RECEIVE_COURSE, { course })
+      })
+  },
 
-  getLessons: firebaseAction(({ bindFirebaseRef }, path) => {
-    const coursesRef = firebase.firestore().collection('courses')
-    const query = coursesRef.where('title', '==', path).collection('lessons')
-    return bindFirebaseRef('course', query)
-  })
+  getLessons ({ commit, state }) {
+    return state.firelink.content.get('courses')
+      .then(courses => {
+        commit(types.RECEIVE_COURSES, { courses })
+      })
+  }
+}
+
+// mutations
+const mutations = {
+  [types.SET_FIRELINK] (state, app) {
+    state.firelink = app
+  },
+  [types.RECEIVE_COURSES] (state, { courses }) {
+    state.courses = courses
+  },
+  [types.RECEIVE_COURSE] (state, { course }) {
+    state.course = course
+  },
+  [types.RECEIVE_LESSONS] (state, { lessons }) {
+    state.lessons = lessons
+  }
 }
 
 export default {
   state,
   getters,
-  actions
+  actions,
+  mutations
 }

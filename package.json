@@ -17,8 +17,9 @@
     "firebase": "^4.8.2",
     "firebase-admin": "^5.8.1",
     "firebase-auth": "^0.1.2",
+    "flamelink": "^0.13.4",
     "nuxt": "^1.0.0-rc11",
-    "vuexfire": "^3.0.0-alpha.0"
+    "vuexfire": "^2.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

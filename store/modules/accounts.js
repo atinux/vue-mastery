@@ -1,6 +1,6 @@
 import * as firebase from 'firebase'
 import * as types from '../mutation-types'
-import 'firebase/firestore'
+
 import { firebaseMutations, firebaseAction } from 'vuexfire'
 
 // initial state
@@ -17,8 +17,7 @@ const getters = {
 }
 
 function createNewAccount (user) {
-  const docRef = firebase.firestore().collection('accounts').doc(user.uid)
-  return docRef.set({
+  return firebase.database().ref(`accounts/${user.uid}`).set({
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
@@ -29,7 +28,8 @@ function createNewAccount (user) {
 // actions
 const actions = {
   setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
-    return bindFirebaseRef('account', firebase.firestore().collection('accounts').doc(path))
+    return bindFirebaseRef('account', firebase.database().ref(path))
+    // return bindFirebaseRef('account', firebase.firestore().collection('accounts').doc(path))
   }),
   resetUser ({
     state
@@ -110,13 +110,15 @@ const actions = {
       })
   },
   userUpdate ({ state }, newData) {
-    return firebase.firestore().collection('accounts').doc(state.user.uid).set({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+    // return firebase.firestore().collection('accounts').doc(state.user.uid).set({
       displayName: newData.displayName,
       subscribedToMailingList: newData.subscribedToMailingList
     }, { merge: true })
   },
   userUpdateImage ({ state }, image) {
-    return firebase.firestore().collection('accounts').doc(state.user.uid).set({
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+    // return firebase.firestore().collection('accounts').doc(state.user.uid).set({
       image
     }, { merge: true })
   }
@@ -127,7 +129,8 @@ const mutations = {
   ...firebaseMutations,
   [types.SET_USER] (state, user) {
     state.user = user
-    return this.dispatch('setAccountRef', `${state.user.uid}`)
+    return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
+    // return this.dispatch('setAccountRef', `${state.user.uid}`)
   }
 }
 
