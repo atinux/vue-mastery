@@ -1,7 +1,7 @@
 <template lang="pug">
   ul(v-if="courses" v-cloak)
     li(v-for="course in courses.courses")
-      nuxt-link.navbar-profile(:to="'/courses/'+course.id")
+      nuxt-link(:to="'/courses/'+course.id")
         .course-image
           img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
         h3 {{ course.title }}

@@ -5,7 +5,8 @@ const state = {
   firelink: null,
   courses: null,
   course: null,
-  lessons: null
+  lessons: null,
+  latests: null
 }
 
 // getters
@@ -13,7 +14,8 @@ const getters = {
   content: state => state.firelink,
   allCourses: state => state.courses,
   course: state => state.course,
-  lessons: state => state.lessons
+  lessons: state => state.lessons,
+  latests: state => state.latests
 }
 
 // actions
@@ -47,11 +49,16 @@ const actions = {
       })
   },
 
-  getLessons ({ commit, state }) {
-    return state.firelink.content.get('courses')
-      .then(courses => {
-        commit(types.RECEIVE_COURSES, { courses })
-      })
+  lastVideos ({ commit, state }) {
+    return state.firelink.content.get('lessons', {
+      limitToLast: 2,
+      populate: [{
+        field: 'lessons',
+        subFields: [ 'lessons' ]
+      }]
+    }).then(latests => {
+      commit(types.RECEIVE_LATEST_VIDEOS, { latests })
+    })
   }
 }
 
@@ -66,8 +73,8 @@ const mutations = {
   [types.RECEIVE_COURSE] (state, { course }) {
     state.course = course
   },
-  [types.RECEIVE_LESSONS] (state, { lessons }) {
-    state.lessons = lessons
+  [types.RECEIVE_LATEST_VIDEOS] (state, { latests }) {
+    state.latests = latests
   }
 }
 
