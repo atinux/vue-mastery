@@ -63,7 +63,7 @@ const actions = {
           newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
           ...result.user
         })
-        return commit('setUser', result.user)
+        return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
       })
@@ -79,7 +79,7 @@ const actions = {
           newImage: result.additionalUserInfo.profile.avatar_url, // just use their existing user image to start
           ...result.user
         })
-        return commit('setUser', result.user)
+        return commit(types.SET_USER, result.user)
       }).catch((error) => {
         console.log(error)
       })
@@ -88,7 +88,7 @@ const actions = {
     return firebase.auth()
       .signInWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        return this.dispatch('setUser', user)
+        return this.dispatch(types.SET_USER, user)
       })
   },
   userLogout ({ state }) {

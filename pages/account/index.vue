@@ -1,10 +1,10 @@
 <template lang="pug">
   div
-    .account(v-if="account" v-cloak)
+    .account(v-if="accounts" v-cloak)
       .account-image
-        a(v-bind:href="account.image" target="_blank" title="Click To View")
-          img(v-bind:src="account.image" width="100" height="100" v-bind:alt="imageAlt")
-      h3(v-text="account.displayName")
+        a(v-bind:href="accounts.image" target="_blank" title="Click To View")
+          img(v-bind:src="accounts.image" width="100" height="100" v-bind:alt="imageAlt")
+      h3(v-text="accounts.displayName")
       p View and manage your account
 
     div
@@ -13,12 +13,12 @@
         EditAccountForm
 
       div(v-else)
-        div(v-if="account" v-cloak)
+        div(v-if="accounts" v-cloak)
           p 
             | Information pulled from the firebase 
             code /account
             | dataset
-          pre(v-text="`${JSON.stringify(account, null, 2)}`")
+          pre(v-text="`${JSON.stringify(accounts, null, 2)}`")
 
       div
         button(type="button" class="btn btn-primary mr-2" v-on:click="toggleEditForm")
@@ -38,12 +38,11 @@ export default {
     EditAccountForm
   },
   computed: {
-    ...mapState([
-      'user',
-      'account'
-    ]),
+    ...mapState({
+      accounts: result => result.accounts.account
+    }),
     imageAlt () {
-      return `${this.account.displayName} profile image`
+      return `${this.accounts.displayName} profile image`
     }
   },
   data () {
