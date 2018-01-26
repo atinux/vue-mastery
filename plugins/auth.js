@@ -9,8 +9,7 @@ export default function ({
 }) {
   if (!firebase.apps.length) {
     const firebaseApp = firebase.initializeApp(firebaseConfig)
-    const app = flamelink({ firebaseApp })
-    store.commit(types.SET_FIRELINK, app)
+    store.commit(types.APP_READY, flamelink({ firebaseApp }))
   }
 
   return firebase.auth().onAuthStateChanged((user) => {

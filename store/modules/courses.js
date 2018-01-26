@@ -1,5 +1,7 @@
 import * as types from '../mutation-types'
 
+let db = null
+
 // initial state
 const state = {
   firelink: null,
@@ -11,7 +13,6 @@ const state = {
 
 // getters
 const getters = {
-  content: state => state.firelink,
   allCourses: state => state.courses,
   course: state => state.course,
   lessons: state => state.lessons,
@@ -21,7 +22,7 @@ const getters = {
 // actions
 const actions = {
   getAllCourses ({ commit, state }) {
-    return state.firelink.content.get('courses', {
+    return db.get('courses', {
       populate: [
         {
           field: 'image',
@@ -33,7 +34,7 @@ const actions = {
       })
   },
   getCourse ({ commit, state }, id) {
-    return state.firelink.content.get('courses', id, {
+    return db.get('courses', id, {
       populate: [
         {
           field: 'image',
@@ -50,7 +51,7 @@ const actions = {
   },
 
   lastVideos ({ commit, state }) {
-    return state.firelink.content.get('lessons', {
+    return db.get('lessons', {
       limitToLast: 2,
       populate: [{
         field: 'lessons',
@@ -64,8 +65,8 @@ const actions = {
 
 // mutations
 const mutations = {
-  [types.SET_FIRELINK] (state, app) {
-    state.firelink = app
+  [types.APP_READY] (state, app) {
+    db = app.content
   },
   [types.RECEIVE_COURSES] (state, { courses }) {
     state.courses = courses
