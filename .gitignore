@@ -13,6 +13,7 @@ dist
 
 # dont show the firebase file
 firebase.js
+serviceAccountKey.json
 
 # hide the compiled service worker
 sw.*
