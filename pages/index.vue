@@ -14,13 +14,21 @@
       CourseList
 
     .container
-      DustinTestModule
+      CheatSheetMain
+
+    .container
+      CommunitySupport
+
+    .container
+      VuePodcast
 
 </template>
 
 <script>
 import CourseList from '~/components/courses/List'
-import DustinTestModule from '~/components/static/DustinTestModule'
+import CommunitySupport from '~/components/static/CommunitySupport'
+import CheatSheetMain from '~/components/static/CheatSheetMain'
+import VuePodcast from '~/components/static/VuePodcast'
 
 export default {
   middleware: 'anonymous',
@@ -29,7 +37,9 @@ export default {
   },
   components: {
     CourseList,
-    DustinTestModule
+    CommunitySupport,
+    CheatSheetMain,
+    VuePodcast
   }
 }
 </script>
@@ -37,13 +47,10 @@ export default {
 <style lang="stylus" scoped>
 // TODO: refactor basic css
 
-.title	
-  height 120px	
+.title
+  height 120px
   width 648px
   color #36495E
-  font-size 48px
-  font-weight bold	
-  line-height 60px
   width 100%
   max-width 648px
 
