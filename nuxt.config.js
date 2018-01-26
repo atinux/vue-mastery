@@ -14,10 +14,15 @@ module.exports = {
       {
         rel: 'stylesheet',
         type: 'text/css',
-        href: '/primer.css'
+        href: '/normalize.css'
       },
+      // {
+      //   rel: 'stylesheet',
+      //   type: 'text/css',
+      //   href: '/primer.css'
+      // },
       {
-        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro',
+        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700',
         rel: 'stylesheet'
       }
     ]
