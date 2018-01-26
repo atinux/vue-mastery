@@ -1,0 +1,23 @@
+$button-height = 54px
+
+.button
+  display: inline-block
+  height: $button-height
+  width: max-content
+  margin: 0.5em 0
+  padding: 0 60px
+  color: #FFFFFF
+  text-decoration: none
+  line-height: $button-height
+  border-radius: 30px
+  &.primary
+    background: linear-gradient(to top right, #41B782 , #86D169)
+  &.secondary
+    background: linear-gradient(to top right, #122549, #203762)
+  &.-inverted
+    background: #FFFFFF
+    color: $primary-color
+  &.-small
+    height: ($button-height - 10px)
+    padding: 0 30px
+    line-height: ($button-height - 10px)

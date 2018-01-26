@@ -5,6 +5,9 @@ node_modules
 npm-debug.log
 firebase-debug.log
 
+#locks
+yarn.lock
+
 # Nuxt build
 .nuxt
 
