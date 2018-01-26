@@ -1,37 +1,34 @@
 <template lang="pug">
-  div(v-if="course" v-cloak)
-    h1 {{ course.title }}
-    p {{ course.description }}
-    label Difficulty {{ course.difficulty }}
-    label Duration {{ course.duration }}
-    img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-    label Course count {{ course.lessonsCount }}
+  .container.course-wrapper(v-if="course" v-cloak)
+    .lesson-header
+      h1 {{ course.title }}
 
-    .lesson-video(v-if="course.lessons !== undefined && current" v-cloak)
-      p Video Url {{ current.videoEmbedUrl}}
+    .lesson-video(v-if="current.videoEmbedId" v-cloak)
+      vimeo(:videoId = "current.videoEmbedId")
 
     .lessons-list(v-if="course.lessons" v-cloak)
+      h2 Lesson in this course
       ul
         li(v-for="(lesson, key) in course.lessons" v-bind:class="{ active: selectedLessonId === key }")
           h3 {{ lesson.title }}
           label {{ lesson.duration }}
           input(type="radio" v-model="selectedLessonId" v-bind:value="key")
 
-    .lesson-body(v-if="current")
+    .lesson-content(v-if="current")
       h2 {{ current.title}}
       div(v-html="current.body")
 
-    .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
-      h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
-      ul
-        li(v-for="ressource in current.resources")
-          h4 {{ ressource[Object.keys(ressource)[0]] }}
+    aside.lesson-aside
+      a(:href="current.downloadLink" download) Download
+      .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
+        h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
+        ul
+          li(v-for="ressource in current.resources")
+            h4 {{ ressource[Object.keys(ressource)[0]] }}
 
-    .lesson-challenge(v-if="current.codingChallenge" v-cloak)
-      h3 Coding Challenge
-      div(v-html="current.codingChallenge")
-
-    a(:href="current.downloadLink" download) Download
+      .lesson-challenge(v-if="current.codingChallenge" v-cloak)
+        h3 Coding Challenge
+        div(v-html="current.codingChallenge")
 
     .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
       button.prev(v-on:click="selectedLessonId -= 1" rel="prev" v-bind:disabled="selectedLessonId === 0") Previous Lesson
@@ -42,6 +39,7 @@
 <script>
 import { mapState } from 'vuex'
 import lessonList from '~/components/lessons/List'
+import vimeo from '~/components/lessons/Vimeo'
 
 export default {
   data () {
@@ -50,8 +48,9 @@ export default {
     }
   },
 
-  component: {
-    lessonList
+  components: {
+    lessonList,
+    vimeo
   },
 
   computed: {
@@ -68,7 +67,35 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.lesson-header
+  grid-area header
+  height 144px
+  display flex
+  align-items center
+
+.lesson-video
+  grid-area video
+
 .lessons-list
+  grid-area list
   .active
-    background-color: green
+    background-color green
+
+.lesson-content
+  grid-area content
+
+.lesson-aside
+  grid-area sidebar
+
+.lessons-nav
+  grid-area footer
+
+.course-wrapper
+  display grid
+  grid-gap 10px
+  grid-template-columns 1fr 1fr 490px
+  grid-template-areas "header  header  header"\
+                       "video   video   list"\
+                       "content content sidebar"\
+                       "footer  footer  footer"
 </style>

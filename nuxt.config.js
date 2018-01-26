@@ -48,6 +48,10 @@ module.exports = {
     {
       src: '~/plugins/auth',
       ssr: false
+    },
+    {
+      src: '~/plugins/vimeo-player',
+      ssr: false
     }
   ],
   /*
@@ -57,7 +61,8 @@ module.exports = {
     vendor: [
       'firebase',
       'firebase-auth',
-      'vuexfire'
+      'vuexfire',
+      'vue-vimeo-player'
     ],
     // put CSS in files instead of JS bundles
     extractCSS: true,
