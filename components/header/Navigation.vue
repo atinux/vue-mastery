@@ -11,13 +11,13 @@
           router-link.navbar-item(to="/courses") Courses
           router-link.navbar-item(to="/about") About
         .navbar-secondary(v-cloak v-if="user")
-          button.btn(type="button" v-on:click="signOut") Sign Out
+          button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
           nuxt-link.navbar-profile(to="/account")
             img(v-bind:src="account.image" v-bind:alt="account.displayName")
         .navbar-secondary(v-cloak v-else)
-          nuxt-link.btn.white(to="/account/signup") Sign Up
-          nuxt-link.btn(to="/account/login") Login
-  
+          nuxt-link.button.-inverted.-small(to="/account/signup") Sign Up
+          nuxt-link.button.primary.-small(to="/account/login") Login
+
 </template>
 
 <script>
@@ -50,59 +50,30 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import '../../assets/css/_variables.styl'
 $header-height = 100px
-$green = #39B982
-
-.btn
-  height 44px
-  width 100px
-  font-size 18px
-  border-radius 22px
-  border none
-  color #fff
-  background $green
-  border 1px solid #ffffff
-  display flex
-  justify-content center
-  align-items center
-
-  &:hover
-    border-color $green
-    background #ffffff
-    color $green
-
-  &.white
-    border-color $green
-    background #ffffff
-    color $green
-    &:hover
-      border-color #ffffff
-      background $green
-      color #ffffff
-
 
 .container
+
 .navbar
   height $header-height
   display flex
   flex-wrap wrap
   align-items center
-
 .header
-  box-shadow 0 1px 0 0 #E4E4E4
-  background-color: #fff
+  background-color: #A8D7DD
   height $header-height
-
+  padding: 0 4%
 .navbar
   justify-content space-between
   flex: 1
-
 .navbar-item
-  white-space nowrap
-  color #36495E
-  font-family "Source Sans Pro"
-  font-size 20px
   padding-right 52px
+  color #36495E
+  font-family $font-family-base
+  font-size 20px
+  text-decoration: none;
+  white-space nowrap
 
   &.nuxt-link-active
     text-decoration: underline
@@ -135,7 +106,7 @@ $green = #39B982
   display: flex
   align-items: center
 
-  .btn
+  .button
     margin-left 18px
 
 .navbar-profile
