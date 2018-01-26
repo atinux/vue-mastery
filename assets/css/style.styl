@@ -1,5 +1,15 @@
+// General Styles
+@import _variables
+@import _typography
+
+// Elements
+@import _buttons
+
+*
+  box-sizing: border-box
 body
-  font-family 'Source Sans Pro', sans-serif
+  font-family $font-family-base
+  font-size $font-size-base
 
 [v-cloak] > *
   display none
@@ -7,9 +17,15 @@ body
 [v-cloak]::before
   content: "loading…"
 
-
 // Remove this later
 .container
+  display: grid
   width: 100%
-  max-width: 1400px
-  padding 0 20px
+
+.banner
+  display grid
+  grid-column-gap: 2%
+  width: 100%
+  padding: 0 4%
+  background-size: cover
+  background-position: center center
