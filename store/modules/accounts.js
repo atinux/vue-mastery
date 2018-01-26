@@ -111,14 +111,12 @@ const actions = {
   },
   userUpdate ({ state }, newData) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-    // return firebase.firestore().collection('accounts').doc(state.user.uid).set({
       displayName: newData.displayName,
       subscribedToMailingList: newData.subscribedToMailingList
     }, { merge: true })
   },
   userUpdateImage ({ state }, image) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-    // return firebase.firestore().collection('accounts').doc(state.user.uid).set({
       image
     }, { merge: true })
   }
@@ -130,7 +128,6 @@ const mutations = {
   [types.SET_USER] (state, user) {
     state.user = user
     return this.dispatch('setAccountRef', `accounts/${state.user.uid}`)
-    // return this.dispatch('setAccountRef', `${state.user.uid}`)
   }
 }
 
