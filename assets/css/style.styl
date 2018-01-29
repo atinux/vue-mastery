@@ -4,12 +4,25 @@
 
 // Elements
 @import _buttons
+@import _cards
 
 *
   box-sizing: border-box
+
 body
   font-family $font-family-base
   font-size $font-size-base
+
+a
+  text-decoration none
+  color $black
+  &:visited
+    $black
+
+ul
+  list-style-type none
+  padding 0
+  margin 0
 
 [v-cloak] > *
   display none

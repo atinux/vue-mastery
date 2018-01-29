@@ -1,11 +1,14 @@
 <template lang="pug">
-  ul(v-if="courses" v-cloak)
+  ul.list(v-if="courses" v-cloak)
     li(v-for="course in courses.courses")
-      nuxt-link(:to="'/courses/'+course.id")
-        .course-image
+      nuxt-link(:to="'/courses/'+course.id" class="list-card card")
+        .list-image
           img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-        h3 {{ course.title }}
-        p {{ course.description }}
+        .list-body
+          h3.title {{ course.title }}
+          p {{ course.description }}
+        .list-actions
+
 </template>
 
 <script>
@@ -24,14 +27,30 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-  .course-image
+<style lang="stylus" scoped>  
+
+  .list
+    li
+      margin-bottom: 35px
+
+  .title
+    font-weight: 100
+
+  .list-image
     img
-      width: 100px
-      height: 100px
+      width: 150px
+      height: 150px
       border-radius 100px
       overflow hidden
-      border 2px solid #b2b1b0
+      border 1px solid #b2b1b0
       object-fit contain
+
+  .list-card
+    display: grid
+    width: 100%
+    grid-template-columns: 20% 50% 26%
+    grid-column-gap: 2%
+    grid-row-gap: 20px
+    text-decoration: none
 
 </style>

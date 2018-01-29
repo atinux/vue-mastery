@@ -1,6 +1,6 @@
 <template lang="pug">
   .banner
-    .media
+    .media.align-bottom
       img(src="/images/img-cheatsheet-example.png")
 
     .body
@@ -27,6 +27,9 @@ export default { 'name': 'CheatSheetMain' }
     grid-row-start: 2
     grid-row-end: span 2
     justify-content: center
+
+    &.align-bottom
+      align-content: end
 
   .body
     display: grid

@@ -1,12 +1,13 @@
 <template lang="pug">
-  div(v-if="latests" v-cloak)
-    h3 Latest
+  .card(v-if="latests" v-cloak)
+    h3.title Latest
     ul
       li(v-for="lesson in latests")
         nuxt-link(:to="path(lesson)")
-          h3 {{ lesson.title }}
-          p {{ lesson.description }}
-          label {{ lesson.duration }}
+          h4 {{ lesson.title }}
+          p 
+            | {{ lesson.description }}
+            label {{ lesson.duration }}
 </template>
 
 <script>
@@ -29,4 +30,11 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+@import '~assets/css/_variables'
+
+.title
+  color $primary-color
+  margin-bottom: 22px
+
+</style>
