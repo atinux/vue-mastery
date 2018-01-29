@@ -3,7 +3,7 @@
     .courses-header
       h1.title Our Courses:
     .couses-body
-      CourseList
+      CourseList(showAction="true")
       Latest
     VuePodcast
 </template>
