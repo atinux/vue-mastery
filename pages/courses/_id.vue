@@ -4,7 +4,7 @@
       h1 {{ course.title }}
 
     .lesson-video(v-if="current.videoEmbedId" v-cloak)
-      vimeo(:videoId = "current.videoEmbedId" :lessonId = "current.id" :courseId = "courseId")
+      vimeo(:videoId = "current.videoEmbedId" :meta = "videoMeta")
 
     .lessons-list(v-if="course.lessons" v-cloak)
       h2 Lesson in this course
@@ -47,7 +47,8 @@ export default {
     return {
       courseId: parseInt(this.$route.params.id),
       selectedLessonId: parseInt(this.$route.query.lesson) || null,
-      lessonNumber: null
+      lessonNumber: null,
+      videoMeta: null
     }
   },
 
@@ -80,6 +81,12 @@ export default {
         // Check if the user already watched the lesson video til the end
         lesson.isCompleted = courseStarted ? courseStarted.completedLessons[lesson.id] : false
       })
+      // Add data to video component to save watched videos
+      // TODO improve this flow?
+      this.videoMeta = {
+        lessonId: this.selectedLessonId,
+        courseId: this.courseId
+      }
       return currentLesson
     },
 

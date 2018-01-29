@@ -5,10 +5,10 @@
 <script>
 export default {
   name: 'vimeo',
-  props: ['videoId'],
+  props: ['videoId', 'meta'],
   methods: {
     videoEnded () {
-      console.log('videoEnded')
+      this.$store.dispatch('userUpdateWatched', this.meta)
     }
   }
 }
