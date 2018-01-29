@@ -30,15 +30,15 @@
       </div>
 
       <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Log In</button>
+        <button type="submit" class="button primary">Log In</button>
       </div>
 
       <div class="form-actions mt-2">
-        <GoogleButton label="Sign In With Google" />
+        <GoogleButton class="button secondary" label="Sign In With Google" />
       </div>
 
       <div class="form-actions mt-2">
-        <GithubButton label="Sign In With Github" />
+        <GithubButton  class="button secondary" label="Sign In With Github" />
       </div>
     </form>
   </div>
