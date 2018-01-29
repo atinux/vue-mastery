@@ -65,9 +65,12 @@ export default {
 
     current () {
       let currentLesson = null
-      // Check if the user already started the course
-      // TODO remove this if we already check that the completed course array is not empty
-      const courseStarted = this.accounts.completed[this.courseId]
+      let courseStarted = false
+      // Check if user is logged
+      if (this.accounts) {
+        // Check if the user already started the course
+        courseStarted = this.accounts.completed[this.courseId]
+      }
       // If no lesson selected, get the first one of the course
       if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
       this.course.lessons.map((lesson, index) => {
