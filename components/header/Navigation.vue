@@ -11,12 +11,12 @@
           router-link.navbar-item(to="/courses") Courses
           router-link.navbar-item(to="/about") About
         .navbar-secondary(v-cloak v-if="user")
-          button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
+          button.button.primary.small(type="button" v-on:click="signOut") Sign Out
           nuxt-link.navbar-profile(to="/account")
             img(v-bind:src="account.image" v-bind:alt="account.displayName")
         .navbar-secondary(v-cloak v-else)
-          nuxt-link.button.-inverted.-small(to="/account/signup") Sign Up
-          nuxt-link.button.primary.-small(to="/account/login") Login
+          nuxt-link.button.inverted.small(to="/account/signup") Sign Up
+          nuxt-link.button.primary.small(to="/account/login") Login
 
 </template>
 
