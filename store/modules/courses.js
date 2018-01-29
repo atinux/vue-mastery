@@ -4,7 +4,6 @@ let db = null
 
 // initial state
 const state = {
-  firelink: null,
   courses: null,
   course: null,
   lessons: null,
