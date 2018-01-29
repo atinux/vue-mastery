@@ -1,8 +1,83 @@
 {
   "rules": {
     "flamelink": {
-      ".read": "auth != null",
-      ".write": "auth != null"
+      ".write": "auth != null",
+      "environments": {
+       	"production": {
+       		"content": {
+            "courses": {
+              ".read": "true",
+            },
+            "lessons": {
+              "en-US": {
+                ".read": "true",
+                "$lessons_id": {
+                  "title": {
+                    ".read": "true"
+                  },
+                  "author": {
+                    ".read": "true"
+                  },
+                  "lessonNumber": {
+                    ".read": "true"
+                  },
+                  "image": {
+                    ".read": "true"
+                  },
+                  "id": {
+                    ".read": "true"
+                  },
+                  "duration": {
+                    ".read": "true"
+                  },
+                  "description": {
+                    ".read": "true"
+                  },
+                  "date": {
+                    ".read": "true"
+                  },
+                  "belongsToCourse": {
+                    ".read": "true"
+                  },
+                  "body": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  },
+                  "videoEmbedId": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  },
+                  "codingChallenge": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  },
+                  "downloadLink": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  },
+                  "resources": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  },
+                  "status": {
+                    ".read": "data.child('free').val() === true || auth != null",
+                  }
+                }
+              }
+            }
+          },
+          "navigation": {
+            ".read": "true",
+          },
+          "schemas": {
+            ".read": "true",
+          }
+        } 
+      },
+      "media": {
+        ".read": "true",
+      },
+      "permissions": {
+        ".read": "auth != null",
+      },
+      "settings": {
+        ".read": "auth != null",
+      }
     },
     "accounts": {
       "$uid": {
