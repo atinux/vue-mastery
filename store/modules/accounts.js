@@ -21,7 +21,8 @@ function createNewAccount (user) {
     displayName: user.displayName || user.email.split('@')[0], // use part of the email as a username
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
-    subscribedToMailingList: true
+    subscribedToMailingList: true,
+    completed: {}
   })
 }
 
@@ -113,12 +114,26 @@ const actions = {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       displayName: newData.displayName,
       subscribedToMailingList: newData.subscribedToMailingList
-    }, { merge: true })
+    })
   },
   userUpdateImage ({ state }, image) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       image
-    }, { merge: true })
+    })
+  },
+  userUpdateWatched ({ state }, lesson) {
+    let completed = state.user.completed || {}
+    // Check if already started the course
+    if (completed[lesson.courseId] === undefined) {
+      completed[lesson.courseId] = {
+        started: true,
+        completedLessons: {}
+      }
+    }
+    completed[lesson.courseId].completedLessons[lesson.lessonId] = true
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      completed
+    })
   }
 }
 
