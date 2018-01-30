@@ -16,13 +16,14 @@
         
         .list-actions(v-if="showAction && course.lessonsCount" v-cloak)
           p {{ course.lessonsCount | pluralizeLesson }}
-          .button.primary(v-if="course.lessonsCount > 0 && accounts.completed[course.id]" v-cloak)
+          .button.primary(v-if="course.lessonsCount > 0 && accounts && accounts.completed[course.id]" v-cloak)
             | Resume
 
-          .button.inverted.border(v-if="course.lessonsCount > 0 && accounts && !accounts.completed[course.id]" v-cloak)
+          .button.inverted.border(v-if="(course.lessonsCount > 0 && !accounts) || (course.lessonsCount > 0 && !accounts.completed[course.id])" v-cloak)
             | Begin
 
-          .button.inverted.border.border-primary(v-if="course.lessonsCount === 0 && accounts" v-cloak)
+        .list-actions(v-else v-cloak)
+          .button.inverted.border.border-primary
             | Get notified
 
 </template>
@@ -37,6 +38,14 @@ export default {
       accounts: result => result.accounts.account,
       courses: result => result.courses.courses
     })
+  },
+
+  watch: {
+    accounts () {
+      if (!this.accounts.completed) {
+        this.accounts.completed = []
+      }
+    }
   },
 
   mounted: function () {
