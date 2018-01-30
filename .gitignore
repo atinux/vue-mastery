@@ -20,3 +20,6 @@ serviceAccountKey.json
 
 # hide the compiled service worker
 sw.*
+
+# Personal file
+todo.md
