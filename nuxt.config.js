@@ -57,6 +57,9 @@ module.exports = {
     {
       src: '~/plugins/vimeo-player',
       ssr: false
+    },
+    {
+      src: '~/plugins/filters'
     }
   ],
   /*

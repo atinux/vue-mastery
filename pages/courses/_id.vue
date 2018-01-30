@@ -12,7 +12,7 @@
         li(v-for="(lesson, key) in course.lessons" 
            v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
           h3 {{ lesson.title }}
-          label {{ lesson.duration }}
+          label {{ lesson.duration | time}}
           input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
 
     .lesson-content(v-if="current")

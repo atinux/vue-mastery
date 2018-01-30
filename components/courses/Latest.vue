@@ -7,7 +7,7 @@
           h4 {{ lesson.title }}
           p 
             | {{ lesson.description }}
-            label {{ lesson.duration }}
+            label {{ lesson.duration | time }}
 </template>
 
 <script>
