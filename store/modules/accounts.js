@@ -121,7 +121,7 @@ const actions = {
       image
     })
   },
-  userUpdateWatched ({ state }, lesson) {
+  userUpdateCompleted ({ state }, lesson) {
     let completed = state.user.completed || {}
     // Check if already started the course
     if (completed[lesson.courseId] === undefined) {

@@ -8,7 +8,7 @@ export default {
   props: ['videoId', 'meta'],
   methods: {
     videoEnded () {
-      this.$store.dispatch('userUpdateWatched', this.meta)
+      this.$store.dispatch('userUpdateCompleted', this.meta)
     }
   }
 }
