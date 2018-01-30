@@ -60,6 +60,10 @@ module.exports = {
     },
     {
       src: '~/plugins/filters'
+    },
+    {
+      src: '~/plugins/modals',
+      ssr: false
     }
   ],
   /*

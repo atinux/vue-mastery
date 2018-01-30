@@ -1,23 +1,8 @@
-<template>
-  <div>
-    <div class="columns">
-      <div class="one-half column centered">
-        <div class="hero">
-          <div class="hero-body">
-            <h1 class="title">Vue mastery</h1>
-            <h2 class="subtitle">Retrieve your password</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="one-half column centered">
-        <div class="four-fifths">
-          <RetrievePasswordForm />
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  div
+    h1.title Vue mastery
+    h2.subtitle Retrieve your password
+    RetrievePasswordForm
 </template>
 
 <script>

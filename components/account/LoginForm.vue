@@ -1,47 +1,37 @@
-<template>
-  <div>
-    <form v-on:submit.prevent="signup">
-      <div class="form-group">
-        <label>Email</label>
-        <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email">
-        </div>
-        <p class="error" v-if="invalidEmail">This email is invalid</p>
-      </div>
+<template lang="pug">
+form
+  .form-group
+    label Email
+    .control
+      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
 
-      <div class="form-group">
-        <label>Password</label>
-        <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password">
-        </div>
-        <p class="error" v-if="invalidPassword">This password is invalid</p>
-      </div>
+    p.error(v-if="invalidEmail") This email is invalid
 
-      <div class="form-group">
-        <p><nuxt-link to="/account/signup">Signup</nuxt-link></p>
-      </div>
+  .form-group
+    label Password
+    .control
+      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
 
-      <div class="form-group">
-        <p><nuxt-link to="/account/password">Forgot your password?</nuxt-link></p>
-      </div>
+    p.error(v-if="invalidPassword") This password is invalid
 
-      <div class="form-group">
-        <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
-      </div>
+  .form-group
+    nuxt-link(to="/account/signup") Signup
 
-      <div class="form-actions">
-        <button type="submit" class="button primary">Log In</button>
-      </div>
+  .form-group
+    nuxt-link(to="/account/password") Forgot your password?
+  
+  .form-group
+    .flash.flash-error(v-if="formError.length > 0" v-text="formError")
 
-      <div class="form-actions mt-2">
-        <GoogleButton class="button secondary" label="Sign In With Google" />
-      </div>
+  .form-actions
+    button(type="submit" class="button primary") Log In
 
-      <div class="form-actions mt-2">
-        <GithubButton  class="button secondary" label="Sign In With Github" />
-      </div>
-    </form>
-  </div>
+  .form-actions
+    GoogleButton.button.secondary(label="Sign In With Google")
+
+  .form-actions
+    GithubButton.button.secondary(label="Sign In With Github")
+
 </template>
 
 <script>
@@ -63,27 +53,15 @@ export default {
   },
   computed: {
     invalidEmail () {
-      return false // !this.email.includes('@')
+      return !this.email.includes('@')
     },
     invalidPassword () {
-      return false // !this.password.length > 12
-    }
-  },
-  methods: {
-    signup () {
-      this.formError = ''
-      this.$store.dispatch('userLogin', {
-        email: this.email,
-        password: this.password
-      })
-        .then(() => {
-          this.$router.push('/account')
-        })
-        .catch((error) => {
-          console.log(error)
-          this.formError = error.message
-        })
+      return !this.password.length > 6
     }
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+
+</style>

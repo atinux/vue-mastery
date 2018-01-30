@@ -10,25 +10,45 @@
         .navbar-main
           router-link.navbar-item(to="/courses") Courses
           router-link.navbar-item(to="/about") About
-        .navbar-secondary(v-cloak v-if="user")
-          button.button.primary.small(type="button" v-on:click="signOut") Sign Out
-          nuxt-link.navbar-profile(to="/account")
-            img(v-bind:src="account.image" v-bind:alt="account.displayName")
-        .navbar-secondary(v-cloak v-else)
-          nuxt-link.button.inverted.small(to="/account/signup") Sign Up
-          nuxt-link.button.primary.small(to="/account/login") Login
+        no-ssr
+          .navbar-secondary(v-cloak v-if="accounts")
+            button.button.primary.small(type="button" v-on:click="signOut") Sign Out
+            nuxt-link.navbar-profile(to="/account")
+              img(v-bind:src="accounts.photoURL" v-bind:alt="accounts.displayName")
+          .navbar-secondary(v-cloak v-else)
+            button.button.inverted.small(type="button" v-on:click="openSignUp") Sign Up
+            button.button.primary.small(type="button" v-on:click="openLogin") Login
 
+    no-ssr
+      modal(name="login-form" v-cloak height="auto")
+        LoginForm
+    no-ssr
+      modal(name="sign-up-form" v-cloak height="auto")
+        SignupForm
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import LoginForm from '~/components/account/LoginForm.vue'
+// import RetrievePasswordForm from '~/components/account/RetrievePasswordForm.vue'
+import SignupForm from '~/components/account/SignupForm.vue'
 
 export default {
+  components: {
+    LoginForm,
+    SignupForm
+    // RetrievePasswordForm
+  },
   computed: {
-    ...mapState([
-      'user',
-      'account'
-    ])
+    ...mapState({
+      accounts: result => result.accounts.user
+    })
+  },
+  watch: {
+    accounts () {
+      this.$modal.hide('login-form')
+      this.$modal.hide('sign-up-form')
+    }
   },
   data () {
     return {
@@ -39,11 +59,17 @@ export default {
     signOut () {
       this.$store.dispatch('userLogout')
         .then(() => {
-          this.$router.push('/account/login')
+          this.$router.push('/')
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    openLogin () {
+      this.$modal.show('login-form')
+    },
+    openSignUp () {
+      this.$modal.show('sign-up-form')
     }
   }
 }

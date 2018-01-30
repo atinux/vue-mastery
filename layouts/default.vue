@@ -1,8 +1,7 @@
-<template>
-  <div class="wrapper">
-    <Navigation/>
-    <nuxt/>
-  </div>
+<template lang="pug">
+  .wrapper
+    Navigation
+    nuxt
 </template>
 
 <script>
