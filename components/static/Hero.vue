@@ -4,15 +4,21 @@
       h1.title The ultimate learning resource for Vue developers
       p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
 
-    .player
-      .play-button
+    PlayerPlaceholder
 
     .actions
       nuxt-link.button.secondary(to="/courses") START LEARNING
 </template>
 
 <script>
-export default { 'name': 'Hero' }
+import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
+
+export default {
+  name: 'Hero',
+  components: {
+    PlayerPlaceholder
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -48,30 +54,6 @@ export default { 'name': 'Hero' }
 
   .player
     grid-row-start: 3
-    height 379px
-    max-width: 100%
-    background-color $black
-    display flex
-    align-items center
-    justify-content center
-
-  .play-button
-    height 70px
-    width 70px
-    background-color #FFFFFF
-    border-radius 50%
-    display flex
-    align-items center
-    justify-content center
-
-    &:after
-      content ''
-      width 0px
-      height 0px
-      border-top 12px solid transparent
-      border-bottom 12px solid transparent
-      border-left 20px solid $black
-      margin-right -7px
 
   .actions
     display: grid
