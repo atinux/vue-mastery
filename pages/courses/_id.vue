@@ -20,7 +20,9 @@
       div(v-html="current.body")
 
     aside.lesson-aside
+      socialShare
       a(:href="current.downloadLink" download) Download
+      button.button.inverted.primary.small(type="button" v-on:click="openShare") Share
       .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
         h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
         ul
@@ -41,6 +43,7 @@
 import { mapState } from 'vuex'
 import lessonList from '~/components/lessons/List'
 import vimeo from '~/components/lessons/Vimeo'
+import socialShare from '~/components/lessons/SocialSharing'
 
 export default {
   data () {
@@ -54,7 +57,8 @@ export default {
 
   components: {
     lessonList,
-    vimeo
+    vimeo,
+    socialShare
   },
 
   computed: {
@@ -112,6 +116,10 @@ export default {
         this.selectedLessonId = nextLesson.id
         this.updateUrl()
       } else { console.log('Error: Lesson not found in course') }
+    },
+
+    openShare () {
+      this.$modal.show('share')
     }
   },
 

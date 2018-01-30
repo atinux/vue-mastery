@@ -64,6 +64,10 @@ module.exports = {
     {
       src: '~/plugins/modals',
       ssr: false
+    },
+    {
+      src: '~/plugins/social',
+      ssr: false
     }
   ],
   /*
