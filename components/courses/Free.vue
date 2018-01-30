@@ -10,7 +10,7 @@
             h4 {{ lesson.title }}
             p 
               | {{ lesson.description }}
-              label  (clock) {{ lesson.duration | time }}
+              label  ・ {{ lesson.duration | time }}
 </template>
 
 <script>
