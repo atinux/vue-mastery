@@ -1,7 +1,7 @@
 <template lang="pug">
   ul.list(v-if="courses" v-cloak)
     li(v-for="course in courses")
-      nuxt-link(:to="'/courses/'+course.id" class="list-card card")
+      nuxt-link(:to="'/courses/'+course.id" class="list-card card" v-bind:class="{ showAction: showAction }")
         
         .list-image
           img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
@@ -62,10 +62,12 @@ export default {
   .list-card
     display: grid
     width: 100%
-    grid-template-columns: 20% 50% 26%
+    grid-template-columns: 26% 70%
     grid-column-gap: 2%
     grid-row-gap: 20px
-    text-decoration: none
+    
+    &.showAction
+      grid-template-columns: 20% 50% 26%
 
   .list-actions
     text-align: center

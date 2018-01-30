@@ -7,7 +7,8 @@ const state = {
   courses: null,
   course: null,
   lessons: null,
-  latests: null
+  latests: null,
+  free: null
 }
 
 // getters
@@ -15,7 +16,8 @@ const getters = {
   allCourses: state => state.courses,
   course: state => state.course,
   lessons: state => state.lessons,
-  latests: state => state.latests
+  latests: state => state.latests,
+  free: state => state.free
 }
 
 // actions
@@ -51,13 +53,26 @@ const actions = {
 
   lastVideos ({ commit, state }) {
     return db.get('lessons', {
-      limitToLast: 2,
+      limitToLast: 3,
       populate: [{
         field: 'lessons',
         subFields: [ 'lessons' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST_VIDEOS, { latests })
+    })
+  },
+
+  freeVideos ({ commit, state }) {
+    // Check if the video is free
+    return db.get('lessons', {
+      limitToLast: 3,
+      populate: [{
+        field: 'image',
+        subFields: [ 'image' ]
+      }]
+    }).then(free => {
+      commit(types.RECEIVE_FREE_VIDEOS, { free })
     })
   }
 }
@@ -75,6 +90,9 @@ const mutations = {
   },
   [types.RECEIVE_LATEST_VIDEOS] (state, { latests }) {
     state.latests = latests
+  },
+  [types.RECEIVE_FREE_VIDEOS] (state, { free }) {
+    state.free = free
   }
 }
 
