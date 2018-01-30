@@ -14,17 +14,18 @@
             label ・ {{ course.difficulty }}
             label ・ (clock) {{ course.duration | time }}
         
-        .list-actions(v-if="showAction && course.lessonsCount" v-cloak)
-          p {{ course.lessonsCount | pluralizeLesson }}
-          .button.primary(v-if="course.lessonsCount > 0 && accounts && accounts.completed[course.id]" v-cloak)
-            | Resume
+        .list-actions(v-if="showAction" v-cloak)
+          div(v-if="course.lessonsCount" v-cloak)
+            p {{ course.lessonsCount | pluralizeLesson }}
+            .button.primary(v-if="course.lessonsCount > 0 && accounts && accounts.completed[course.id]" v-cloak)
+              | Resume
 
-          .button.inverted.border(v-if="(course.lessonsCount > 0 && !accounts) || (course.lessonsCount > 0 && !accounts.completed[course.id])" v-cloak)
-            | Begin
+            .button.inverted.border(v-if="(course.lessonsCount > 0 && !accounts) || (course.lessonsCount > 0 && !accounts.completed[course.id])" v-cloak)
+              | Begin
 
-        .list-actions(v-else v-cloak)
-          .button.inverted.border.border-primary
-            | Get notified
+          div(v-else v-cloak)
+            .button.inverted.border.border-primary
+              | Get notified
 
 </template>
 
