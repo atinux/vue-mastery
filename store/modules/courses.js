@@ -67,6 +67,8 @@ const actions = {
     // Check if the video is free
     return db.get('lessons', {
       limitToLast: 3,
+      orderByChild: 'free',
+      equalTo: true,
       populate: [{
         field: 'image',
         subFields: [ 'image' ]
