@@ -1,17 +1,18 @@
 <template lang="pug">
   .container.course-wrapper(v-if="course" v-cloak)
     .lesson-header
+      img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
       h1 {{ course.title }}
 
     .lesson-video(v-if="current.videoEmbedId" v-cloak)
       vimeo(:videoId = "current.videoEmbedId" :meta = "videoMeta")
 
     .lessons-list(v-if="course.lessons" v-cloak)
-      h2 Lesson in this course
+      h3.title Lesson in this course
       ul
-        li(v-for="(lesson, key) in course.lessons" 
+        li.lessons-list-item(v-for="(lesson, key) in course.lessons" 
            v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
-          h3 {{ lesson.title }}
+          h4 {{ lesson.title }}
           label {{ lesson.duration | time}}
           input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
 
@@ -131,20 +132,45 @@ export default {
 
 <style lang="stylus" scoped>
 .lesson-header
+  background-color: #0A2B4E
+  color: #fff
   grid-area header
   height 144px
   display flex
   align-items center
+
+  img
+    width: 150px
+    height: 150px
+    overflow hidden
+    object-fit contain
+
 
 .lesson-video
   grid-area video
 
 .lessons-list
   grid-area list
+  background-color: #1E3247
+  color: #fff
+  
+  .lessons-list-item
+    background-color: #1E3247
+  
   .completed
-    background-color grey
+    background-color #fff
+  
   .active
-    background-color green
+    background: linear-gradient(to top right, #41B782 , #86D169)
+
+  .title
+    background-color: #444444
+    margin-bottom: 0
+
+  .title,
+  .lessons-list-item
+    padding: 15px 20px
+    border-bottom: 1px solid #ccc
 
 .lesson-content
   grid-area content
@@ -157,7 +183,6 @@ export default {
 
 .course-wrapper
   display grid
-  grid-gap 10px
   grid-template-columns 1fr 1fr 490px
   grid-template-areas "header  header  header"\
                        "video   video   list"\
