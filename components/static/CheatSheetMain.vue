@@ -1,8 +1,7 @@
 <template lang="pug">
   .banner
-    .media.align-bottom
+    .media
       img(src="/images/img-cheatsheet-example.png")
-
     .body
       h2.h1.title Get the Ultimate Vue Cheat Sheet
       p.lead All the essential syntax at your fingertips.
@@ -15,39 +14,33 @@ export default { 'name': 'CheatSheetMain' }
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
-
   .banner
-    display grid
-    grid-template-columns: 49% 49%
-    grid-template-rows: $vertical-space auto $vertical-space
+    grid-template-columns 1fr 1fr
+    padding-top $vertical-space
     background-image url(/images/bkg-cheatsheet-main.jpg)
-
+    grid-template-areas "body body"\
+                        "media media"
   .media
-    display: grid
-    grid-row-start: 2
-    grid-row-end: span 2
-    justify-content: center
-
-    &.align-bottom
-      align-content: end
-
+    display grid
+    grid-area media
+    justify-content center
   .body
-    display: grid
-    grid-row-start: 2
-    align-items: center
-    text-align: center
-    justify-content: center
-
+    display grid
+    grid-area body
+    padding-bottom $vertical-space
+    text-align center
     .title
-      color: $secondary-color
-      margin: 0
-
+      color $secondary-color
+      margin 0
     .lead
-      max-width: 690px
-      font-size: 24px
-      color: $secondary-color
-
+      max-width 690px
+      font-size 24px
+      color $secondary-color
     .button
-      justify-self: center
-      text-transform: uppercase
+      justify-self center
+      text-transform uppercase
+  +laptop-up()
+    .banner
+      grid-template-areas "media body"\
+                          "media body"
 </style>

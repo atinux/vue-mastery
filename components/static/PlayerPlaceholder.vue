@@ -9,16 +9,16 @@ export default { name: 'PlayerPlaceholder' }
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../assets/css/_variables'
-
+  @import '~assets/css/_variables'
   .player
     height 379px
-    max-width: 100%
+    min-width: 100%
+    max-width: 800px
     background-color $black
     display flex
+    justify-self center
     align-items center
     justify-content center
-
   .play-button
     height 70px
     width 70px
@@ -27,7 +27,6 @@ export default { name: 'PlayerPlaceholder' }
     display flex
     align-items center
     justify-content center
-
     &:after
       content ''
       width 0px
@@ -36,4 +35,7 @@ export default { name: 'PlayerPlaceholder' }
       border-bottom 12px solid transparent
       border-left 20px solid $black
       margin-right -7px
+  +laptop-up()
+    .player
+      min-width 650px
 </style>
