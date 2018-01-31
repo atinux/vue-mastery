@@ -8,3 +8,17 @@ $secondary-color = #0A2B4E
 $black = #222
 // Spacing
 $vertical-space = 90px
+
+// Media Queries
+mobile-only()
+  @media screen and (max-width: 39.9375em)
+    {block}
+tablet-up()
+  @media screen and (min-width: 40em)
+    {block}
+laptop-up()
+  @media screen and (min-width: 64em)
+    {block}
+desktop-only()
+  @media screen and (min-width: 64em) and (max-width: 74.9375em)
+    {block}
