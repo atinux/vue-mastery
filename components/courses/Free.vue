@@ -13,6 +13,8 @@
             span.meta
               b Associated Course
               | &nbsp;• {{ lesson.duration | time }}
+
+    nuxt-link.button.border.border-primary(to="/courses") More
 </template>
 
 <script>
@@ -40,6 +42,9 @@ export default {
 
 .section
   color #fff
+
+  .button
+    color: $primary-color
 
   > .title
     margin-bottom ($vertical-space/3)

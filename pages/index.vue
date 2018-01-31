@@ -8,6 +8,7 @@
       .section
         h2.title Courses
         CourseList
+        nuxt-link.button.border.border-primary(to="/courses") More
     .cheatsheet
       CheatSheetMain
     .community
