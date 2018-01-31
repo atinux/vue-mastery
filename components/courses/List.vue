@@ -1,13 +1,13 @@
 <template lang="pug">
   ul.list(v-if="courses" v-cloak)
-    li(v-for="course in courses")
+    li(v-for="course, key, index in courses" v-if="index < 3")
       nuxt-link(:to="'/courses/'+course.id" class="list-card card" v-bind:class="{ showAction: showAction }")
         .media-block
           .media
             img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
           .body
             h3.title {{ course.title }}
-            p {{ course.description }}
+            p.truncate {{ course.description }}
             div(v-if="!showAction" v-cloak)
               label {{ course.lessons.length | pluralizeLesson }}
               label ・ {{ course.difficulty }}
@@ -64,8 +64,8 @@ export default {
 
   .media
     img
-      width: 150px
-      height: 150px
+      width: 120px
+      height: 120px
       object-fit contain
 
   .list-card
