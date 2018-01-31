@@ -140,8 +140,8 @@ export default {
   align-items center
 
   img
-    width: 150px
-    height: 150px
+    width: 120px
+    height: 120px
     overflow hidden
     object-fit contain
 
