@@ -22,7 +22,7 @@ module.exports = {
       //   href: '/primer.css'
       // },
       {
-        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700',
+        href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700',
         rel: 'stylesheet'
       }
     ]
