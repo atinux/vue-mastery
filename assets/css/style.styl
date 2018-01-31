@@ -48,6 +48,13 @@ img
 [v-cloak]::before
   content: "loading…"
 
+.truncate
+  overflow: hidden
+  text-overflow: ellipsis
+  display: -webkit-box
+  -webkit-line-clamp: 1
+  -webkit-box-orient: vertical
+
 .banner
   display grid
   padding-left 4%
