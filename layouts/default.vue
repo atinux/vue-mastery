@@ -2,17 +2,17 @@
   .wrapper
     Navigation
     nuxt
-    Footer
+    Bottom
 </template>
 
 <script>
 import Navigation from '~/components/header/Navigation.vue'
-import Footer from '~/components/footer/Footer.vue'
+import Bottom from '~/components/footer/Footer.vue'
 
 export default {
   components: {
     Navigation,
-    Footer
+    Bottom
   }
 }
 </script>
