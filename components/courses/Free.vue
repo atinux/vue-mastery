@@ -1,7 +1,7 @@
 <template lang="pug">
   .section
     h2.title Free Videos
-    div(v-if="free" v-cloak)
+    .media-wrapper(v-if="free" v-cloak)
       .media-block(v-for="lesson in free")
         .media
           img(v-bind:src="lesson.image[0].image[0].url" :alt="lesson.image[0].image[0].description" class="-large")
@@ -42,6 +42,10 @@ export default {
 
 .section
   color #fff
+  height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: space-between
 
   .button
     color: $primary-color
@@ -49,4 +53,11 @@ export default {
   > .title
     margin-bottom ($vertical-space/3)
     font-weight 600
+
+.media-wrapper
+  height: 100%
+  padding-top: 20px
+
+.media-block
+  margin-bottom ($vertical-space/2)
 </style>
