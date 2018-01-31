@@ -1,16 +1,18 @@
 <template lang="pug">
-  .bgk(v-if="free" v-cloak)
+  .section
     h2.title Free Videos
-    ul
-      li(v-for="lesson in free")
-        nuxt-link(:to="path(lesson)" class="list-free")
-          .list-image
-            img(v-bind:src="lesson.image[0].image[0].url" :alt="lesson.image[0].image[0].description")
-          .list-body
-            h4 {{ lesson.title }}
-            p 
-              | {{ lesson.description }}
-              label  ・ {{ lesson.duration | time }}
+    div(v-if="free" v-cloak)
+      .media-block(v-for="lesson in free")
+        .media
+          img(v-bind:src="lesson.image[0].image[0].url" :alt="lesson.image[0].image[0].description" class="-large")
+        .body
+          nuxt-link(:to="path(lesson)" class="list-free -inverted")
+            h3.title {{ lesson.title }}
+            p.content {{ lesson.description }}
+          nuxt-link(to='/' class="-inverted")
+            span.meta
+              b Associated Course
+              | &nbsp;• {{ lesson.duration | time }}
 </template>
 
 <script>
@@ -34,31 +36,10 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
-
-.bgk
-  background-color: #122549
-  color: #fff
-  padding: 60px 4%
-
-  a
+  @import '~assets/css/_variables'
+  .section
     color: #fff
-
-.list-free
-  display: grid
-  width: 100%
-  grid-template-columns: 26% 70%
-  grid-column-gap: 2%
-  grid-row-gap: 20px
-
-.list-image
-  img
-    width: 150px
-    height: 150px
-    overflow hidden
-    object-fit contain
-
-.title
-  margin-bottom: 22px
-
+    > .title
+        margin-bottom ($vertical-space/3)
+        font-weight 600
 </style>
