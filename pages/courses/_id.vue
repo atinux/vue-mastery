@@ -23,7 +23,7 @@
     aside.lesson-aside
       socialShare
       a(:href="current.downloadLink" download) Download
-      button.button.inverted.primary.small(type="button" v-on:click="openShare") Share
+      button.button.inverted.primary.-small(type="button" v-on:click="openShare") Share
       .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
         h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
         ul

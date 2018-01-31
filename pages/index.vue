@@ -1,12 +1,19 @@
 <template lang="pug">
-  .container
-    Hero
-    .courses-wrapper
+  .index
+    .hero
+      Hero
+    .free-videos
       Free
-      CourseList
-    CheatSheetMain
-    CommunitySupport
-    VuePodcast
+    .course-list
+      .section
+        h2.title Courses
+        CourseList
+    .cheatsheet
+      CheatSheetMain
+    .community
+      CommunitySupport
+    .podcast
+      VuePodcast
 </template>
 
 <script>
@@ -34,12 +41,31 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .courses-wrapper
-    display: grid;
-    grid-template-columns: 49% 49%;
-    grid-column-gap: 2%;
-
-    .list
-      padding: 60px 4%
-
+  @import '~assets/css/_variables'
+  containers = hero free-videos course-list cheatsheet community podcast
+  .index
+    display grid
+    grid-template-columns 1fr 1fr
+    grid-template-areas "hero hero"\
+      "free-videos free-videos"\
+      "course-list course-list"\
+      "cheatsheet cheatsheet"\
+      "community community"\
+      "podcast podcast"
+    for container in containers
+      .{container}
+        grid-area container
+  .section .title
+    margin-bottom ($vertical-space/3)
+    font-weight 600
+    color $secondary-color
+  .free-videos
+    background-color $secondary-color
+  +laptop-up()
+    .index
+      grid-template-areas "hero hero"\
+        "free-videos course-list"\
+        "cheatsheet cheatsheet"\
+        "community community"\
+        "podcast podcast"
 </style>
