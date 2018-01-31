@@ -85,14 +85,14 @@ export default {
   align-items center
 
 .header
-  background-color: #A8D7DD
+  // background-color: #A8D7DD
   height $header-height
   padding: 0 4%
   position: relative
   z-index: 2
 
-  &.index
-    background-color: transparent
+  // &.index
+  //   background-color: transparent
 
 .navbar
   justify-content space-between
