@@ -6,12 +6,27 @@
     h2.h1.title The Official Vue.js Podcast
     p.lead We also help produce the Official Vue.js News. It's a free community resource where we curate the most impactful Vue.js news and tutorials. Consider subscribing today.
     .actions
-      nuxt-link.button.primary(to="/") Visit News.Vuejs.Org
-      nuxt-link.button.secondary(to="/") Listen to the podcast
+      nuxt-link.button.primary(to="https://news.vuejs.org/" target="_blank") Visit News.Vuejs.Org
+      .button.secondary(@click="podcastUrl") Listen to the podcast
 </template>
 
 <script>
-export default { 'name': 'VuePodcast' }
+export default {
+  name: 'VuePodcast',
+  methods: {
+    podcastUrl () {
+      let userAgent = navigator.userAgent || navigator.vendor || window.opera
+      let url = 'https://vuenews.fireside.fm/rss'
+      if (/android/i.test(userAgent)) {
+        url = 'https://subscribeonandroid.com/vuenews.fireside.fm/rss'
+      }
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        url = 'https://itunes.apple.com/us/podcast/the-official-vue-news/id1329151772'
+      }
+      window.open(url, '_blank')
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
