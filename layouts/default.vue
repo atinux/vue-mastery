@@ -1,6 +1,6 @@
 <template lang="pug">
   .wrapper
-    Navigation
+    Navigation(:class="$route.name")
     nuxt
     Bottom
 </template>

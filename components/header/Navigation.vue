@@ -75,23 +75,29 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '../../assets/css/_variables.styl'
-$header-height = 100px
+@import '../../assets/css/_variables.styl'
 
 .container
-
 .navbar
   height $header-height
   display flex
   flex-wrap wrap
   align-items center
+
 .header
   background-color: #A8D7DD
   height $header-height
   padding: 0 4%
+  position: relative
+  z-index: 2
+
+  &.index
+    background-color: transparent
+
 .navbar
   justify-content space-between
   flex: 1
+
 .navbar-item
   padding-right 52px
   color #36495E
