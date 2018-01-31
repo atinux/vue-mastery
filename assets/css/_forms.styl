@@ -1,0 +1,21 @@
+$input-height = 54px
+
+.input
+  width 100%
+  padding 0 ($input-height/2)
+  margin: 10px 0
+  height $input-height
+  line-height $input-height
+  border-radius 30px
+  &:focus
+    width 100%
+  &.primary
+    &.-hollow
+      color $primary-color
+      border-color $primary-color
+      &::placeholder
+        color $primary-color
+  &.-hollow
+    background transparent
+    border-width 2px
+    border-style solid
