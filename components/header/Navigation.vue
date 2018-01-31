@@ -1,5 +1,4 @@
 <template lang="pug">
-
   .header
     .container
       nuxt-link.logo(to="/")
@@ -12,12 +11,12 @@
           router-link.navbar-item(to="/about") About
         no-ssr
           .navbar-secondary(v-cloak v-if="accounts")
-            button.button.primary.small(type="button" v-on:click="signOut") Sign Out
+            button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
             nuxt-link.navbar-profile(to="/account")
               img(v-bind:src="accounts.photoURL" v-bind:alt="accounts.displayName")
           .navbar-secondary(v-cloak v-else)
-            button.button.inverted.small(type="button" v-on:click="openSignUp") Sign Up
-            button.button.primary.small(type="button" v-on:click="openLogin") Login
+            button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
+            button.button.primary.-small(type="button" v-on:click="openLogin") Login
 
     no-ssr
       modal(name="login-form" v-cloak height="auto")
@@ -117,16 +116,6 @@ $header-height = 100px
   img
     display block
     width 100%
-
-.visually-hidden
-  border 0
-  clip rect(0 0 0 0)
-  height 1px
-  margin -1px
-  overflow hidden
-  padding 0
-  position absolute
-  width 1px
 
 .navbar-secondary
   display: flex
