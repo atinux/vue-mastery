@@ -7,3 +7,7 @@ Vue.filter('time', (value) => {
 Vue.filter('pluralizeLesson', (value) => {
   return `${value} Lesson${value > 1 ? 's' : ''}`
 })
+
+Vue.filter('truncate', (text, stop, clamp) => {
+  return text.slice(0, stop) + (stop < text.length ? clamp || '...' : '')
+})
