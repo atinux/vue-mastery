@@ -1,5 +1,5 @@
 <template lang="pug">
-  .index
+  .homepage
     .hero
       Hero
     .free-videos
@@ -43,7 +43,8 @@ export default {
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
   containers = hero free-videos course-list cheatsheet community podcast
-  .index
+  
+  .homepage
     display grid
     grid-template-columns 1fr 1fr
     grid-template-areas "hero hero"\
@@ -52,17 +53,22 @@ export default {
       "cheatsheet cheatsheet"\
       "community community"\
       "podcast podcast"
+  
     for container in containers
       .{container}
         grid-area container
-  .section .title
-    margin-bottom ($vertical-space/3)
-    font-weight 600
-    color $secondary-color
+  
+  .section
+    .title
+      margin-bottom ($vertical-space/3)
+      font-weight 600
+      color $secondary-color
+  
   .free-videos
     background-color $secondary-color
+  
   +laptop-up()
-    .index
+    .homepage
       grid-template-areas "hero hero"\
         "free-videos course-list"\
         "cheatsheet cheatsheet"\
