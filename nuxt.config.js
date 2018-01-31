@@ -42,7 +42,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#24292e' },
+  loading: { color: '#39B982' },
   /*
    ** Router config
    */
