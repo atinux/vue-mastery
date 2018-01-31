@@ -1,27 +1,20 @@
-<template>
-  <div>
-    <form v-on:submit.prevent="retrievePassword">
-      <div class="form-group">
-        <label>Email</label>
-        <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email">
-        </div>
-        <p class="error" v-if="invalidEmail">This email is invalid</p>
-      </div>
+<template lang="pug">
+form(v-on:submit.prevent="retrievePassword")
+  .form-group
+    label Email
+    .control
+      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email")
+    p.error(v-if="invalidEmail") This email is invalid
 
-      <div class="form-group">
-        <p><nuxt-link to="/account/login">Or Sign In!</nuxt-link></p>
-      </div>
+  .form-group
+    slot
+      nuxt-link(to="/account/login") Or Sign In!
 
-      <div class="form-group">
-        <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
-      </div>
+  .form-group
+    .flash.flash-error(v-if="formError.length > 0" v-text="formError")
 
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Reset</button>
-      </div>
-    </form>
-  </div>
+  .form-actions
+    button.button.primary(type="submit") Reset
 </template>
 
 <script>

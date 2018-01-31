@@ -1,50 +1,37 @@
-<template>
-  <div>
-    <form v-on:submit.prevent="signup">
-      <div class="form-group">
-        <label>Email</label>
-        <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email">
-        </div>
-        <p class="help is-danger" v-if="invalidEmail">This email is invalid</p>
-      </div>
+<template lang="pug">
+form(v-on:submit.prevent="signup")
+  .form-group
+    label Email
+    .control
+      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
 
-      <div class="form-group">
-        <label>Password</label>
-        <div class="control">
-          <input class="form-control" v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password">
-        </div>
-        <p class="help is-danger" v-if="invalidPassword">This password is invalid</p>
-      </div>
+    p.help.is-danger(v-if="invalidEmail" v-cloak) This email is invalid
 
-      <div class="form-checkbox">
-        <label>
-          <input type="checkbox" name="terms">
-          <span>I accept the terms and conditions</span>
-        </label>
-      </div>
+  .form-group
+    label Password
+    .control
+      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
 
-      <div class="form-group">
-        <p><nuxt-link to="/account/login">I already have an account</nuxt-link></p>
-      </div>
+    p.help.is-danger(v-if="invalidPassword" v-cloak) This password is invalid
 
-      <div class="form-group">
-        <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
-      </div>
+  .form-checkbox
+    label 
+      input(type="checkbox" name="terms")
+      span I accept the terms and conditions
 
-      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Sign Up</button>
-      </div>
+  slot
+    .form-group
+      nuxt-link(to="/account/login") I already have an account
 
-      <div class="form-actions mt-2">
-        <GoogleButton label="Sign Up With Google" />
-      </div>
+  .form-actions
+    button.button.primary(type="submit") Sign Up
 
-      <div class="form-actions mt-2">
-        <GithubButton label="Sign Up With Github" />
-      </div>
-    </form>
-  </div>
+  .form-actions
+    GoogleButton.button.secondary(label="Sign Up With Google")
+
+  .form-actions
+    GithubButton.button.secondary(label="Sign Up With Github")
+
 </template>
 
 <script>
@@ -90,3 +77,7 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+
+</style>

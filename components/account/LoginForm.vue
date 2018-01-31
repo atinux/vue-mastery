@@ -5,26 +5,26 @@ form
     .control
       input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
 
-    p.error(v-if="invalidEmail") This email is invalid
+    p.error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group
     label Password
     .control
       input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
 
-    p.error(v-if="invalidPassword") This password is invalid
+    p.error(v-if="invalidPassword" v-cloak) This password is invalid
 
   .form-group
-    nuxt-link(to="/account/signup") Signup
-
-  .form-group
-    nuxt-link(to="/account/password") Forgot your password?
+    slot
+      nuxt-link(to="/account/signup") Signup
+      | 
+      nuxt-link(to="/account/password") Forgot your password?
   
   .form-group
-    .flash.flash-error(v-if="formError.length > 0" v-text="formError")
+    .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
   .form-actions
-    button(type="submit" class="button primary") Log In
+    button.button.primary(type="submit") Log In
 
   .form-actions
     GoogleButton.button.secondary(label="Sign In With Google")

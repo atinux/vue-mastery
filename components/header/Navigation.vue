@@ -21,22 +21,30 @@
     no-ssr
       modal(name="login-form" v-cloak height="auto")
         LoginForm
+          button.button.link(type="button" v-on:click="openSignUp") Sign Up
+          button.button.link(type="button" v-on:click="openPassword") Forgot your password?
     no-ssr
       modal(name="sign-up-form" v-cloak height="auto")
         SignupForm
+          button.button.link(type="button" v-on:click="openLogin") I already have an account
+
+    no-ssr
+      modal(name="password-form" v-cloak height="auto")
+        RetrievePasswordForm
+          button.button.link(type="button" v-on:click="openLogin") Or Sign In!
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import LoginForm from '~/components/account/LoginForm.vue'
-// import RetrievePasswordForm from '~/components/account/RetrievePasswordForm.vue'
+import RetrievePasswordForm from '~/components/account/RetrievePassword.vue'
 import SignupForm from '~/components/account/SignupForm.vue'
 
 export default {
   components: {
     LoginForm,
-    SignupForm
-    // RetrievePasswordForm
+    SignupForm,
+    RetrievePasswordForm
   },
   computed: {
     ...mapState({
@@ -65,10 +73,18 @@ export default {
         })
     },
     openLogin () {
+      this.$modal.hide('sign-up-form')
+      this.$modal.hide('password-form')
       this.$modal.show('login-form')
     },
     openSignUp () {
+      this.$modal.hide('login-form')
+      this.$modal.hide('password-form')
       this.$modal.show('sign-up-form')
+    },
+    openPassword () {
+      this.$modal.hide('login-form')
+      this.$modal.show('password-form')
     }
   }
 }

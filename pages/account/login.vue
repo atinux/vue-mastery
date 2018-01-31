@@ -1,23 +1,9 @@
-<template>
-  <div>
-    <div class="columns">
-      <div class="one-half column centered">
-        <div class="hero">
-          <div class="hero-body">
-            <h1 class="title">Vue mastery</h1>
-            <h2 class="subtitle">Login to manage your account</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="columns">
-      <div class="one-half column centered">
-        <div class="four-fifths">
-          <LoginForm />
-        </div>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  div
+    h1.title Vue mastery
+    h2.subtitle Login to manage your account
+    LoginForm
+
 </template>
 
 <script>
