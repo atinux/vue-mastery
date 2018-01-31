@@ -1,0 +1,21 @@
+.media-block
+  display grid
+  grid-template-columns auto 1fr
+  grid-column-gap 4%
+  grid-row-gap: $vertical-space/2
+  grid-template-areas "media body"
+  .media
+    grid-area media
+    max-width 200px
+    img
+      object-fit contain
+      &.-small
+        width 120px
+      &.-large
+        width 200px
+  .body
+    grid-area body
+    .content
+      margin 0
+    .meta
+      font-weight 200
