@@ -4,7 +4,9 @@
 
 // Elements
 @import _buttons
+@import _forms
 @import _cards
+@import _media-block
 
 *
   box-sizing: border-box
@@ -18,11 +20,26 @@ a
   color $black
   &:visited
     $black
+  &.-inverted
+    color #fff
 
 ul
   list-style-type none
   padding 0
   margin 0
+
+img
+  width: 100%
+
+.visually-hidden
+  border 0
+  clip rect(0 0 0 0)
+  height 1px
+  margin -1px
+  overflow hidden
+  padding 0
+  position absolute
+  width 1px
 
 [v-cloak] > *
   display none
@@ -30,16 +47,12 @@ ul
 [v-cloak]::before
   content: "loading…"
 
-// Remove this later
-.container
-  display: grid
-  width: 100%
-
 .banner
   display grid
-  grid-column-gap: 2%
-  grid-row-gap: ($vertical-space/2)
-  width: 100%
-  padding: 0 4%
+  padding-left 4%
+  padding-right 4%
   background-size: cover
   background-position: center center
+
+.section
+  padding ($vertical-space/2) 4%
