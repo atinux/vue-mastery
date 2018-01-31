@@ -71,6 +71,13 @@ module.exports = {
     }
   ],
   /*
+  ** Page transition
+  */
+  transition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+  /*
   ** Build configuration
   */
   build: {
