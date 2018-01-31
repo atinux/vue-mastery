@@ -36,10 +36,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '~assets/css/_variables'
-  .section
-    color: #fff
-    > .title
-        margin-bottom ($vertical-space/3)
-        font-weight 600
+@import '~assets/css/_variables'
+
+.section
+  color #fff
+
+  > .title
+    margin-bottom ($vertical-space/3)
+    font-weight 600
 </style>

@@ -66,9 +66,6 @@ export default {
     img
       width: 150px
       height: 150px
-      border-radius 100px
-      overflow hidden
-      border 1px solid #b2b1b0
       object-fit contain
 
   .list-card
