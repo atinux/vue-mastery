@@ -1,36 +1,31 @@
 <template lang="pug">
 form
   .form-group
-    label Email
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+    label.visually-hidden Email
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
 
     p.error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group
-    label Password
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
+    label.visually-hidden Password
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
 
     p.error(v-if="invalidPassword" v-cloak) This password is invalid
-
+  
   .form-group
+    GoogleButton.button.inverted.primary.-small(label="Sign In With Google")
+    GithubButton.button.inverted.primary.-small(label="Sign In With Github")
+  
+  .flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
+
+  .form-actions
+    button.button.primary(type="submit") Log In
+  
+  .form-footer
     slot
       nuxt-link(to="/account/signup") Signup
       | 
       nuxt-link(to="/account/password") Forgot your password?
-  
-  .form-group
-    .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
-
-  .form-actions
-    button.button.primary(type="submit") Log In
-
-  .form-actions
-    GoogleButton.button.secondary(label="Sign In With Google")
-
-  .form-actions
-    GithubButton.button.secondary(label="Sign In With Github")
 
 </template>
 
@@ -53,7 +48,7 @@ export default {
   },
   computed: {
     invalidEmail () {
-      return !this.email.includes('@')
+      return !this.email.includes('@') && this.email !== ''
     },
     invalidPassword () {
       return !this.password.length > 6

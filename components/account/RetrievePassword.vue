@@ -1,20 +1,20 @@
 <template lang="pug">
 form(v-on:submit.prevent="retrievePassword")
   .form-group
-    label Email
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email")
+    label.visually-hidden Email
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email"  autocomplete="email")
     p.error(v-if="invalidEmail") This email is invalid
-
-  .form-group
-    slot
-      nuxt-link(to="/account/login") Or Sign In!
 
   .form-group
     .flash.flash-error(v-if="formError.length > 0" v-text="formError")
 
   .form-actions
     button.button.primary(type="submit") Reset
+
+  .form-footer
+    slot
+      nuxt-link(to="/account/login") Or Sign In!
+
 </template>
 
 <script>

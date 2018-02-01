@@ -1,36 +1,34 @@
 <template lang="pug">
 form(v-on:submit.prevent="signup")
   .form-group
-    label Email
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
+    label.visually-hidden Email
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
 
-    p.help.is-danger(v-if="invalidEmail" v-cloak) This email is invalid
+    p.error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group
-    label Password
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
+    label.visually-hidden Password
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
 
-    p.help.is-danger(v-if="invalidPassword" v-cloak) This password is invalid
+    p.error(v-if="invalidPassword" v-cloak) This password is invalid
+
+  .form-group
+    GoogleButton.button.inverted.primary.-small(label="Sign Up With Google")
+    GithubButton.button.inverted.primary.-small(label="Sign Up With Github")
+  
+  .flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
   .form-checkbox
     label 
       input(type="checkbox" name="terms")
       span I accept the terms and conditions
 
-  slot
-    .form-group
-      nuxt-link(to="/account/login") I already have an account
-
   .form-actions
     button.button.primary(type="submit") Sign Up
 
-  .form-actions
-    GoogleButton.button.secondary(label="Sign Up With Google")
-
-  .form-actions
-    GithubButton.button.secondary(label="Sign Up With Github")
+  .form-footer
+    slot
+      nuxt-link(to="/account/login") I already have an account
 
 </template>
 
