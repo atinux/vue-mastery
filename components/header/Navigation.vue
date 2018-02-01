@@ -21,12 +21,12 @@
     no-ssr
       modal(name="login-form" v-cloak height="auto")
         LoginForm
-          button.button.link(type="button" v-on:click="openSignUp") Sign Up
-          button.button.link(type="button" v-on:click="openPassword") Forgot your password?
+          button.button.link.-small(type="button" v-on:click="openSignUp") Sign Up
+          button.button.link.-small(type="button" v-on:click="openPassword") Forgot your password?
     no-ssr
       modal(name="sign-up-form" v-cloak height="auto")
         SignupForm
-          button.button.link(type="button" v-on:click="openLogin") I already have an account
+          button.button.link.-small(type="button" v-on:click="openLogin") I already have an account
 
     no-ssr
       modal(name="password-form" v-cloak height="auto")

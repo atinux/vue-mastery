@@ -17,18 +17,14 @@ form(v-on:submit.prevent="signup")
         input(type="checkbox" name="terms")
         span I accept the terms and conditions
 
-    slot
-      .form-group
-        nuxt-link(to="/account/login") I already have an account
-
-    .form-actions
+    .control-group
       button.button.primary.-small(type="submit") Sign Up
+      slot
+        nuxt-link.button.link.-small(to="/account/login") I already have an account
 
-    .form-actions
-      GoogleButton.button.secondary.-small(label="Sign Up With Google")
-
-    .form-actions
-      GithubButton.button.secondary.-small(label="Sign Up With Github")
+    .control-group.-spaced
+      GoogleButton.button.secondary.border.-small(label="Sign up with Google")
+      GithubButton.button.secondary.border.-small(label="Sign up with Github")
 </template>
 
 <script>
@@ -76,5 +72,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '~assets/css/_variables.styl'
+
 </style>

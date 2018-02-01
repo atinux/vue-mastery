@@ -47,7 +47,13 @@ $button-height-small = ($button-height - 10px)
     background: none
     border: none
     padding: 0
-    color: #333
+    color: $secondary-color
+
+.control-group
+  display flex
+  &.-spaced
+    justify-content space-between
+
 
 +tablet-up()
   .button
@@ -57,12 +63,11 @@ $button-height-small = ($button-height - 10px)
     line-height $button-height
 
     &.border
-      line-height: ($button-height - $border-size)
-
-      &.border-primary
-        border-color: #41B782
+      line-height: ($button-height - ($border-size * 2))
 
     &.-small
       height: $button-height-small
       padding: 0 30px
       line-height: $button-height-small
+      &.border
+        line-height: ($button-height-small - ($border-size * 2))

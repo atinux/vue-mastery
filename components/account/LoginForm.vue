@@ -1,7 +1,7 @@
 <template lang="pug">
 form
   fieldset
-    legend.h3 Login
+    legend.h2 Login
     .form-group
       label Email
       input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
@@ -24,11 +24,9 @@ form
     .form-actions
       button.button.primary(type="submit") Log In
 
-    .form-actions
-      GoogleButton.button.secondary(label="Sign In With Google")
-
-    .form-actions
-      GithubButton.button.secondary(label="Sign In With Github")
+    .control-group.-spaced
+      GoogleButton.button.secondary.border.-small(label="Sign in with Google")
+      GithubButton.button.secondary.border.-small(label="Sign in with Github")
 </template>
 
 <script>
