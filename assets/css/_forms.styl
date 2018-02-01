@@ -1,11 +1,6 @@
 $input-height = 54px
 $input-height-small = ($input-height - 10px)
 
-.button,
-.input
-  &:focus
-    outline: none
-
 .input
   width 100%
   padding 0 ($input-height/2)
@@ -65,34 +60,4 @@ fieldset
   border none
 
 legend
-  color $primary-color$form-space = 25px
-.form-title
-  background: rgb(10, 43, 78)
-  margin: 0
-  color: #fff
-  padding: $form-space
-
-.v--modal 
-  form
-    background-color: #0a2b4e
-    color: #fff
-
-  .form-actions,
-  .form-group
-    width: 100%
-    padding: 0 $form-space
-
-  .form-checkbox
-    padding: $form-space
-
-  .form-footer
-    width: 100%
-    margin-top: 40px
-    background-color: #fff
-    color: $primary-color
-    display: flex
-    justify-content: space-between
-    padding: 0 $form-space
-
-  .button + button
-    margin-left: $form-space
+  color $primary-color
