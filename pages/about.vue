@@ -1,39 +1,39 @@
 <template lang="pug">
-  div
-    .panel
-      .panel-body
-        h1.title Our Mission
-        p To be the ultimate learning resource for Vue Developers. We do this by:
-        ul
-          li Creating weekly tutorials in video and article format.
-          li $5 of every $19 you give us goes to Vue
-          li Co-producing the Official Vue News
-          li Producing the Official Vue.js Podcast
+  .banner
+    .mission-media
+      PlayerPlaceholder
+    .mission
+      h1.title Our Mission
+      p To be the ultimate learning resource for Vue Developers. We do this by:
+      ul
+        li Creating weekly tutorials in video and article format.
+        li $5 of every $19 you give us goes to Vue
+        li Co-producing the Official Vue News
+        li Producing the Official Vue.js Podcast
 
         nuxt-link.button.secondary.border(to="/courses") View Our Courses
 
+    .team-media
       PlayerPlaceholder
+    .team
+      h1.title About The Team
+      p Gregg Pollack &amp; Adam Jahr are passionate at teaching computer programming online and living in Orlando, Florida.
+      p Gregg previously founded Code School, and Adam previously taught at Iron Yard.
 
-    .panel.inverted
-      .panel-body
-        h1.title Our Mission
-        p Gregg Pollack &amp; Adam Jahr are passionate at teaching computer programming online and living in Orlando, Florida.
-        p Gregg previously founded Code School, and Adam previously taught at Iron Yard.
+      nuxt-link.button.secondary.border(to="/contact-us") Contact Us
 
-        nuxt-link.button.secondary.border(to="/contact-us") Contact Us
-
+    .why-media
       PlayerPlaceholder
+    .why
+      h1.title Why Learn Vue?
+      p We worked closely with the Vue Core team to produce this video which walks you through the core principles of this JS Framework.
 
-    .panel
-      .panel-body
-        h1.title Why Learn Vue?
-        p We worked closely with the Vue Core team to produce this video which walks you through the core principles of this JS Framework.
+      nuxt-link.button.secondary.border(to="/courses") START LEARNING NOW
 
-        nuxt-link.button.secondary.border(to="/courses") START LEARNING NOW
-
-      PlayerPlaceholder
-    CheatSheetAlt
-    VuePodcast
+    .cheatsheet
+      CheatSheetAlt
+    .podcast
+      VuePodcast
 </template>
 
 <script>
@@ -56,6 +56,17 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../assets/css/_variables'
+containers = mission mission-media team-media team why why-media cheatsheet podcast
+.banner
+  grid-template-colums 1fr 1fr
+  grid-template-areas "mission mission-media"\
+                      "team-media team"\
+                      "why why-media"\
+                      "cheatsheet cheatsheet"\
+                      "podcast podcast"
+for container in containers
+  .{container}
+    grid-area container
 
 .title
   color: $primary-color
