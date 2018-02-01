@@ -20,18 +20,23 @@
 
     no-ssr
       modal(name="login-form" v-cloak height="auto")
+        h2.form-title Welcome back!
         LoginForm
           button.button.link.-small(type="button" v-on:click="openSignUp") Sign Up
           button.button.link.-small(type="button" v-on:click="openPassword") Forgot your password?
+    
     no-ssr
       modal(name="sign-up-form" v-cloak height="auto")
+        legend.h2.form-title Let's Get You Signed Up.
         SignupForm
           button.button.link.-small(type="button" v-on:click="openLogin") I already have an account
 
+
     no-ssr
       modal(name="password-form" v-cloak height="auto")
+        legend.h2.form-title Retrieve your password
         RetrievePasswordForm
-          button.button.link(type="button" v-on:click="openLogin") Or Sign In!
+          button.button.link.inverted(type="button" v-on:click="openLogin") Or Sign In!
 </template>
 
 <script>

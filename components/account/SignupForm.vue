@@ -1,30 +1,34 @@
 <template lang="pug">
 form(v-on:submit.prevent="signup")
-  fieldset
-    legend.h2 Sign Up
-    .form-group
-      label Email
-      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
-      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
+  .form-group
+    label.visually-hidden Email
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
 
-    .form-group
-      label Password
-      input.input(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
-      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
+    p.error(v-if="invalidEmail" v-cloak) This email is invalid
 
-    .form-group
-      label.checkbox
-        input(type="checkbox" name="terms")
-        span I accept the terms and conditions
+  .form-group
+    label.visually-hidden Password
+    input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
 
-    .control-group
-      button.button.primary.-small(type="submit") Sign Up
-      slot
-        nuxt-link.button.link.-small(to="/account/login") I already have an account
+    p.error(v-if="invalidPassword" v-cloak) This password is invalid
 
-    .control-group.-spaced
-      GoogleButton.button.secondary.border.-small(label="Sign up with Google")
-      GithubButton.button.secondary.border.-small(label="Sign up with Github")
+  .form-group
+    GoogleButton.button.inverted.primary.-small(label="Sign Up With Google")
+    GithubButton.button.inverted.primary.-small(label="Sign Up With Github")
+  
+  .flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
+
+  .form-checkbox
+    label 
+      input(type="checkbox" name="terms")
+      span I accept the terms and conditions
+
+  .form-actions
+    button.button.primary(type="submit") Sign Up
+
+  .form-footer
+    slot
+      nuxt-link(to="/account/login") I already have an account
 </template>
 
 <script>

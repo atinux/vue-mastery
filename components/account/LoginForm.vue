@@ -1,32 +1,33 @@
 <template lang="pug">
 form
   fieldset
-    legend.h2 Login
     .form-group
-      label Email
-      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
-      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
+      label.visually-hidden Email
+      input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+
+      p.error(v-if="invalidEmail" v-cloak) This email is invalid
 
     .form-group
-      label Password
-      input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
-      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
+      label.visually-hidden Password
+      input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
 
+      p.error(v-if="invalidPassword" v-cloak) This password is invalid
+    
     .form-group
-      slot
-        nuxt-link(to="/account/signup") Signup
-        |
-        nuxt-link(to="/account/password") Forgot your password?
-
-    .form-group
-      .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
+      GoogleButton.button.inverted.primary.-small(label="Sign In With Google")
+      GithubButton.button.inverted.primary.-small(label="Sign In With Github")
+    
+    .flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
     .form-actions
       button.button.primary(type="submit") Log In
+    
+    .form-footer
+      slot
+        nuxt-link(to="/account/signup") Signup
+        | 
+        nuxt-link(to="/account/password") Forgot your password?
 
-    .control-group.-spaced
-      GoogleButton.button.secondary.border.-small(label="Sign in with Google")
-      GithubButton.button.secondary.border.-small(label="Sign in with Github")
 </template>
 
 <script>
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     invalidEmail () {
-      return !this.email.includes('@')
+      return !this.email.includes('@') && this.email !== ''
     },
     invalidPassword () {
       return !this.password.length > 6
