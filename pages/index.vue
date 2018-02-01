@@ -8,7 +8,7 @@
       .section
         h2.title Courses
         CourseList
-        nuxt-link.button.border.border-primary(to="/courses") More
+        nuxt-link.button.primary.border(to="/courses") More
     .meet-teachers
       MeetTeachers
     .cheatsheet
@@ -73,6 +73,12 @@ containers = hero free-videos course-list meet-teachers cheatsheet community pod
 .free-videos
   background-color $secondary-color
 
+.button
+  width 100%
+
++tablet-up()
+  .button
+    width max-content
 +laptop-up()
   .homepage
     grid-template-areas "hero hero"\
