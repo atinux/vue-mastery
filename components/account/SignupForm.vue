@@ -1,37 +1,34 @@
 <template lang="pug">
 form(v-on:submit.prevent="signup")
-  .form-group
-    label Email
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
-
-    p.help.is-danger(v-if="invalidEmail" v-cloak) This email is invalid
-
-  .form-group
-    label Password
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
-
-    p.help.is-danger(v-if="invalidPassword" v-cloak) This password is invalid
-
-  .form-checkbox
-    label 
-      input(type="checkbox" name="terms")
-      span I accept the terms and conditions
-
-  slot
+  fieldset
+    legend.h2 Sign Up
     .form-group
-      nuxt-link(to="/account/login") I already have an account
+      label Email
+      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
+      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
-  .form-actions
-    button.button.primary(type="submit") Sign Up
+    .form-group
+      label Password
+      input.input(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
+      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
-  .form-actions
-    GoogleButton.button.secondary(label="Sign Up With Google")
+    .form-group
+      label.checkbox
+        input(type="checkbox" name="terms")
+        span I accept the terms and conditions
 
-  .form-actions
-    GithubButton.button.secondary(label="Sign Up With Github")
+    slot
+      .form-group
+        nuxt-link(to="/account/login") I already have an account
 
+    .form-actions
+      button.button.primary.-small(type="submit") Sign Up
+
+    .form-actions
+      GoogleButton.button.secondary.-small(label="Sign Up With Google")
+
+    .form-actions
+      GithubButton.button.secondary.-small(label="Sign Up With Github")
 </template>
 
 <script>
@@ -79,5 +76,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+  @import '~assets/css/_variables.styl'
 </style>

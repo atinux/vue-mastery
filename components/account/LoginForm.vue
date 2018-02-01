@@ -1,37 +1,34 @@
 <template lang="pug">
 form
-  .form-group
-    label Email
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+  fieldset
+    legend.h3 Login
+    .form-group
+      label Email
+      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
-    p.error(v-if="invalidEmail" v-cloak) This email is invalid
+    .form-group
+      label Password
+      input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
+      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
-  .form-group
-    label Password
-    .control
-      input.form-control(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="Password" v-model="password")
+    .form-group
+      slot
+        nuxt-link(to="/account/signup") Signup
+        |
+        nuxt-link(to="/account/password") Forgot your password?
 
-    p.error(v-if="invalidPassword" v-cloak) This password is invalid
+    .form-group
+      .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
-  .form-group
-    slot
-      nuxt-link(to="/account/signup") Signup
-      | 
-      nuxt-link(to="/account/password") Forgot your password?
-  
-  .form-group
-    .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
+    .form-actions
+      button.button.primary(type="submit") Log In
 
-  .form-actions
-    button.button.primary(type="submit") Log In
+    .form-actions
+      GoogleButton.button.secondary(label="Sign In With Google")
 
-  .form-actions
-    GoogleButton.button.secondary(label="Sign In With Google")
-
-  .form-actions
-    GithubButton.button.secondary(label="Sign In With Github")
-
+    .form-actions
+      GithubButton.button.secondary(label="Sign In With Github")
 </template>
 
 <script>
