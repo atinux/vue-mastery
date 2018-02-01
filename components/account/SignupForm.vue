@@ -29,7 +29,6 @@ form(v-on:submit.prevent="signup")
   .form-footer
     slot
       nuxt-link(to="/account/login") I already have an account
-
 </template>
 
 <script>

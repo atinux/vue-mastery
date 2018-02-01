@@ -1,4 +1,5 @@
 $input-height = 54px
+$input-height-small = ($input-height - 10px)
 
 .button,
 .input
@@ -11,22 +12,60 @@ $input-height = 54px
   margin: 10px 0
   height $input-height
   line-height $input-height
-  border-radius 30px
+  border-style solid
+  border-width $border-size
+  border-color lighten($gray, 60%)
+  border-radius $form-radius
+
   &:focus
     width 100%
 
   &.primary
+
     &.-hollow
       color $primary-color
       border-color $primary-color
+
       &::placeholder
         color $primary-color
+
   &.-hollow
     background transparent
-    border-width 2px
+    border-width $border-size
     border-style solid
 
-$form-space = 25px
+  for name, state in $states
+    &.-is-{name}
+      color state
+      border-color state
+      &::placeholder
+        color state
+
+.checkbox
+  display: flex;
+  justify-content: flex-start
+  align-items center
+  font-size $font-size-base * 0.875
+  input[type="checkbox"]
+    margin-top: -2px
+    margin-right 10px
+
+.help-text
+  display block
+  position relative
+  margin -8px 0 10px ($input-height/2)
+  font-size $font-size-base * 0.875
+  for name, state in $states
+    &.-is-{name}
+      color state
+
+fieldset
+  display grid
+  margin 20px 4%
+  border none
+
+legend
+  color $primary-color$form-space = 25px
 .form-title
   background: rgb(10, 43, 78)
   margin: 0

@@ -10,11 +10,11 @@
             h3.title {{ lesson.title }}
             p.content {{ lesson.description }}
           nuxt-link(to='/' class="-inverted")
-            span.meta
+            div.meta
               b Associated Course
-              | &nbsp;• {{ lesson.duration | time }}
+              |  ・ {{ lesson.duration | time }}
 
-    nuxt-link.button.border.border-primary(to="/courses") More
+    nuxt-link.button.primary.border(to="/courses") More
 </template>
 
 <script>
@@ -38,26 +38,36 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
+  @import '~assets/css/_variables'
 
-.section
-  color #fff
-  height: 100%
-  display: flex
-  flex-direction: column
-  justify-content: space-between
+  .section
+    color #fff
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    > .title
+      margin-bottom ($vertical-space/3)
+      font-weight 600
+      text-align center
 
   .button
-    color: $primary-color
+    width 100%
 
-  > .title
-    margin-bottom ($vertical-space/3)
-    font-weight 600
+  .media-wrapper
+    height: 100%
+    padding-top: 20px
 
-.media-wrapper
-  height: 100%
-  padding-top: 20px
+  .media-block
+    margin-bottom ($vertical-space/2)
 
-.media-block
-  margin-bottom ($vertical-space/2)
+
+  +tablet-up()
+    .section > .title
+      text-align left
+
+    .button
+      width max-content
+
 </style>

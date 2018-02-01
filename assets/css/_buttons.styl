@@ -1,41 +1,76 @@
 $button-height = 54px
+$button-height-small = ($button-height - 10px)
 
 .button
   display inline-block
-  height $button-height
+  height $button-height-small
   width max-content
-  margin 0.5em 0
-  padding 0 60px
+  margin 0.25em 0
+  padding 0 30px
   color #FFFFFF
   text-decoration none
-  line-height $button-height
+  text-align center
+  line-height $button-height-small
   border none
-  border-radius 30px
+  border-radius $form-radius
   cursor pointer
 
   &.primary
     background: linear-gradient(to top right, #41B782 , #86D169)
 
+    &.border
+      color: $primary-color
+      border-color: $primary-color
+
   &.secondary
     background: linear-gradient(to top right, #122549, #203762)
+
+    &.border
+      color: $secondary-color
+      border-color: $secondary-color
 
   &.inverted
     background: #FFFFFF
     color: $primary-color
 
   &.border
-    border: 2px solid #36495E
-    color: $black
-
-    &.border-primary
-      border-color: #41B782
+    background: transparent
+    border: solid $border-size $secondary-color
+    line-height: ($button-height-small - ($border-size * 2))
 
   &.-small
-    height: ($button-height - 10px)
-    padding: 0 30px
-    line-height: ($button-height - 10px)
+    height: $button-height-small
+    padding: 0 15px
+    line-height: $button-height-small
+
+  &.-full
+    width 100%
 
   &.link
     background: none
     border: none
     padding: 0
+    color: $secondary-color
+
+.control-group
+  display flex
+  &.-spaced
+    justify-content space-between
+
+
++tablet-up()
+  .button
+    height $button-height
+    margin 0.5em 0
+    padding 0 60px
+    line-height $button-height
+
+    &.border
+      line-height: ($button-height - ($border-size * 2))
+
+    &.-small
+      height: $button-height-small
+      padding: 0 30px
+      line-height: $button-height-small
+      &.border
+        line-height: ($button-height-small - ($border-size * 2))

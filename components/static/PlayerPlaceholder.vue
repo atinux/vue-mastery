@@ -11,7 +11,7 @@ export default { name: 'PlayerPlaceholder' }
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
   .player
-    height 379px
+    height 200px
     min-width: 100%
     max-width: 800px
     background-color $black
@@ -35,7 +35,11 @@ export default { name: 'PlayerPlaceholder' }
       border-bottom 12px solid transparent
       border-left 20px solid $black
       margin-right -7px
+  +tablet-up()
+    .player
+      height: 320px
   +laptop-up()
     .player
       min-width 650px
+      height 379px
 </style>

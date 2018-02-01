@@ -1,13 +1,16 @@
 <template lang="pug">
-  .card(v-if="latests" v-cloak)
-    h3.title Latest
-    ul
-      li(v-for="lesson in latests")
-        nuxt-link(:to="path(lesson)")
-          h4 {{ lesson.title }}
-          p 
-            | {{ lesson.description }}
-            label {{ lesson.duration | time }}
+  div
+    .card(v-if="latests" v-cloak)
+      h2.title Latest Videos
+      ul
+        li(v-for="lesson in latests")
+          nuxt-link(:to="path(lesson)")
+            .media-block
+              .body
+                h4 {{ lesson.title }}
+                div.meta
+                  b {{ lesson.description }}
+                  label ・ {{ lesson.duration | time }}
 </template>
 
 <script>
@@ -31,10 +34,19 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
+  @import '~assets/css/_variables'
+  .title
+    color $primary-color
+    font-weight 600
+    margin-bottom: 22px
 
-.title
-  color $primary-color
-  margin-bottom: 22px
+  .media-block
+    grid-column-gap 0
+    margin-bottom ($vertical-space/3)
+
+  h4
+    font-size 22px
+    font-weight: 600
+    color $secondary-color
 
 </style>

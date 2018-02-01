@@ -4,23 +4,26 @@
   grid-column-gap 4%
   grid-row-gap ($vertical-space/2)
   grid-template-areas "media body"
-  
+  align-items center
+
   .media
     grid-area media
     max-width 200px
-  
+
     img
       object-fit contain
       &.-small
         width 120px
       &.-large
         width 200px
-  
+
   .body
     grid-area body
-  
+    max-width 400px
+
     .content
       margin 0
-  
+
     .meta
+      margin-top: 10px
       font-weight 200

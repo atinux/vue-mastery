@@ -1,16 +1,18 @@
 <template lang="pug">
   .container
     .courses-header
-      h1.title Our Courses:
+      h1.title Our Courses
     .couses-body
       CourseList(showAction="true")
       Latest
+    CheatSheetAlt
     VuePodcast
 </template>
 
 <script>
 import CourseList from '~/components/courses/List'
 import Latest from '~/components/courses/Latest'
+import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 import VuePodcast from '~/components/static/VuePodcast'
 
 export default {
@@ -25,6 +27,7 @@ export default {
   components: {
     CourseList,
     Latest,
+    CheatSheetAlt,
     VuePodcast
   }
 }
@@ -47,7 +50,7 @@ export default {
 .title
   margin: 0
   font-size: 60px
-  font-weight: 100
+  font-weight 600
   color: #FFFFFF
   line-height: 60px
 
