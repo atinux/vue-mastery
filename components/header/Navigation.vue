@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../assets/css/_variables.styl'
+@import '~assets/css/_variables.styl'
 
 .container
 .navbar
@@ -101,39 +101,33 @@ export default {
   align-items center
 
 .header
-  // background-color: #A8D7DD
   height $header-height
-  padding: 0 4%
-  position: relative
-  z-index: 2
-
-  // &.index
-  //   background-color: transparent
+  padding 0 4%
+  position relative
+  z-index 2
 
 .navbar
   justify-content space-between
   flex: 1
 
 .navbar-item
-  padding-right 52px
-  color #36495E
+  padding-right 20px
+  color $secondary-color
   font-family $font-family-base
-  font-size 20px
-  text-decoration: none;
+  font-size 16px
+  text-decoration none
   white-space nowrap
 
   &.nuxt-link-active
-    text-decoration: underline
+    font-weight 700
 
   &:last-child
     padding-right 0
 
 .logo
   display block
-  max-width 282px
-  min-width 200px
-  margin-right 70px
-  margin-top -10px
+  max-width 150px
+  margin-top: 10px
 
   img
     display block
@@ -158,4 +152,14 @@ export default {
   img
     width 100%
 
++tablet-up()
+  .logo
+    max-width 282px
+    min-width 200px
+    margin-right 70px
+    margin-top -10px
+
+  .navbar-item
+    padding-right 52px
+    font-size 20px
 </style>

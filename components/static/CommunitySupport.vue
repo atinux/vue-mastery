@@ -26,7 +26,7 @@ export default { name: 'CommunitySupport' }
     .lead
       max-width 690px
       font-size 24px
-      color #555555
+      color $gray
     .amount
       color $primary-color
       margin 0
