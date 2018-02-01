@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     .courses-header
-      h1.title Our Courses:
+      h1.title Our Courses
     .couses-body
       CourseList(showAction="true")
       Latest
@@ -47,7 +47,7 @@ export default {
 .title
   margin: 0
   font-size: 60px
-  font-weight: 100
+  font-weight 600
   color: #FFFFFF
   line-height: 60px
 

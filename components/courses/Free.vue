@@ -10,9 +10,9 @@
             h3.title {{ lesson.title }}
             p.content {{ lesson.description }}
           nuxt-link(to='/' class="-inverted")
-            span.meta
+            div.meta
               b Associated Course
-              | &nbsp;• {{ lesson.duration | time }}
+              |  ・ {{ lesson.duration | time }}
 
     nuxt-link.button.primary.border(to="/courses") More
 </template>
@@ -61,6 +61,7 @@ export default {
 
   .media-block
     margin-bottom ($vertical-space/2)
+
 
   +tablet-up()
     .section > .title
