@@ -18,36 +18,16 @@
             button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
             button.button.primary.-small(type="button" v-on:click="openLogin") Login
 
-    no-ssr
-      modal(name="login-form" v-cloak height="auto")
-        AuthForm(:newAccount="newAccount")
-
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import AuthForm from '~/components/account/AuthForm.vue'
 
 export default {
-  components: {
-    AuthForm
-  },
   computed: {
     ...mapState({
       accounts: result => result.accounts.account
     })
-  },
-  watch: {
-    accounts () {
-      this.$modal.hide('login-form')
-      this.$modal.hide('sign-up-form')
-    }
-  },
-  data () {
-    return {
-      editing: false,
-      newAccount: true
-    }
   },
   methods: {
     signOut () {
@@ -60,12 +40,10 @@ export default {
         })
     },
     openLogin () {
-      this.newAccount = false
-      this.$modal.show('login-form')
+      this.$modal.show('login-form', { newAccount: false })
     },
     openSignUp () {
-      this.newAccount = true
-      this.$modal.show('login-form')
+      this.$modal.show('login-form', { newAccount: true })
     }
   }
 }
