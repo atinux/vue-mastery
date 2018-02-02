@@ -45,7 +45,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import lessonList from '~/components/lessons/List'
 import vimeo from '~/components/lessons/Vimeo'
 import socialShare from '~/components/lessons/SocialSharing'
 
@@ -60,7 +59,6 @@ export default {
   },
 
   components: {
-    lessonList,
     vimeo,
     socialShare
   },
@@ -74,10 +72,10 @@ export default {
     current () {
       let currentLesson = null
       let courseStarted = false
-      // Check if user is logged
-      if (this.accounts) {
-        // Check if the user already started the course
+      try {
         courseStarted = this.accounts.completed[this.courseId]
+      } catch (error) {
+        console.log('User not loggin')
       }
       // If no lesson selected, get the first one of the course
       if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
