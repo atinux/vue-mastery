@@ -1,5 +1,6 @@
 <template lang="pug">
-  .banner
+.container
+  .wrapper
     .mission-media
       PlayerPlaceholder
     .mission
@@ -30,10 +31,8 @@
 
       nuxt-link.button.secondary.border(to="/courses") START LEARNING NOW
 
-    .cheatsheet
-      CheatSheetAlt
-    .podcast
-      VuePodcast
+  CheatSheetAlt
+  VuePodcast
 </template>
 
 <script>
@@ -56,14 +55,23 @@ export default {
 
 <style lang="stylus" scoped>
 @import '../assets/css/_variables'
-containers = mission mission-media team-media team why why-media cheatsheet podcast
-.banner
-  grid-template-colums 1fr 1fr
-  grid-template-areas "mission mission-media"\
-                      "team-media team"\
-                      "why why-media"\
-                      "cheatsheet cheatsheet"\
-                      "podcast podcast"
+containers = mission mission-media team-media team why why-media
+.wrapper
+  display grid
+  padding-left 4%
+  padding-right 4%
+  margin ($vertical-space/4) 0
+  grid-template-columns 1fr
+  grid-row-gap ($vertical-space/4)
+  align-items: center
+  grid-template-areas "mission-media"\
+                      "mission"\
+                      "team-media"\
+                      "team"\
+                      "why-media"\
+                      "why"
+
+
 for container in containers
   .{container}
     grid-area container
@@ -78,18 +86,15 @@ ul
   padding-bottom 30px
   line-height: 25px
 
-.panel
-  display: flex
-  width: 100%
-  padding: 60px 4%
-  justify-content: space-between
-
-  > div
-    flex: 1
-    padding: 20px
-    margin: 0 20px
-
-  &.inverted
-    flex-flow: row-reverse
++tablet-up()
+  .wrapper
+    margin $vertical-space 0
+    grid-template-columns 1fr 1fr
+    grid-row-gap $vertical-space
+    grid-column-gap ($vertical-space/2)
+    align-items: center
+    grid-template-areas "mission mission-media"\
+                        "team-media team"\
+                        "why why-media"
 
 </style>
