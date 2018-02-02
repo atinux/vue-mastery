@@ -1,28 +1,28 @@
 <template lang="pug">
 form.form(v-on:submit.prevent="signup")
   .form-group
-    label Email
+    label.label Email
     input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group
-    label Password
+    label.label Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
   .form-group
     label.checkbox
-      input(type="checkbox" name="terms")
+      input(type="checkbox" name="terms" v-model="terms" @click="checkDisabled")
       span I accept the terms and conditions
 
   .form-error
     .error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
-  .form-actions
+  .form-actions(@click="checkDisabled")
     button.button.primary.-small(type="submit") Sign Up
     .control-group
-      GoogleButton.button.inverted.-small(label="Sign up with Google")
-      GithubButton.button.inverted.-small(label="Sign up with Github")
+      GoogleButton.button.inverted.-small(label="Sign up with Google" :disabled="!terms")
+      GithubButton.button.inverted.-small(label="Sign up with Github" :disabled="!terms")
 
   .form-footer
     slot
@@ -43,6 +43,7 @@ export default {
     return {
       email: '',
       password: '',
+      terms: false,
       formError: ''
     }
   },
@@ -57,17 +58,25 @@ export default {
   methods: {
     signup () {
       this.formError = ''
-      this.$store.dispatch('userCreate', {
-        email: this.email,
-        password: this.password
-      })
-        .then(() => {
-          this.$router.push('/account')
+      if (!this.terms) this.formError = 'Please read and accept the terms and conditions'
+      else {
+        this.$store.dispatch('userCreate', {
+          email: this.email,
+          password: this.password
         })
-        .catch((error) => {
-          console.log(error)
-          this.formError = error.message
-        })
+          .then(() => {
+            this.$router.push('/account')
+          })
+          .catch((error) => {
+            console.log(error)
+            this.formError = error.message
+          })
+      }
+    },
+
+    checkDisabled () {
+      this.formError = ''
+      if (!this.terms) this.formError = 'Please read and accept the terms and conditions'
     }
   }
 }

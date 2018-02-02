@@ -1,12 +1,12 @@
 <template lang="pug">
-form.form
+form.form(v-on:submit.prevent="signup")
   .form-group
-    label Email
+    label.label Email
     input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group
-    label Password
+    label.label Password
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
@@ -51,6 +51,22 @@ export default {
     },
     invalidPassword () {
       return !this.password.length > 6
+    }
+  },
+  methods: {
+    signup () {
+      this.formError = ''
+      this.$store.dispatch('userLogin', {
+        email: this.email,
+        password: this.password
+      })
+        .then(() => {
+          this.$router.push('/account')
+        })
+        .catch((error) => {
+          console.log(error)
+          this.formError = error.message
+        })
     }
   }
 }

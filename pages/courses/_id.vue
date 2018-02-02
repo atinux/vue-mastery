@@ -1,43 +1,46 @@
 <template lang="pug">
-  .container.course-wrapper(v-if="course" v-cloak)
-    .lesson-header
-      img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-      h1 {{ course.title }}
+.container.course-wrapper(v-if="course" v-cloak)
+  .lesson-header
+    img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
+    h1 {{ course.title }}
 
-    .lesson-video(v-if="current.videoEmbedId" v-cloak)
-      vimeo(:videoId = "current.videoEmbedId" :meta = "videoMeta")
+  .lesson-video(v-if="current.videoEmbedId" v-cloak)
+    vimeo(:videoId = "current.videoEmbedId" :meta = "videoMeta")
 
-    .lessons-list(v-if="course.lessons" v-cloak)
-      h3.title Lesson in this course
+  .lessons-list(v-if="course.lessons" v-cloak)
+    h3.title Lesson in this course
+    ul
+      li.lessons-list-item(v-for="(lesson, key) in course.lessons" 
+          v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
+        h4 {{ lesson.title }}
+        label {{ lesson.duration | time}}
+        input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
+
+  .lesson-content(v-if="current")
+    h2 {{ current.title}}
+    div(v-html="current.body")
+
+  aside.lesson-aside
+    socialShare
+    a(:href="current.downloadLink" download) Download
+    button.button.inverted.primary.-small(type="button" v-on:click="openShare") Share
+    .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
+      h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
       ul
-        li.lessons-list-item(v-for="(lesson, key) in course.lessons" 
-           v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
-          h4 {{ lesson.title }}
-          label {{ lesson.duration | time}}
-          input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
+        li(v-for="ressource in current.resources")
+          h4 {{ ressource[Object.keys(ressource)[0]] }}
 
-    .lesson-content(v-if="current")
-      h2 {{ current.title}}
-      div(v-html="current.body")
+    .lesson-challenge(v-if="current.codingChallenge" v-cloak)
+      h3 Coding Challenge
+      div(v-html="current.codingChallenge")
 
-    aside.lesson-aside
-      socialShare
-      a(:href="current.downloadLink" download) Download
-      button.button.inverted.primary.-small(type="button" v-on:click="openShare") Share
-      .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
-        h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
-        ul
-          li(v-for="ressource in current.resources")
-            h4 {{ ressource[Object.keys(ressource)[0]] }}
+  .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
+    button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
+    button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
 
-      .lesson-challenge(v-if="current.codingChallenge" v-cloak)
-        h3 Coding Challenge
-        div(v-html="current.codingChallenge")
-
-    .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
-      button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
-      button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
-
+  no-ssr
+    modal(name="next-lesson" v-cloak height="auto")
+      h2 Next Lesson:
 </template>
 
 <script>

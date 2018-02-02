@@ -16,10 +16,10 @@
         .actions(v-if="showAction" v-cloak)
           div(v-if="course.lessonsCount" v-cloak)
             span {{ course.lessonsCount | pluralizeLesson }}
-            .button.primary.-full(v-if="course.lessonsCount > 0 && accounts && accounts.completed[course.id]" v-cloak)
+            .button.primary.-full(v-if="checkCourseStarted(course.id)" v-cloak)
               | Resume
 
-            .button.secondary.border.-full(v-if="(course.lessonsCount > 0 && !accounts) || (course.lessonsCount > 0 && !accounts.completed[course.id])" v-cloak)
+            .button.secondary.border.-full(v-else v-cloak)
               | Play
 
           div(v-else v-cloak)
@@ -45,6 +45,16 @@ export default {
       if (!this.accounts.completed) {
         this.accounts.completed = []
       }
+    }
+  },
+
+  methods: {
+    checkCourseStarted (courseId) {
+      let started = false
+      try {
+        started = this.accounts.completed[courseId]
+      } catch (error) {}
+      return started
     }
   },
 

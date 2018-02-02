@@ -26,11 +26,21 @@ function createNewAccount (user) {
   })
 }
 
+function checkForFirstTime (user) {
+  firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
+    if (snapshot.val() === null) {
+      console.log('newUser')
+      createNewAccount(user)
+    } else {
+      console.log('not new user', user)
+    }
+  })
+}
+
 // actions
 const actions = {
   setAccountRef: firebaseAction(({ bindFirebaseRef }, path) => {
     return bindFirebaseRef('account', firebase.database().ref(path))
-    // return bindFirebaseRef('account', firebase.firestore().collection('accounts').doc(path))
   }),
   resetUser ({
     state
@@ -60,7 +70,7 @@ const actions = {
     return firebase.auth()
       .signInWithPopup(provider)
       .then((result) => {
-        createNewAccount({
+        checkForFirstTime({
           newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
           ...result.user
         })
@@ -89,7 +99,7 @@ const actions = {
     return firebase.auth()
       .signInWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        return this.dispatch(types.SET_USER, user)
+        return this.commit(types.SET_USER, user)
       })
   },
   userLogout ({ state }) {

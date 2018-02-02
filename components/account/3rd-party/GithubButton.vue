@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn" v-on:click.prevent="GithubButton" v-text="label"></button>
+  <button type="button" class="btn" v-on:click.prevent="GithubButton" v-text="label" v-bind:disabled="disabled"></button>
 </template>
 
 <script>
@@ -8,6 +8,9 @@ export default {
   props: {
     label: {
       required: true
+    },
+    disabled: {
+      default: false
     }
   },
   methods: {
