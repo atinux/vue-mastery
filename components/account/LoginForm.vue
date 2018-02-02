@@ -1,32 +1,31 @@
 <template lang="pug">
-form
-  fieldset
-    legend.h2 Login
-    .form-group
-      label Email
-      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
-      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
+form.form
+  .form-group
+    label Email
+    input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+    span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
-    .form-group
-      label Password
-      input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
-      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
+  .form-group
+    label Password
+    input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
+    span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
-    .form-group
-      slot
-        nuxt-link(to="/account/signup") Signup
-        |
-        nuxt-link(to="/account/password") Forgot your password?
+  .form-error
+    .error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
-    .form-group
-      .flash.flash-error(v-if="formError.length > 0" v-text="formError" v-cloak)
+  .form-actions
+    button.button.primary.-small(type="submit") Log In
 
-    .form-actions
-      button.button.primary(type="submit") Log In
+  .form-actions
+    GoogleButton.button.inverted.-small(label="Sign in with Google")
+    GithubButton.button.inverted.-small(label="Sign in with Github")
 
-    .control-group.-spaced
-      GoogleButton.button.secondary.border.-small(label="Sign in with Google")
-      GithubButton.button.secondary.border.-small(label="Sign in with Github")
+  .form-footer.-spaced
+    slot
+      nuxt-link(to="/account/signup") Signup
+      |
+      nuxt-link(to="/account/password") Forgot your password?
+
 </template>
 
 <script>
@@ -48,7 +47,7 @@ export default {
   },
   computed: {
     invalidEmail () {
-      return !this.email.includes('@')
+      return !this.email.includes('@') && this.email !== ''
     },
     invalidPassword () {
       return !this.password.length > 6

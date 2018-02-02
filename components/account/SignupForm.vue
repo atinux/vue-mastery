@@ -1,30 +1,32 @@
 <template lang="pug">
-form(v-on:submit.prevent="signup")
-  fieldset
-    legend.h2 Sign Up
-    .form-group
-      label Email
-      input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
-      span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
+form.form(v-on:submit.prevent="signup")
+  .form-group
+    label Email
+    input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="New Account Email" v-model="email" autocomplete="email")
+    span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
-    .form-group
-      label Password
-      input.input(v-bind:class="{ 'is-danger': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
-      span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
+  .form-group
+    label Password
+    input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="New Account Password" v-model="password")
+    span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
-    .form-group
-      label.checkbox
-        input(type="checkbox" name="terms")
-        span I accept the terms and conditions
+  .form-group
+    label.checkbox
+      input(type="checkbox" name="terms")
+      span I accept the terms and conditions
 
+  .form-error
+    .error(v-if="formError.length > 0" v-text="formError" v-cloak)
+
+  .form-actions
+    button.button.primary.-small(type="submit") Sign Up
     .control-group
-      button.button.primary.-small(type="submit") Sign Up
-      slot
-        nuxt-link.button.link.-small(to="/account/login") I already have an account
+      GoogleButton.button.inverted.-small(label="Sign up with Google")
+      GithubButton.button.inverted.-small(label="Sign up with Github")
 
-    .control-group.-spaced
-      GoogleButton.button.secondary.border.-small(label="Sign up with Google")
-      GithubButton.button.secondary.border.-small(label="Sign up with Github")
+  .form-footer
+    slot
+      nuxt-link.button.link.-small(to="/account/login") I already have an account
 </template>
 
 <script>
@@ -46,10 +48,10 @@ export default {
   },
   computed: {
     invalidEmail () {
-      return false // !this.email.includes('@')
+      return !this.email.includes('@') && this.email !== ''
     },
     invalidPassword () {
-      return false // !this.password.length > 12
+      return !this.password.length > 12
     }
   },
   methods: {

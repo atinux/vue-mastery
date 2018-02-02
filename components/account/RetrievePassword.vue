@@ -1,5 +1,5 @@
 <template lang="pug">
-form(v-on:submit.prevent="retrievePassword")
+form.form(v-on:submit.prevent="retrievePassword")
   .form-group
     label.visually-hidden Email
     input.input.primary.-hollow(v-bind:class="{ 'is-danger': invalidEmail }" type="email" placeholder="Account Email" v-model="email"  autocomplete="email")

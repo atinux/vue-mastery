@@ -15,6 +15,9 @@ $button-height-small = ($button-height - 10px)
   border-radius $form-radius
   cursor pointer
 
+  &:focus
+    outline none
+
   &.primary
     background: linear-gradient(to top right, #41B782 , #86D169)
 
@@ -52,11 +55,8 @@ $button-height-small = ($button-height - 10px)
     padding: 0
     color: $secondary-color
 
-.control-group
-  display flex
-  &.-spaced
-    justify-content space-between
-
+  & + .button
+    margin-left: 25px
 
 +tablet-up()
   .button
