@@ -158,7 +158,7 @@ export default {
     background-color: #1E3247
   
   .completed
-    background-color #fff
+    background-color #ccc
   
   .active
     background: linear-gradient(to top right, #41B782 , #86D169)
