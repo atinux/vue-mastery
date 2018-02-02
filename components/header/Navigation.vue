@@ -20,36 +20,17 @@
 
     no-ssr
       modal(name="login-form" v-cloak height="auto")
-        h2.modal-title Welcome back!
-        LoginForm
-          button.button.link(type="button" v-on:click="openSignUp") Sign Up
-          button.button.link(type="button" v-on:click="openPassword") Forgot your password?
-    
-    no-ssr
-      modal(name="sign-up-form" v-cloak height="auto")
-        h2.modal-title Let's Get You Signed Up.
-        SignupForm
-          button.button.link(type="button" v-on:click="openLogin") I already have an account
+        AuthForm(:newAccount="newAccount")
 
-
-    no-ssr
-      modal(name="password-form" v-cloak height="auto")
-        legend.h2.modal-title Retrieve your password
-        RetrievePasswordForm
-          button.button.link.inverted(type="button" v-on:click="openLogin") Or Sign In!
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import LoginForm from '~/components/account/LoginForm.vue'
-import RetrievePasswordForm from '~/components/account/RetrievePassword.vue'
-import SignupForm from '~/components/account/SignupForm.vue'
+import AuthForm from '~/components/account/AuthForm.vue'
 
 export default {
   components: {
-    LoginForm,
-    SignupForm,
-    RetrievePasswordForm
+    AuthForm
   },
   computed: {
     ...mapState({
@@ -64,7 +45,8 @@ export default {
   },
   data () {
     return {
-      editing: false
+      editing: false,
+      newAccount: true
     }
   },
   methods: {
@@ -78,18 +60,12 @@ export default {
         })
     },
     openLogin () {
-      this.$modal.hide('sign-up-form')
-      this.$modal.hide('password-form')
+      this.newAccount = false
       this.$modal.show('login-form')
     },
     openSignUp () {
-      this.$modal.hide('login-form')
-      this.$modal.hide('password-form')
-      this.$modal.show('sign-up-form')
-    },
-    openPassword () {
-      this.$modal.hide('login-form')
-      this.$modal.show('password-form')
+      this.newAccount = true
+      this.$modal.show('login-form')
     }
   }
 }
