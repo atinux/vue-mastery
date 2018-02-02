@@ -20,10 +20,10 @@ form.form(v-on:submit.prevent="submit")
     .error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
   .form-actions(@click="checkDisabled")
-    button.button.primary.-small(type="submit") {{ label }}
+    button.button.primary.-small(type="submit" :disabled="actionDisabled") {{ label }}
     .control-group(v-if="rememberPassword" v-cloak)
-      GoogleButton.button.inverted.-small(:label="label + ' with Google'")
-      GithubButton.button.inverted.-small(:label="label + ' with Github'")
+      GoogleButton.button.inverted.-small(:label="label + ' with Google'" :disabled="actionDisabled")
+      GithubButton.button.inverted.-small(:label="label + ' with Github'" :disabled="actionDisabled")
 
   .form-footer.-spaced
     .control-group(v-if="isNew" v-cloak)
@@ -76,12 +76,16 @@ export default {
     },
     invalidPassword () {
       return !this.password.length > 6
+    },
+    actionDisabled () {
+      return this.isNew ? !this.terms : false
     }
   },
   methods: {
     switchForm () {
       this.rememberPassword = true
       this.isNew = !this.isNew
+      this.terms = false
     },
     retrievePassword () {
       this.rememberPassword = false
