@@ -40,14 +40,6 @@ export default {
     })
   },
 
-  watch: {
-    accounts () {
-      if (!this.accounts.completed) {
-        this.accounts.completed = []
-      }
-    }
-  },
-
   methods: {
     checkCourseStarted (courseId) {
       let started = false
