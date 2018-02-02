@@ -28,12 +28,7 @@ function createNewAccount (user) {
 
 function checkForFirstTime (user) {
   firebase.database().ref('accounts').child(user.uid).once('value', (snapshot) => {
-    if (snapshot.val() === null) {
-      console.log('newUser')
-      createNewAccount(user)
-    } else {
-      console.log('not new user', user)
-    }
+    if (snapshot.val() === null) createNewAccount(user)
   })
 }
 
@@ -46,6 +41,7 @@ const actions = {
     state
   }) {
     state.user = null
+    state.account = null
   },
   userCreate ({ state }, account) {
     return firebase.auth()
@@ -86,7 +82,7 @@ const actions = {
     return firebase.auth()
       .signInWithPopup(provider)
       .then((result) => {
-        createNewAccount({
+        checkForFirstTime({
           newImage: result.additionalUserInfo.profile.avatar_url, // just use their existing user image to start
           ...result.user
         })
