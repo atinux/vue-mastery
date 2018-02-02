@@ -10,7 +10,7 @@
     div
       div(v-if="editing" v-cloak)
         p Edit Your Profile
-        EditAccountForm
+        EditAccountForm(:current="accounts")
 
       div(v-else)
         div(v-if="accounts" v-cloak)

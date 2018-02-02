@@ -1,28 +1,22 @@
-<template>
-  <form>
-    <dl class="form-group">
-      <dt><label class="text-inherit">Display Name</label></dt>
-      <dd class="control">
-        <input class="form-control" type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')">
-      </dd>
-    </dl>
-    <dl class="form-group">
-      <dt><label class="text-inherit">Profile Image</label></dt>
-      <dd class="control">
-        <input class="form-control" type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput">
-      </dd>
-    </dl>
-    <dl class="form-group">
-      <label class="text-inherit">
-        <input type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')">
-        I want to receive occasional emails about new educational content
-        </label>
-    </dl>
-    <div class="form-group">
-      <div class="flash" v-if="formSuccess.length > 0" v-text="formSuccess"></div>
-      <div class="flash flash-error" v-if="formError.length > 0" v-text="formError"></div>
-    </div>
-  </form>
+<template lang="pug">
+form.form
+  .form-group
+    label.label Display Name
+    input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
+  
+  .form-group
+    label.label Profile Image
+    input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
+
+  .form-group
+    label.checkbox
+      input(type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
+      | I want to receive occasional emails about new educational content
+
+  .form-error
+    .error(v-if="formError.length > 0" v-text="formError")
+    .success(v-if="formSuccess.length > 0" v-text="formSuccess")
+
 </template>
 
 <script>
@@ -30,26 +24,21 @@ import { mapState } from 'vuex'
 import firebase from 'firebase'
 
 export default {
-  computed: mapState([
-    'user',
-    'account'
-  ]),
+  computed: mapState({
+    accounts: result => result.accounts.account
+  }),
+  props: ['current'],
   data () {
     return {
       newData: {
-        displayName: '',
-        image: '',
-        subscribedToMailingList: false
+        displayName: this.current.displayName,
+        image: this.current.image,
+        subscribedToMailingList: this.current.subscribedToMailingList
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''
     }
-  },
-  mounted () {
-    this.newData.displayName = this.account.displayName
-    this.newData.image = this.account.image
-    this.newData.subscribedToMailingList = this.account.subscribedToMailingList
   },
   methods: {
     resetFormMessages () {
@@ -73,7 +62,7 @@ export default {
     updateProfileImage () {
       this.resetFormMessages()
       const file = this.$refs.fileInput.files[0]
-      const ref = firebase.storage().ref(`accounts/profile/${this.user.uid}`)
+      const ref = firebase.storage().ref(`accounts/profile/${this.accounts.uid}`)
       ref.put(file).then((snapshot) => {
         return this.$store.dispatch('userUpdateImage', snapshot.downloadURL)
       })
