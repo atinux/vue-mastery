@@ -1,11 +1,11 @@
 import Vuex from 'vuex'
-import accounts from './modules/accounts'
+import account from './modules/account'
 import courses from './modules/courses'
 
 const createStore = () => {
   return new Vuex.Store({
     modules: {
-      accounts,
+      account,
       courses
     }
   })

@@ -10,10 +10,10 @@
           router-link.navbar-item(to="/courses") Courses
           router-link.navbar-item(to="/about") About
         no-ssr
-          .navbar-secondary(v-cloak v-if="accounts")
+          .navbar-secondary(v-cloak v-if="account")
             button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
             nuxt-link.navbar-profile(to="/account")
-              img(v-bind:src="accounts.image" v-bind:alt="accounts.displayName")
+              img(v-bind:src="account.image" v-bind:alt="account.displayName")
           .navbar-secondary(v-cloak v-else)
             button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
             button.button.primary.-small(type="button" v-on:click="openLogin") Login
@@ -26,7 +26,7 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      accounts: result => result.accounts.account
+      account: result => result.account.account
     })
   },
   methods: {

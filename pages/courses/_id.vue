@@ -66,14 +66,14 @@ export default {
   computed: {
     ...mapState({
       course: result => result.courses.course,
-      accounts: result => result.accounts.account
+      account: result => result.account.account
     }),
 
     current () {
       let currentLesson = null
       let courseStarted = false
       try {
-        courseStarted = this.accounts.completed[this.courseId]
+        courseStarted = this.account.completed[this.courseId]
       } catch (error) {
         console.log('User not loggin')
       }

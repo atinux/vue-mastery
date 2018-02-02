@@ -35,7 +35,7 @@ export default {
   props: ['showAction'],
   computed: {
     ...mapState({
-      accounts: result => result.accounts.account,
+      account: result => result.account.account,
       courses: result => result.courses.courses
     })
   },
@@ -44,7 +44,7 @@ export default {
     checkCourseStarted (courseId) {
       let started = false
       try {
-        started = this.accounts.completed[courseId]
+        started = this.account.completed[courseId]
       } catch (error) {}
       return started
     }

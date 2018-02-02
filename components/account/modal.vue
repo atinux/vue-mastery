@@ -19,11 +19,11 @@ export default {
   },
   computed: {
     ...mapState({
-      accounts: result => result.accounts.account
+      account: result => result.account.account
     })
   },
   watch: {
-    accounts () {
+    account () {
       this.$modal.hide('login-form', { newAccount: false })
     }
   },
