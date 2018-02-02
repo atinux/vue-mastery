@@ -5,7 +5,7 @@
     h1 {{ course.title }}
 
   .lesson-video(v-if="current.videoEmbedId" v-cloak)
-    vimeo(:videoId = "current.videoEmbedId" :meta = "videoMeta")
+    vimeo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
   .lessons-list(v-if="course.lessons" v-cloak)
     h3.title Lesson in this course
@@ -75,7 +75,7 @@ export default {
       try {
         courseStarted = this.account.completed[this.courseId]
       } catch (error) {
-        console.log('User not loggin')
+        console.log('User not loggin or no lesson completed')
       }
       // If no lesson selected, get the first one of the course
       if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
@@ -90,12 +90,6 @@ export default {
         // Check if the user already watched the lesson video til the end
         lesson.isCompleted = courseStarted ? courseStarted.completedLessons[lesson.id] : false
       })
-      // Add data to video component to save watched videos
-      // TODO improve this flow?
-      this.videoMeta = {
-        lessonId: this.selectedLessonId,
-        courseId: this.courseId
-      }
       return currentLesson
     },
 
@@ -118,6 +112,13 @@ export default {
         this.selectedLessonId = nextLesson.id
         this.updateUrl()
       } else { console.log('Error: Lesson not found in course') }
+    },
+
+    lessonCompleted () {
+      this.$store.dispatch('userUpdateCompleted', {
+        lessonId: this.selectedLessonId,
+        courseId: this.courseId
+      })
     },
 
     openShare () {
