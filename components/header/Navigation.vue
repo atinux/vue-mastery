@@ -13,7 +13,7 @@
           .navbar-secondary(v-cloak v-if="accounts")
             button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
             nuxt-link.navbar-profile(to="/account")
-              img(v-bind:src="accounts.photoURL" v-bind:alt="accounts.displayName")
+              img(v-bind:src="accounts.image" v-bind:alt="accounts.displayName")
           .navbar-secondary(v-cloak v-else)
             button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
             button.button.primary.-small(type="button" v-on:click="openLogin") Login
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     ...mapState({
-      accounts: result => result.accounts.user
+      accounts: result => result.accounts.account
     })
   },
   watch: {
