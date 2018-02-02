@@ -5,7 +5,7 @@
     .body
       h2.h1.title Get the Ultimate Vue Cheat Sheet
       p.lead All the essential syntax at your fingertips.
-      nuxt-link.button.inverted(to="/download") Download it Free
+      a.button.inverted(href="/pdf/Vue-Essentials-Cheat-Sheet.pdf" download) Download it Free
 </template>
 
 <script>

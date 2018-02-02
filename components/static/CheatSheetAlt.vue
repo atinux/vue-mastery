@@ -2,7 +2,7 @@
   .banner
     .body
       h2.h1.title Grab our free 2-page cheat sheet!
-      nuxt-link.button.primary(to="/") Download it free
+      a.button.primary(href="/pdf/Vue-Essentials-Cheat-Sheet.pdf" download) Download it Free
 </template>
 
 <script>
