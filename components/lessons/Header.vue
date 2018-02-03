@@ -1,6 +1,6 @@
 <template lang="pug">
   .lesson-header
-    img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
+    img.lesson-header-img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
     h1 {{ course.title }}
 </template>
 
@@ -19,9 +19,9 @@ export default {
   display flex
   align-items center
 
-  img
-    width: 120px
-    height: 120px
-    overflow hidden
-    object-fit contain
+.lesson-header-img
+  width: 120px
+  height: 120px
+  overflow hidden
+  object-fit contain
 </style>

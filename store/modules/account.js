@@ -13,10 +13,6 @@ const state = {
 const getters = {
   isAuthenticated (state) {
     return !!state.user
-  },
-
-  completed (state) {
-    return state.account.completed
   }
 }
 

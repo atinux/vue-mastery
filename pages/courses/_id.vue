@@ -1,18 +1,11 @@
 <template lang="pug">
-.container.course-wrapper(v-if="course" v-cloak)
+.course-wrapper(v-if="course" v-cloak)
   
   lessonHeader(:course="course")
 
   lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-  .lessons-list(v-if="course.lessons" v-cloak)
-    h3.title Lesson in this course
-    ul
-      li.lessons-list-item(v-for="(lesson, key) in course.lessons" 
-          v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
-        h4 {{ lesson.title }}
-        label {{ lesson.duration | time}}
-        input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
+  lessonsList(:lessons="course.lessons" :current="lessonId"  @selectLesson="selectLesson")
 
   lessonBody(:course="current")
 
@@ -22,95 +15,84 @@
     lessonresources(:resources="current.resources")
     lessonChallenges(:challenges="current.codingChallenge")
 
-  .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
-    button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
-    button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
+  lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
 
-  no-ssr
-    modal(name="next-lesson" v-cloak height="auto")
-      h2 Next Lesson:
+  lessonPopup
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import lessonHeader from '~/components/lessons/Header'
 import lessonVideo from '~/components/lessons/Video'
+import lessonsList from '~/components/lessons/List'
 import lessonBody from '~/components/lessons/Body'
-import socialShare from '~/components/lessons/SocialSharing'
+import lessonNav from '~/components/lessons/Navigation'
 import lessonresources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
+import lessonPopup from '~/components/lessons/Popup'
+import socialShare from '~/components/lessons/SocialSharing'
+
 export default {
   data () {
     return {
       courseId: parseInt(this.$route.params.id),
-      selectedLessonId: parseInt(this.$route.query.lesson) || null,
-      lessonNumber: null,
-      videoMeta: null
-    }
-  },
-
-  components: {
-    lessonHeader,
-    lessonVideo,
-    lessonBody,
-    socialShare,
-    lessonresources,
-    lessonChallenges
-  },
-
-  computed: {
-    ...mapState({
-      course: result => result.courses.course,
-      account: result => result.account.account
-    }),
-
-    current () {
-      let currentLesson = null
-      // If no lesson selected, get the first one of the course
-      if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
-      this.course.lessons.map((lesson, index) => {
-        // Find the selected lesson in the list
-        if (this.selectedLessonId === lesson.id) {
-          // Load the current lesson
-          currentLesson = lesson
-          // Keep track of lesson index for the carousel
-          this.lessonNumber = index
-        }
-      })
-      return currentLesson
-    },
-
-    isFirst () { return this.lessonNumber === 0 },
-
-    isLast () { return this.lessonNumber === this.course.lessons.length - 1 }
-  },
-
-  methods: {
-    updateUrl () {
-      // Change url without redirecting to avoid page jump
-      history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.selectedLessonId}`)
-    },
-
-    goTo (lessonIndex) {
-      this.lessonNumber += lessonIndex
-      const nextLesson = this.course.lessons[this.lessonNumber]
-      // Double check if the index is not out of the array
-      if (nextLesson) {
-        this.selectedLessonId = nextLesson.id
-        this.updateUrl()
-      } else { console.log('Error: Lesson not found in course') }
-    },
-
-    lessonCompleted () {
-      this.$store.dispatch('userUpdateCompleted', {
-        lessonId: this.selectedLessonId,
-        courseId: this.courseId
-      })
+      lessonId: parseInt(this.$route.query.lesson) || null,
+      selected: null
     }
   },
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseId)
+  },
+
+  components: {
+    lessonHeader,
+    lessonVideo,
+    lessonsList,
+    lessonBody,
+    lessonNav,
+    lessonresources,
+    lessonChallenges,
+    lessonPopup,
+    socialShare
+  },
+
+  computed: {
+    ...mapState({
+      course: result => result.courses.course
+    }),
+
+    current () {
+      let currentLesson = null
+      // If no lesson selected, get the first one of the course
+      if (this.lessonId === null) this.lessonId = this.course.lessons[0].id
+      this.course.lessons.map((lesson, index) => {
+        // Find the selected lesson in the list
+        if (this.lessonId === lesson.id) {
+          // Load the current lesson
+          currentLesson = lesson
+          // Keep track of lesson index for the carousel
+          this.selected = index
+        }
+      })
+      return currentLesson
+    }
+  },
+
+  methods: {
+    selectLesson (id) {
+      this.lessonId = id
+      // Change url without redirecting to avoid page jump
+      history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
+    },
+
+    lessonCompleted () {
+      this.$store.dispatch('userUpdateCompleted', {
+        lessonId: this.lessonId,
+        courseId: this.courseId
+      })
+    }
   }
 }
 </script>
@@ -124,27 +106,7 @@ export default {
 
 .lessons-list
   grid-area list
-  background-color: #1E3247
-  color: #fff
   
-  .lessons-list-item
-    background-color: #1E3247
-  
-  .completed
-    background-color #ccc
-  
-  .active
-    background: linear-gradient(to top right, #41B782 , #86D169)
-
-  .title
-    background-color: #444444
-    margin-bottom: 0
-
-  .title,
-  .lessons-list-item
-    padding: 15px 20px
-    border-bottom: 1px solid #ccc
-
 .lesson-content
   grid-area content
 
