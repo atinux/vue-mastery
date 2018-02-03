@@ -34,7 +34,7 @@ const actions = {
         commit(types.RECEIVE_COURSES, { courses })
       })
   },
-  getCourse ({ commit, state }, id) {
+  getCourse ({ commit, state, rootState }, id) {
     return db.get('courses', id, {
       populate: [
         {
@@ -47,7 +47,11 @@ const actions = {
         }
       ]})
       .then(course => {
-        commit(types.RECEIVE_COURSE, { course })
+        let completed = false
+        try {
+          completed = rootState.account.account.completed[id]
+        } catch (error) {}
+        commit(types.RECEIVE_COURSE, { course, completed })
       })
   },
 
@@ -87,7 +91,11 @@ const mutations = {
   [types.RECEIVE_COURSES] (state, { courses }) {
     state.courses = courses
   },
-  [types.RECEIVE_COURSE] (state, { course }) {
+  [types.RECEIVE_COURSE] (state, { course, completed }) {
+    // Add completed mark to lesson already watched
+    course.lessons.map((lesson, index) => {
+      lesson.isCompleted = completed ? completed.completedLessons[lesson.id] : false
+    })
     state.course = course
   },
   [types.RECEIVE_LATEST_VIDEOS] (state, { latests }) {
@@ -95,6 +103,9 @@ const mutations = {
   },
   [types.RECEIVE_FREE_VIDEOS] (state, { free }) {
     state.free = free
+  },
+  [types.RECEIVE_COMPLETED_LESSON] (state, { course, completed }) {
+    state.completed = completed
   }
 }
 

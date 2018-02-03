@@ -1,5 +1,6 @@
 <template lang="pug">
-  vimeo-player(:video-id = "videoId" player-width="860" @ended="videoEnded")
+  .lesson-video(v-if="videoId" v-cloak)
+    vimeo-player(:video-id = "videoId" player-width="860" @ended="videoEnded")
 </template>
 
 <script>

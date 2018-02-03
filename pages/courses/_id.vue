@@ -1,11 +1,9 @@
 <template lang="pug">
 .container.course-wrapper(v-if="course" v-cloak)
-  .lesson-header
-    img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-    h1 {{ course.title }}
+  
+  lessonHeader(:course="course")
 
-  .lesson-video(v-if="current.videoEmbedId" v-cloak)
-    vimeo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
+  lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
   .lessons-list(v-if="course.lessons" v-cloak)
     h3.title Lesson in this course
@@ -16,23 +14,13 @@
         label {{ lesson.duration | time}}
         input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
 
-  .lesson-content(v-if="current")
-    h2 {{ current.title}}
-    div(v-html="current.body")
+  lessonBody(:course="current")
 
   aside.lesson-aside
-    socialShare
     a(:href="current.downloadLink" download) Download
-    button.button.inverted.primary.-small(type="button" v-on:click="openShare") Share
-    .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
-      h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
-      ul
-        li(v-for="ressource in current.resources")
-          h4 {{ ressource[Object.keys(ressource)[0]] }}
-
-    .lesson-challenge(v-if="current.codingChallenge" v-cloak)
-      h3 Coding Challenge
-      div(v-html="current.codingChallenge")
+    socialShare
+    lessonresources(:resources="current.resources")
+    lessonChallenges(:challenges="current.codingChallenge")
 
   .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
     button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
@@ -45,9 +33,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import vimeo from '~/components/lessons/Vimeo'
+import lessonHeader from '~/components/lessons/Header'
+import lessonVideo from '~/components/lessons/Video'
+import lessonBody from '~/components/lessons/Body'
 import socialShare from '~/components/lessons/SocialSharing'
-
+import lessonresources from '~/components/lessons/resources'
+import lessonChallenges from '~/components/lessons/Challenges'
 export default {
   data () {
     return {
@@ -59,8 +50,12 @@ export default {
   },
 
   components: {
-    vimeo,
-    socialShare
+    lessonHeader,
+    lessonVideo,
+    lessonBody,
+    socialShare,
+    lessonresources,
+    lessonChallenges
   },
 
   computed: {
@@ -71,12 +66,6 @@ export default {
 
     current () {
       let currentLesson = null
-      let courseStarted = false
-      try {
-        courseStarted = this.account.completed[this.courseId]
-      } catch (error) {
-        console.log('User not loggin or no lesson completed')
-      }
       // If no lesson selected, get the first one of the course
       if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
       this.course.lessons.map((lesson, index) => {
@@ -87,8 +76,6 @@ export default {
           // Keep track of lesson index for the carousel
           this.lessonNumber = index
         }
-        // Check if the user already watched the lesson video til the end
-        lesson.isCompleted = courseStarted ? courseStarted.completedLessons[lesson.id] : false
       })
       return currentLesson
     },
@@ -119,10 +106,6 @@ export default {
         lessonId: this.selectedLessonId,
         courseId: this.courseId
       })
-    },
-
-    openShare () {
-      this.$modal.show('share')
     }
   },
 
@@ -134,19 +117,7 @@ export default {
 
 <style lang="stylus" scoped>
 .lesson-header
-  background-color: #0A2B4E
-  color: #fff
   grid-area header
-  height 144px
-  display flex
-  align-items center
-
-  img
-    width: 120px
-    height: 120px
-    overflow hidden
-    object-fit contain
-
 
 .lesson-video
   grid-area video
