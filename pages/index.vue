@@ -15,8 +15,6 @@
       CheatSheetMain
     .community
       CommunitySupport
-    .podcast
-      VuePodcast
 </template>
 
 <script>
@@ -26,7 +24,6 @@ import Hero from '~/components/static/Hero'
 import MeetTeachers from '~/components/static/MeetTeachers'
 import CommunitySupport from '~/components/static/CommunitySupport'
 import CheatSheetMain from '~/components/static/CheatSheetMain'
-import VuePodcast from '~/components/static/VuePodcast'
 
 export default {
   middleware: 'anonymous',
@@ -39,8 +36,7 @@ export default {
     Free,
     MeetTeachers,
     CommunitySupport,
-    CheatSheetMain,
-    VuePodcast
+    CheatSheetMain
   }
 }
 </script>
@@ -48,7 +44,7 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-containers = hero free-videos course-list meet-teachers cheatsheet community podcast
+containers = hero free-videos course-list meet-teachers cheatsheet community
 .homepage
   display grid
   grid-template-columns 1fr 1fr
@@ -57,8 +53,7 @@ containers = hero free-videos course-list meet-teachers cheatsheet community pod
     "course-list course-list"\
     "meet-teachers meet-teachers"\
     "cheatsheet cheatsheet"\
-    "community community"\
-    "podcast podcast"
+    "community community"
 
   for container in containers
     .{container}

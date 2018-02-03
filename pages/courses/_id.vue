@@ -10,7 +10,7 @@
   .lessons-list(v-if="course.lessons" v-cloak)
     h3.title Lesson in this course
     ul
-      li.lessons-list-item(v-for="(lesson, key) in course.lessons" 
+      li.lessons-list-item(v-for="(lesson, key) in course.lessons"
           v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
         h4 {{ lesson.title }}
         label {{ lesson.duration | time}}
@@ -22,8 +22,8 @@
 
   aside.lesson-aside
     socialShare
-    a(:href="current.downloadLink" download) Download
-    button.button.inverted.primary.-small(type="button" v-on:click="openShare") Share
+    a.button.secondary(:href="current.downloadLink" download) Download
+    button.button.primary.border(type="button" v-on:click="openShare") Share
     .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
       h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
       ul
@@ -34,7 +34,7 @@
       h3 Coding Challenge
       div(v-html="current.codingChallenge")
 
-  .lessons-nav(v-if="course.lessons && course.lessons.length > 1" v-cloak)
+  .lessons-nav.paginate(v-if="course.lessons && course.lessons.length > 1" v-cloak)
     button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
     button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
 
@@ -155,13 +155,13 @@ export default {
   grid-area list
   background-color: #1E3247
   color: #fff
-  
+
   .lessons-list-item
     background-color: #1E3247
-  
+
   .completed
     background-color #ccc
-  
+
   .active
     background: linear-gradient(to top right, #41B782 , #86D169)
 

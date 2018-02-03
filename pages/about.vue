@@ -32,13 +32,11 @@
       nuxt-link.button.secondary.border(to="/courses") START LEARNING NOW
 
   CheatSheetAlt
-  VuePodcast
 </template>
 
 <script>
 import PlayerPlaceholder from '~/components/static/PlayerPlaceholder'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
-import VuePodcast from '~/components/static/VuePodcast'
 
 export default {
   middleware: 'anonymous',
@@ -47,8 +45,7 @@ export default {
   },
   components: {
     PlayerPlaceholder,
-    CheatSheetAlt,
-    VuePodcast
+    CheatSheetAlt
   }
 }
 </script>

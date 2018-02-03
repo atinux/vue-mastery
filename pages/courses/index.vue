@@ -6,14 +6,12 @@
       CourseList(showAction="true")
       Latest
     CheatSheetAlt
-    VuePodcast
 </template>
 
 <script>
 import CourseList from '~/components/courses/List'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
-import VuePodcast from '~/components/static/VuePodcast'
 
 export default {
   middleware: 'anonymous',
@@ -27,8 +25,7 @@ export default {
   components: {
     CourseList,
     Latest,
-    CheatSheetAlt,
-    VuePodcast
+    CheatSheetAlt
   }
 }
 </script>
