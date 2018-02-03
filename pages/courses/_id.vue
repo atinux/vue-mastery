@@ -17,7 +17,7 @@
 
   lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
 
-  lessonPopup
+  lessonPopup(@selectLesson="selectLesson")
 
 </template>
 
@@ -88,6 +88,11 @@ export default {
     },
 
     lessonCompleted () {
+      if (this.selected < this.course.lessons.length - 1) {
+        this.$modal.show('next-lesson', {
+          lesson: this.course.lessons[this.selected + 1]
+        })
+      }
       this.$store.dispatch('userUpdateCompleted', {
         lessonId: this.lessonId,
         courseId: this.courseId

@@ -1,7 +1,7 @@
 <template lang="pug">
 .lessons-nav(v-if="lessons && lessons.length > 1" v-cloak)
-  button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
-  button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
+  button.prev(@click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
+  button.next(@click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
 </template>
 
 <script>
