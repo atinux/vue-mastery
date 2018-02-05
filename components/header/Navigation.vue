@@ -99,6 +99,7 @@ export default {
   top 0
 
   +laptop-up()
+    background-color transparent
     pointer-events: initial
     opacity: 1
     justify-content space-between
