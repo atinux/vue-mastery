@@ -18,16 +18,24 @@ export default { name: 'CommunitySupport' }
     justify-content center
     text-align center
     background-image url(/images/bkg-giveback.svg)
-    .body
-      grid-row-start 2
-    .title
-      color $primary-color
-      margin 0
+
+  .body
+    grid-row-start 2
+
+  .title
+    color $primary-color
+    margin 0
+
+  .lead
+    max-width 690px
+    font-size 16px
+    color $gray
+
+  .amount
+    color $primary-color
+    margin 0
+    
+  +tablet-up()
     .lead
-      max-width 690px
       font-size 24px
-      color $gray
-    .amount
-      color $primary-color
-      margin 0
 </style>
