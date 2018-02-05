@@ -20,16 +20,16 @@ footer.footer.section
       li
         nuxt-link(to='/terms' class="-inverted") Terms of Service
   
-  .form-section
-    h4 Get notified when we release new lessons.
-    form.form
-      .form-group
-        label.visually-hidden Name
-        input(class="input primary -hollow" placeholder="Name")
-      .form-group
-        label.visually-hidden Email
-        input(class="input primary -hollow" placeholder="Email")
-      button(type="submit" class="button primary -small") Subscribe
+  //- .form-section
+  //-   h4 Get notified when we release new lessons.
+  //-   form.form
+  //-     .form-group
+  //-       label.visually-hidden Name
+  //-       input(class="input primary -hollow" placeholder="Name")
+  //-     .form-group
+  //-       label.visually-hidden Email
+  //-       input(class="input primary -hollow" placeholder="Email")
+  //-     button(type="submit" class="button primary -small") Subscribe
 </template>
 
 <script>
@@ -53,11 +53,12 @@ export default {'name': 'Footer'}
   +tablet-up()
     text-align left
     grid-template-columns 1fr 1fr
-    grid-template-areas "brand nav ."\
-                        "form . ."
-  +laptop-up()
-    grid-template-columns 1fr 1fr 1fr
-    grid-template-areas "brand nav form"
+    grid-template-areas "brand nav"
+    // grid-template-areas "brand nav ."\
+    //                     "form . ."
+  // +laptop-up()
+  //   grid-template-columns 1fr 1fr 1fr
+  //   grid-template-areas "brand nav form"
 
 .brand
   grid-area brand
