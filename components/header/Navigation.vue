@@ -168,7 +168,6 @@ export default {
 
 <style lang="stylus">
 @import '~assets/css/_variables.styl'
- $element-count = 5
 
 .open-nav
   max-height: 100vh
