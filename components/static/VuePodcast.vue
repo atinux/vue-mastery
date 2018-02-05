@@ -33,16 +33,21 @@ export default {
   @import '~assets/css/_variables'
   .banner
     grid-tempalate-columns 1fr 1fr
-    padding-top ($vertical-space * 2)
-    padding-bottom ($vertical-space * 2)
+    padding-top $vertical-space
+    padding-bottom $vertical-space
     background-image url(/images/bkg-podcast.jpg)
-    grid-template-areas "body body"\
-                        "media media"
+    grid-template-areas "media media"\
+                        "body body"
+
   .media
     display grid
     grid-area media
     align-items center
     justify-content center
+    margin-bottom 1em
+    img
+      justify-self center
+      width 70%
   .body
     display grid
     grid-area body
@@ -54,14 +59,33 @@ export default {
       margin 0
     .lead
       max-width 690px
-      font-size 20px
+      font-size 16px
       color $secondary-color
-    .actions .button:first-of-type
-      margin-right 1em
+  .actions .button
+    width 100%
+    & + .button
+      margin-left 0
+
   +laptop-up()
     .banner
+      padding-top ($vertical-space * 2)
+      padding-bottom ($vertical-space * 2)
       grid-template-areas "body media"\
                           "body media"
+    .media
+      margin-bottom 0
+      img
+        justify-self center
+        width 100%
     .body
       text-align left
+
+      .lead
+        max-width 690px
+        font-size 20px
+
+    .actions .button
+      width max-content
+      & + .button
+        margin-left 25px
 </style>
