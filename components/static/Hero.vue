@@ -38,7 +38,7 @@ export default {
       padding-bottom ($vertical-space/1.5)
       // background-position 85% top
       // background-size 185%
-      backgrond-size cover
+      background-size cover
       background-position bottom
 
   .body
