@@ -1,5 +1,5 @@
 <template lang="pug">
-  .header
+  header.header
     nuxt-link.logo(to="/")
       span.visually-hidden Vue mastery
       img(src="/images/logo.png" role="logo")
