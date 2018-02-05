@@ -7,6 +7,22 @@ const createStore = () => {
     modules: {
       account,
       courses
+    },
+    state: {
+      openNav: false
+    },
+    getters: {
+      openNav: state => state.openNav
+    },
+    actions: {
+      toggleNav ({ commit }) {
+        commit('toggleNav')
+      }
+    },
+    mutations: {
+      toggleNav (state) {
+        state.openNav = !state.openNav
+      }
     }
   })
 }
