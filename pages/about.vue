@@ -12,7 +12,7 @@
         li Co-producing the Official Vue News
         li Producing the Official Vue.js Podcast
 
-        nuxt-link.button.secondary.border(to="/courses") View Our Courses
+      nuxt-link.button.secondary.border(to="/courses") View Our Courses
 
     .team-media
       PlayerPlaceholder
@@ -87,7 +87,7 @@ ul
   .wrapper
     margin $vertical-space 0
     grid-template-columns 1fr 1fr
-    grid-row-gap $vertical-space
+    grid-row-gap $vertical-space * 1.5
     grid-column-gap ($vertical-space/2)
     align-items: center
     grid-template-areas "mission mission-media"\
