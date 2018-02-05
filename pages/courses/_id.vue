@@ -1,152 +1,109 @@
 <template lang="pug">
-.container.course-wrapper(v-if="course" v-cloak)
-  .lesson-header
-    img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-    h1 {{ course.title }}
+.course-wrapper(v-if="course" v-cloak)
 
-  .lesson-video(v-if="current.videoEmbedId" v-cloak)
-    vimeo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
+  lessonHeader(:course="course")
 
-  .lessons-list(v-if="course.lessons" v-cloak)
-    h3.title Lesson in this course
-    ul
-      li.lessons-list-item(v-for="(lesson, key) in course.lessons"
-          v-bind:class="{ active: selectedLessonId === lesson.id , completed: lesson.isCompleted }")
-        h4 {{ lesson.title }}
-        label {{ lesson.duration | time}}
-        input(type="radio" v-model="selectedLessonId" v-bind:value="lesson.id" v-on:click="updateUrl")
+  lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-  .lesson-content(v-if="current")
-    h2 {{ current.title}}
-    div(v-html="current.body")
+  lessonsList(:lessons="course.lessons" :current="lessonId"  @selectLesson="selectLesson")
+
+  lessonBody(:course="current")
 
   aside.lesson-aside
+    a(:href="current.downloadLink" download) Download
     socialShare
-    a.button.secondary(:href="current.downloadLink" download) Download
-    button.button.primary.border(type="button" v-on:click="openShare") Share
-    .lesson-ressources(v-if="current.resources && current.resources.length" v-cloak)
-      h3 Lesson Ressource{{ current.resources.length > 1 ? 's' : '' }}
-      ul
-        li(v-for="ressource in current.resources")
-          h4 {{ ressource[Object.keys(ressource)[0]] }}
+    lessonresources(:resources="current.resources")
+    lessonChallenges(:challenges="current.codingChallenge")
 
-    .lesson-challenge(v-if="current.codingChallenge" v-cloak)
-      h3 Coding Challenge
-      div(v-html="current.codingChallenge")
+  lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
 
-  .lessons-nav.paginate(v-if="course.lessons && course.lessons.length > 1" v-cloak)
-    button.prev(v-on:click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
-    button.next(v-on:click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
-
-  no-ssr
-    modal(name="next-lesson" v-cloak height="auto")
-      h2 Next Lesson:
+  lessonPopup(@selectLesson="selectLesson")
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import vimeo from '~/components/lessons/Vimeo'
+import lessonHeader from '~/components/lessons/Header'
+import lessonVideo from '~/components/lessons/Video'
+import lessonsList from '~/components/lessons/List'
+import lessonBody from '~/components/lessons/Body'
+import lessonNav from '~/components/lessons/Navigation'
+import lessonresources from '~/components/lessons/resources'
+import lessonChallenges from '~/components/lessons/Challenges'
+import lessonPopup from '~/components/lessons/Popup'
 import socialShare from '~/components/lessons/SocialSharing'
 
 export default {
   data () {
     return {
       courseId: parseInt(this.$route.params.id),
-      selectedLessonId: parseInt(this.$route.query.lesson) || null,
-      lessonNumber: null,
-      videoMeta: null
-    }
-  },
-
-  components: {
-    vimeo,
-    socialShare
-  },
-
-  computed: {
-    ...mapState({
-      course: result => result.courses.course,
-      account: result => result.account.account
-    }),
-
-    current () {
-      let currentLesson = null
-      let courseStarted = false
-      try {
-        courseStarted = this.account.completed[this.courseId]
-      } catch (error) {
-        console.log('User not loggin or no lesson completed')
-      }
-      // If no lesson selected, get the first one of the course
-      if (this.selectedLessonId === null) this.selectedLessonId = this.course.lessons[0].id
-      this.course.lessons.map((lesson, index) => {
-        // Find the selected lesson in the list
-        if (this.selectedLessonId === lesson.id) {
-          // Load the current lesson
-          currentLesson = lesson
-          // Keep track of lesson index for the carousel
-          this.lessonNumber = index
-        }
-        // Check if the user already watched the lesson video til the end
-        lesson.isCompleted = courseStarted ? courseStarted.completedLessons[lesson.id] : false
-      })
-      return currentLesson
-    },
-
-    isFirst () { return this.lessonNumber === 0 },
-
-    isLast () { return this.lessonNumber === this.course.lessons.length - 1 }
-  },
-
-  methods: {
-    updateUrl () {
-      // Change url without redirecting to avoid page jump
-      history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.selectedLessonId}`)
-    },
-
-    goTo (lessonIndex) {
-      this.lessonNumber += lessonIndex
-      const nextLesson = this.course.lessons[this.lessonNumber]
-      // Double check if the index is not out of the array
-      if (nextLesson) {
-        this.selectedLessonId = nextLesson.id
-        this.updateUrl()
-      } else { console.log('Error: Lesson not found in course') }
-    },
-
-    lessonCompleted () {
-      this.$store.dispatch('userUpdateCompleted', {
-        lessonId: this.selectedLessonId,
-        courseId: this.courseId
-      })
-    },
-
-    openShare () {
-      this.$modal.show('share')
+      lessonId: parseInt(this.$route.query.lesson) || null,
+      selected: null
     }
   },
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseId)
+  },
+
+  components: {
+    lessonHeader,
+    lessonVideo,
+    lessonsList,
+    lessonBody,
+    lessonNav,
+    lessonresources,
+    lessonChallenges,
+    lessonPopup,
+    socialShare
+  },
+
+  computed: {
+    ...mapState({
+      course: result => result.courses.course
+    }),
+
+    current () {
+      let currentLesson = null
+      // If no lesson selected, get the first one of the course
+      if (this.lessonId === null) this.lessonId = this.course.lessons[0].id
+      this.course.lessons.map((lesson, index) => {
+        // Find the selected lesson in the list
+        if (this.lessonId === lesson.id) {
+          // Load the current lesson
+          currentLesson = lesson
+          // Keep track of lesson index for the carousel
+          this.selected = index
+        }
+      })
+      return currentLesson
+    }
+  },
+
+  methods: {
+    selectLesson (id) {
+      this.lessonId = id
+      // Change url without redirecting to avoid page jump
+      history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
+    },
+
+    lessonCompleted () {
+      if (this.selected < this.course.lessons.length - 1) {
+        this.$modal.show('next-lesson', {
+          lesson: this.course.lessons[this.selected + 1]
+        })
+      }
+      this.$store.dispatch('userUpdateCompleted', {
+        lessonId: this.lessonId,
+        courseId: this.courseId
+      })
+    }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
 .lesson-header
-  background-color: #0A2B4E
-  color: #fff
   grid-area header
-  height 144px
-  display flex
-  align-items center
-
-  img
-    width: 120px
-    height: 120px
-    overflow hidden
-    object-fit contain
-
 
 .lesson-video
   grid-area video
@@ -173,7 +130,6 @@ export default {
   .lessons-list-item
     padding: 15px 20px
     border-bottom: 1px solid #ccc
-
 .lesson-content
   grid-area content
 
