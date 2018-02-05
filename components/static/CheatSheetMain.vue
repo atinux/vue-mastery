@@ -24,23 +24,40 @@ export default { 'name': 'CheatSheetMain' }
     display grid
     grid-area media
     justify-content center
+    img
+      align-self end
+      justify-self center
+      width 70%
+
   .body
     display grid
     grid-area body
-    padding-bottom $vertical-space
+    padding-bottom 1em
     text-align center
-    .title
-      color $secondary-color
-      margin 0
-    .lead
-      max-width 690px
-      font-size 24px
-      color $secondary-color
-    .button
-      justify-self center
-      text-transform uppercase
+
+  .title
+    color $secondary-color
+    margin 0
+
+  .lead
+    max-width 690px
+    font-size 16px
+    color $secondary-color
+
+  .button
+    justify-self center
+    text-transform uppercase
+
   +laptop-up()
     .banner
       grid-template-areas "media body"\
                           "media body"
+    .media img
+      justify-self center
+      width 100%
+
+    .body
+      padding-bottom $vertical-space
+    .lead
+      font-size 24px
 </style>
