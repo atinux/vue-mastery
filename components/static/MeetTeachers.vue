@@ -18,15 +18,16 @@ export default { 'name': 'MeetTeachers' }
 <style lang="stylus" scoped>
   @import '~assets/css/_variables.styl'
   .banner
-    padding-top $vertical-space
-    padding-bottom $vertical-space
+    padding-top ($vertical-space/2)
+    padding-bottom ($vertical-space/2)
     grid-template-columns 1fr
+    grid-row-gap 2em
     grid-template-areas "title"\
                         "gregg"\
                         "adam"
   .title
     grid-area title
-    margin-bottom $vertical-space
+    margin-bottom ($vertical-space/2)
     border-bottom solid 2px $secondary-color
     color $secondary-color
     text-align center
@@ -45,7 +46,14 @@ export default { 'name': 'MeetTeachers' }
     grid-area adam
   +tablet-up()
     .banner
+      padding-top $vertical-space
+      padding-bottom $vertical-space
+      grid-column-gap 4%
+      grid-row-gap 0
       grid-template-columns 1fr 1fr
       grid-template-areas "title title"\
                           "gregg adam"
+
+    .title
+      margin-bottom $vertical-space
 </style>
