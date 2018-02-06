@@ -3,6 +3,8 @@
 
   lessonHeader(:course="course")
 
+  courseSubscribe(:course="course")
+
   lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
   lessonsList(:lessons="course.lessons" :current="lessonId"  @selectLesson="selectLesson")
@@ -30,6 +32,7 @@ import lessonNav from '~/components/lessons/Navigation'
 import lessonresources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
+import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
 
 export default {
@@ -54,7 +57,8 @@ export default {
     lessonresources,
     lessonChallenges,
     lessonPopup,
-    socialShare
+    socialShare,
+    courseSubscribe
   },
 
   computed: {
@@ -95,6 +99,13 @@ export default {
       this.$store.dispatch('userUpdateCompleted', {
         lessonId: this.lessonId,
         courseId: this.courseId
+      })
+    },
+
+    courseSubscribe (subscribed) {
+      this.$store.dispatch('userUpdateSubscribe', {
+        courseId: this.courseId,
+        subscribed: subscribed
       })
     }
   }
