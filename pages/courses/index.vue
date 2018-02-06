@@ -54,9 +54,10 @@ export default {
 .couses-body
   display: grid
   width: 100%
-  grid-template-columns: 63% 35%
   grid-column-gap: 2%
   grid-row-gap: 45px
   padding: 60px 4%
 
+  +laptop-up()
+    grid-template-columns: 63% 35%
 </style>

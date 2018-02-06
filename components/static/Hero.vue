@@ -33,6 +33,14 @@ export default {
     background-size auto
     background-repeat no-repeat
 
+    +laptop-up()
+      padding-top ($header-height + $vertical-space/1.5)
+      padding-bottom ($vertical-space/1.5)
+      // background-position 85% top
+      // background-size 185%
+      backgrond-size cover
+      background-position bottom
+
   .body
     display grid
     justify-content center
@@ -48,17 +56,11 @@ export default {
     font-size 18px
     color $gray
 
+    +laptop-up()
+      font-size: 24px
+
   .actions
     display flex
     justify-content center
 
-  +laptop-up()
-    .banner
-      padding-top ($header-height + $vertical-space/1.5)
-      padding-bottom ($vertical-space/1.5)
-      background-position 85% top
-      background-size 185%
-
-    .lead
-      font-size: 24px
 </style>

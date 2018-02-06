@@ -1,27 +1,21 @@
 <template lang="pug">
-  .header
-    .container
-      nuxt-link.logo(to="/")
-        span.visually-hidden Vue mastery
-        img(src="/images/logo.png" role="logo")
-
-      nav.navbar(role="navigation" aria-label="main navigation")
-        .navbar-main
-          router-link.navbar-item(to="/courses") Courses
-          router-link.navbar-item(to="/about") About
-        no-ssr
-          .navbar-secondary(v-cloak v-if="account")
-            button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
-            nuxt-link.navbar-profile(to="/account")
-              img(v-bind:src="account.image" v-bind:alt="account.displayName")
-          .navbar-secondary(v-cloak v-else)
-            button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
-            button.button.primary.-small(type="button" v-on:click="openLogin") Login
+  nav.navbar(role="navigation" aria-label="main navigation" @click="toggleNav()")
+    .navbar-main
+      router-link.navbar-item(to="/courses") Courses
+      router-link.navbar-item(to="/about") About
+    no-ssr
+      .navbar-secondary(v-cloak v-if="account")
+        button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
+        nuxt-link.navbar-profile(to="/account")
+          img(v-bind:src="account.image" v-bind:alt="account.displayName")
+      .navbar-secondary(v-cloak v-else)
+        button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
+        button.button.primary.-small(type="button" v-on:click="openLogin") Login
 
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -30,6 +24,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions([
+      'toggleNav'
+    ]),
     signOut () {
       this.$store.dispatch('userLogout')
         .then(() => {
@@ -44,6 +41,38 @@ export default {
     },
     openSignUp () {
       this.$modal.show('login-form', { newAccount: true })
+    },
+    keyboardNav (e) {
+      this.currentPage = this.pages.indexOf(this.$route.name.toLowerCase())
+
+      // Map keyboard shorcut to navigation
+      switch (e.keyCode) {
+        case 13: { // Enter
+          this.toggleNav()
+          break
+        }
+        case 27: { // Escape
+          this.toggleNav()
+          break
+        }
+        case 39: { // Right
+          // if (this.$route.name.match(/^(courses)$/)) this.nextLessons()
+          break
+        }
+        case 40: { // Left
+          // if (this.$route.name.match(/^(courses)$/)) this.previousLessons()
+          break
+        }
+        default: { return null }
+      }
+      return this.currentPage
+    },
+    created () {
+      // Map keyboard shorcut to navigation
+      window.addEventListener('keyup', this.keyboardNav)
+    },
+    beforeDestroy () {
+      window.removeEventListener('keyup')
     }
   }
 }
@@ -52,30 +81,40 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables.styl'
 
-.container
 .navbar
-  height $header-height
+  position: fixed
+  height 100%
   display flex
   flex-wrap wrap
   align-items center
+  justify-content center
+  flex 1
+  left 0
+  width 100%
+  flex-direction column
+  background-color #fff
+  opacity 0
+  transition opacity .2s ease-in
+  pointer-events: none
+  top 0
 
-.header
-  height $header-height
-  padding 0 4%
-  position relative
-  z-index 2
-
-.navbar
-  justify-content space-between
-  flex: 1
+  +laptop-up()
+    background-color transparent
+    pointer-events: initial
+    opacity: 1
+    justify-content space-between
+    position relative
+    height $header-height
+    flex-direction: row
+    position: relatif
 
 .navbar-item
-  padding-right 20px
   color $secondary-color
   font-family $font-family-base
-  font-size 16px
+  font-size 20px
   text-decoration none
   white-space nowrap
+  opacity: 0
 
   &.nuxt-link-active
     font-weight 700
@@ -83,21 +122,36 @@ export default {
   &:last-child
     padding-right 0
 
-.logo
-  display block
-  max-width 150px
-  margin-top: 10px
+  +laptop-up()
+    opacity: 1
+    padding-right 52px
 
-  img
-    display block
-    width 100%
+.button
+  opacity: 0
+  font-size: 20px
 
+  + button
+    margin 0
+
+  +laptop-up()
+    font-size: 18px
+    opacity: 1
+
+
+.navbar-main,
 .navbar-secondary
   display: flex
+  flex-direction: column
+  height: 210px
+  text-align: center
+  justify-content: space-evenly
   align-items: center
 
-  .button
-    margin-left 18px
+  +laptop-up()
+    flex-direction: row
+    height: $header-height
+    .button
+      margin-left 18px
 
 .navbar-profile
   display flex
@@ -111,14 +165,32 @@ export default {
   img
     width 100%
 
-+tablet-up()
-  .logo
-    max-width 282px
-    min-width 200px
-    margin-right 70px
-    margin-top -10px
+</style>
 
+<style lang="stylus">
+@import '~assets/css/_variables.styl'
+
+.open-nav
+  max-height: 100vh
+  overflow: hidden
+
+  +laptop-up()
+    max-height 100%
+
+  .navbar
+    pointer-events: initial
+    opacity: 1
+
+  .button,
   .navbar-item
-    padding-right 52px
-    font-size 20px
+    opacity: 1
+    transition-duration: .4s
+    for i in (1..2)
+      &:nth-child({i})
+        transition-delay: (i*100)ms
+
+  .button
+    for i in (1..2)
+      &:nth-child({i})
+        transition-delay: (i*100 + 200)ms
 </style>
