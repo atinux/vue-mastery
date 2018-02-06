@@ -70,8 +70,7 @@ const actions = {
       orderByChild: 'free',
       equalTo: true,
       populate: [{
-        field: 'image',
-        subFields: [ 'image' ]
+        field: 'image'
       }]
     }).then(free => {
       commit(types.RECEIVE_FREE_VIDEOS, { free })
