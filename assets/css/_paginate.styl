@@ -3,19 +3,38 @@
 
   .next,
   .prev
-    height 118px
+    display flex
+    align-items center
+    width 100%
+    height 80px
     width 50%
     padding 0 2em
     border none
     color #fff
-    font-size 32px
+    font-size 18px
     font-weight 600
     cursor pointer
+    i
+      font-size 24px
 
   .next
     background linear-gradient(to right, #41B782 , #86D169)
     text-align left
+    i
+      margin-left 15px
+
 
   .prev
     background linear-gradient(to right, #122549, #203762)
     text-align right
+    justify-content flex-end
+    i
+      margin-right 15px
+
+  +tablet-up()
+    .next,
+    .prev
+      height 118px
+      font-size 32px
+      i
+        font-size 50px
