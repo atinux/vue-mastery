@@ -7,7 +7,9 @@
     p.lead We also help produce the Official Vue.js News. It's a free community resource where we curate the most impactful Vue.js news and tutorials. Consider subscribing today.
     .actions
       nuxt-link.button.primary(to="https://news.vuejs.org/" target="_blank") Visit News.Vuejs.Org
-      .button.secondary(@click="podcastUrl") Listen to the podcast
+      .button.secondary.-has-icon(@click="podcastUrl")
+        i.fa.fa-volume-up
+        span Listen to the podcast
 </template>
 
 <script>
