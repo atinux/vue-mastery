@@ -44,6 +44,7 @@ export default {
   position: absolute
 
   +laptop-up()
+    display: none
     transform: translateX(200%)
 
   &:focus
@@ -86,7 +87,7 @@ export default {
   0%
     transform: translateX(200%)
     height: 0rem
-  
+
   50%
     transform: translateX(0)
     height: 0rem
