@@ -42,9 +42,55 @@ $input-height-small = ($input-height - 10px)
   justify-content: flex-start
   align-items center
   font-size $font-size-base * 0.875
+  .mark
   input[type="checkbox"]
     margin-top: -2px
     margin-right 10px
+
+.checkmark
+  display block
+  position relative
+  padding-left 22px
+  margin-bottom 22px
+  font-size 22px
+  cursor pointer
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+  .check
+    position absolute
+    top 0
+    left 0
+    height 22px
+    width 22px
+    border solid 2px #EBFDEC
+    background-color transparent
+    border-radius 4px
+    &::after
+      content ""
+      position absolute
+      display none
+      left 6px
+      top 1px
+      width 5px
+      height 10px
+      border solid $primary-color
+      border-width 0 2px 2px 0
+      -webkit-transform rotate(45deg)
+      -ms-transform rotate(45deg)
+      transform rotate(45deg)
+  input[type="checkbox"]
+    position absolute
+    opacity 0
+    cursor pointer
+    &:checked ~ .check
+      border-color $primary-color
+      background-color #FFF
+      &:after
+        display block
+  &:hover input ~ .check
+    background-color #FFF
 
 .help-text
   display block

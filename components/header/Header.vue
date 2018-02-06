@@ -6,7 +6,6 @@
 
     navigation
     hambuger
-
 </template>
 
 <script>
@@ -58,5 +57,4 @@ export default {
     max-width 282px
     min-width 200px
     margin: -10px 70px 0 0
-
 </style>

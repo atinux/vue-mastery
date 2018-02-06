@@ -5,7 +5,7 @@ footer.footer.section
       span.visually-hidden Vue mastery
       img(src="/images/lgo-vue-mastery-white.png" role="logo")
     p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
-  
+
   .nav
     h4 Navigate
     ul
@@ -19,7 +19,6 @@ footer.footer.section
         nuxt-link(to='/privacy' class="-inverted") Privacy Policy
       li
         nuxt-link(to='/terms' class="-inverted") Terms of Service
-  
   //- .form-section
   //-   h4 Get notified when we release new lessons.
   //-   form.form
@@ -79,10 +78,10 @@ export default {'name': 'Footer'}
 .nav
   grid-area nav
   justify-self center
-  
+
   h4
     text-transform uppercase
-  
+
   li
     margin 15px 0
 
@@ -91,7 +90,7 @@ export default {'name': 'Footer'}
 
   .form
     display grid
-    
+
     .button
       justify-self end
 

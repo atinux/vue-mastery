@@ -1,7 +1,11 @@
 <template lang="pug">
-.lessons-nav(v-if="lessons && lessons.length > 1" v-cloak)
-  button.prev(@click="goTo(-1)" rel="prev" v-bind:disabled="isFirst") Previous Lesson
-  button.next(@click="goTo(1)" rel="next" v-bind:disabled="isLast") Next Lesson
+.lessons-nav.paginate(v-if="lessons && lessons.length > 1" v-cloak)
+  button.prev(@click="goTo(-1)" rel="prev" v-bind:disabled="isFirst")
+    i.fa.fa-chevron-left
+    | Previous Lesson
+  button.next(@click="goTo(1)" rel="next" v-bind:disabled="isLast")
+    | Next Lesson
+    i.fa.fa-chevron-right
 </template>
 
 <script>

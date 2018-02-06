@@ -16,13 +16,12 @@ module.exports = {
         type: 'text/css',
         href: '/normalize.css'
       },
-      // {
-      //   rel: 'stylesheet',
-      //   type: 'text/css',
-      //   href: '/primer.css'
-      // },
       {
         href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700',
+        rel: 'stylesheet'
+      },
+      {
+        href: 'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
         rel: 'stylesheet'
       }
     ]

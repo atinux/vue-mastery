@@ -1,7 +1,9 @@
 <template lang="pug">
   .lesson-header
-    img.lesson-header-img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-    h1 {{ course.title }}
+    .media
+      img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
+    .body
+      h1.title {{ course.title }}
 </template>
 
 <script>
@@ -12,16 +14,35 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~assets/css/_variables.styl'
 .lesson-header
+  padding-left 4%
+  padding-right 4%
   background-color: #0A2B4E
   color: #fff
-  height 144px
+  height 90px
   display flex
   align-items center
 
-.lesson-header-img
-  width: 120px
-  height: 120px
+.title
+  margin 0
+  font-size 34px
+  font-weight 600
+
+.media
+  width 60px
+  margin-right 1.5em
+  img
+  height: 90px
   overflow hidden
   object-fit contain
+
++tablet-up()
+  .lesson-header
+    height 116px
+  .media
+    width 90px
+  .title
+    font-size 48px
+
 </style>

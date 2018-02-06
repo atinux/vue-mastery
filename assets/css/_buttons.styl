@@ -52,6 +52,13 @@ $button-height-small = ($button-height - 10px)
   &.-full
     width 100%
 
+  &.-has-icon
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    i[class*=fa]
+      margin-right 10px
+
   &.link
     background: none
     border: none
@@ -60,6 +67,13 @@ $button-height-small = ($button-height - 10px)
 
   & + .button
     margin-left: 25px
+
+.control-group
+  display flex
+  align-items center
+
+  &.-spaced
+    justify-content space-evenly
 
 +tablet-up()
   .button
