@@ -127,13 +127,32 @@ const actions = {
       image
     })
   },
+  userUpdateSubscribe ({ state }, course) {
+    let completed = state.account.completed || {}
+    // Check if already started the course
+    if (completed[course.courseId] === undefined) {
+      completed[course.courseId] = {
+        started: true,
+        completedLessons: {}
+      }
+    }
+    completed[course.courseId].subscribed = course.subscribed
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      completed
+    })
+  },
   userUpdateCompleted ({ state }, lesson) {
-    let completed = state.user.completed || {}
+    let completed = state.account.completed || {}
     // Check if already started the course
     if (completed[lesson.courseId] === undefined) {
       completed[lesson.courseId] = {
         started: true,
-        completedLessons: {}
+        completedLessons: {},
+        subscribe: false
+      }
+    } else {
+      if (completed[lesson.courseId].completedLessons === undefined) {
+        completed[lesson.courseId].completedLessons = {}
       }
     }
     completed[lesson.courseId].completedLessons[lesson.lessonId] = true

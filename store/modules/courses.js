@@ -51,7 +51,19 @@ const actions = {
         try {
           completed = rootState.account.account.completed[id]
         } catch (error) {}
-        commit(types.RECEIVE_COURSE, { course, completed })
+        if (completed) {
+          // Add completed mark to lesson already watched
+          course.lessons.map((lesson, index) => {
+            try {
+              lesson.isCompleted = completed.completedLessons ? completed.completedLessons[lesson.id] : false
+            } catch (error) {
+              console.log(error)
+            }
+          })
+        }
+        // Add subscribed boolean to course
+        course.subscribed = completed ? completed.subscribed : false
+        commit(types.RECEIVE_COURSE, { course })
       })
   },
 
@@ -68,7 +80,7 @@ const actions = {
   },
 
   freeVideos ({ commit, state }) {
-    // Check if the video is free
+    // Get free lessons
     return db.get('lessons', {
       limitToLast: 3,
       orderByChild: 'free',
@@ -80,6 +92,16 @@ const actions = {
     }).then(free => {
       commit(types.RECEIVE_FREE_VIDEOS, { free })
     })
+  },
+
+  userUpdateCompleted ({ commit, state }, param) {
+    let course = state.course
+    course.lessons.map((lesson) => {
+      if (lesson.id === param.lessonId) {
+        lesson.isCompleted = true
+      }
+    })
+    commit(types.UPDATE_COMPLETED_LESSON, { course })
   }
 }
 
@@ -91,11 +113,7 @@ const mutations = {
   [types.RECEIVE_COURSES] (state, { courses }) {
     state.courses = courses
   },
-  [types.RECEIVE_COURSE] (state, { course, completed }) {
-    // Add completed mark to lesson already watched
-    course.lessons.map((lesson, index) => {
-      lesson.isCompleted = completed ? completed.completedLessons[lesson.id] : false
-    })
+  [types.RECEIVE_COURSE] (state, { course }) {
     state.course = course
   },
   [types.RECEIVE_LATEST_VIDEOS] (state, { latests }) {
@@ -104,8 +122,8 @@ const mutations = {
   [types.RECEIVE_FREE_VIDEOS] (state, { free }) {
     state.free = free
   },
-  [types.RECEIVE_COMPLETED_LESSON] (state, { course, completed }) {
-    state.completed = completed
+  [types.UPDATE_COMPLETED_LESSON] (state, { course }) {
+    state.course = course
   }
 }
 
