@@ -1,28 +1,43 @@
 <template lang="pug">
-.lesson-wrapper(v-if="course" v-cloak)
+div
+  .lesson-wrapper(v-if="course" v-cloak)
 
-  lessonHeader(:course="course")
+    lessonHeader(:course="course")
 
-  courseSubscribe
+    courseSubscribe
 
-  lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
+    lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-  lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
+    lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
 
-  lessonBody(:course="current")
+    lessonBody(:course="current")
 
-  aside.lesson-aside
-    .control-group.-spaced
-      a.button.secondary.-has-icon(:href="current.downloadLink" download)
-        i.fa.fa-download
-        | Download
-      socialShare
-    lessonresources(:resources="current.resources")
-    lessonChallenges(:challenges="current.codingChallenge")
+    aside.lesson-aside
+      .control-group.-spaced
+        a.button.secondary.-has-icon(:href="current.downloadLink" download)
+          i.fa.fa-download
+          | Download
+        socialShare
+      lessonresources(:resources="current.resources")
+      lessonChallenges(:challenges="current.codingChallenge")
 
-  lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
+    lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
 
-  lessonPopup(@selectLesson="selectLesson")
+    lessonPopup(@selectLesson="selectLesson")
+
+  .lesson-wrapper(v-else)
+    .lesson-header.fake
+    .lesson-video.fake
+      playerPlaceholder
+    .lessons-list.fake
+      ul.list
+        each val in [1, 2, 3]
+          li
+            .media-block.fake
+              .media.-small.fake
+              .body.fake
+    .lesson-content.fake
+    .lesson-aside.fake
 </template>
 
 <script>
@@ -37,6 +52,7 @@ import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
 import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
+import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
   data () {
@@ -61,7 +77,8 @@ export default {
     lessonChallenges,
     lessonPopup,
     socialShare,
-    courseSubscribe
+    courseSubscribe,
+    playerPlaceholder
   },
 
   computed: {

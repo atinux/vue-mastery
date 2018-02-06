@@ -4,7 +4,7 @@
     .media-wrapper(v-if="free" v-cloak)
       .media-block(v-for="lesson in free")
         .media
-          img(v-bind:src="lesson.image[0].image[0].url" :alt="lesson.image[0].image[0].description" class="-large")
+          img(v-bind:src="lesson.image[0].url" class="-large")
         .body
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
             h3.title {{ lesson.title }}
@@ -13,6 +13,12 @@
             div.meta
               b Associated Course
               |  ・ {{ lesson.duration | time }}
+
+    .media-wrapper(v-else)
+      each val in [1, 2, 3]
+        .media-block.fake
+          .media.fake.-small
+          .body.fake
 
     nuxt-link.button.primary.border(to="/courses") More
 </template>

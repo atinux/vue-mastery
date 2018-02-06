@@ -10,6 +10,14 @@
     grid-area media
     max-width 200px
 
+    &.fake
+      min-height: 125px
+
+      &.-small
+        width 120px
+      &.-large
+        width 200px
+
     img
       object-fit contain
       &.-small
@@ -20,6 +28,9 @@
   .body
     grid-area body
     max-width 400px
+
+    &.fake
+      min-height: 100px
 
     .content
       margin 0

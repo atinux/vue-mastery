@@ -1,4 +1,5 @@
 <template lang="pug">
+div
   ul.list(v-if="courses" v-cloak)
     li(v-for="course, key, index in courses" v-if="index < 3")
       nuxt-link(:to="'/courses/'+course.id" class="list-card card" v-bind:class="{ showAction: showAction }")
@@ -26,6 +27,15 @@
             span Coming Soon
             .button.primary.border.-full
               | Notify Me
+
+  ul.list(v-else)
+    each val in [1, 2, 3]
+      li
+        .media-block.fake
+          .media.-small.fake
+          .body.fake
+        .actions.fake
+
 </template>
 
 <script>
