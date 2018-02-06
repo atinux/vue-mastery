@@ -126,6 +126,7 @@ export default {
   grid-area content
 
 .lesson-aside
+  padding 0 4%
   grid-area sidebar
 
 .lessons-nav
@@ -139,6 +140,9 @@ export default {
                         "content content list"\
                         "sidebar sidebar sidebar"\
                         "footer footer footer"
+
+  .lesson-aside
+    margin $vertical-space 0
 +laptop-up()
   .lesson-wrapper
     grid-template-columns 1fr 1fr 490px
@@ -146,4 +150,7 @@ export default {
                          "video   video   list"\
                          "content content sidebar"\
                          "footer  footer  footer"
+
+  .lesson-aside
+    padding 0 8%
 </style>

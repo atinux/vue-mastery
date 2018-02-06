@@ -12,5 +12,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~assets/css/_variables.styl'
 
+.lesson-content
+  padding 0 4%
+
++tablet-up()
+  .lesson-content
+    margin $vertical-space 0
 </style>
