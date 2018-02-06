@@ -22,8 +22,21 @@ function createNewAccount (user) {
     email: user.email,
     image: user.newImage || '/images/default-profile.png', // supply a default profile image for all users
     subscribedToMailingList: true,
-    completed: {}
+    courses: {}
   })
+}
+
+function getCourseHistory (currentHistory, courseId) {
+  let courses = currentHistory || {}
+  // Check if already started the course
+  if (typeof (courses[courseId]) === 'undefined') {
+    courses[courseId] = {
+      started: true,
+      subscribed: false,
+      completedLessons: {}
+    }
+  }
+  return courses
 }
 
 function checkForFirstTime (user) {
@@ -67,7 +80,8 @@ const actions = {
       .signInWithPopup(provider)
       .then((result) => {
         checkForFirstTime({
-          newImage: result.additionalUserInfo.profile.picture, // just use their existing user image to start
+          // just use their existing user image to start
+          newImage: result.additionalUserInfo.profile.picture,
           ...result.user
         })
         return commit(types.SET_USER, result.user)
@@ -83,7 +97,8 @@ const actions = {
       .signInWithPopup(provider)
       .then((result) => {
         checkForFirstTime({
-          newImage: result.additionalUserInfo.profile.avatar_url, // just use their existing user image to start
+          // just use their existing user image to start
+          newImage: result.additionalUserInfo.profile.avatar_url,
           ...result.user
         })
         return commit(types.SET_USER, result.user)
@@ -127,37 +142,21 @@ const actions = {
       image
     })
   },
-  userUpdateSubscribe ({ state }, course) {
-    let completed = state.account.completed || {}
-    // Check if already started the course
-    if (completed[course.courseId] === undefined) {
-      completed[course.courseId] = {
-        started: true,
-        completedLessons: {}
-      }
-    }
-    completed[course.courseId].subscribed = course.subscribed
+  userUpdateSubscribe ({ state }, courseId) {
+    let courses = getCourseHistory(state.account.courses, courseId)
+    courses[courseId].subscribed = !courses[courseId].subscribed
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-      completed
+      courses
     })
   },
   userUpdateCompleted ({ state }, lesson) {
-    let completed = state.account.completed || {}
-    // Check if already started the course
-    if (completed[lesson.courseId] === undefined) {
-      completed[lesson.courseId] = {
-        started: true,
-        completedLessons: {},
-        subscribe: false
-      }
-    } else {
-      if (completed[lesson.courseId].completedLessons === undefined) {
-        completed[lesson.courseId].completedLessons = {}
-      }
+    let courses = getCourseHistory(state.account.courses, lesson.courseId)
+    if (typeof (courses[lesson.courseId]['completedLessons']) === 'undefined') {
+      courses[lesson.courseId].completedLessons = {}
     }
-    completed[lesson.courseId].completedLessons[lesson.lessonId] = true
+    courses[lesson.courseId].completedLessons[lesson.lessonId] = lesson.isCompleted
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-      completed
+      courses
     })
   }
 }

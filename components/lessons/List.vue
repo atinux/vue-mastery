@@ -1,29 +1,58 @@
 <template lang="pug">
-.lessons-list(v-if="lessons" v-cloak)
+.lessons-list(v-if="course.lessons" v-cloak)
   h4.title Lesson in this course
   .lessons-list-scroll
-    .list-item(v-for="(lesson, index) in lessons" 
-               v-bind:class="{ active: current === lesson.id , completed: lesson.isCompleted }"
+    .list-item(v-for="(lesson, index) in course.lessons" 
+               v-bind:class="activeOrCompleted(lesson.id)"
                @click="selectLesson(lesson.id)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
           i.far.fa-clock
           span {{ lesson.duration | time}}
-      .list-item-actions
+      .list-item-actions(v-if="account" v-cloak)
         label.checkmark
-          input(type="checkbox" v-model="lesson.isCompleted")
+          input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
           span.check
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'list',
-  props: ['lessons', 'current'],
+  props: ['course', 'current'],
   methods: {
     selectLesson (lessonId) {
       this.$emit('selectLesson', lessonId)
+    },
+    toggleCompleted (lessonId) {
+      this.$store.dispatch('userUpdateCompleted', {
+        lessonId: lessonId,
+        courseId: this.course.id,
+        isCompleted: !this.isCompleted(lessonId)
+      })
+    },
+    isCompleted (lessonId) {
+      let completed = false
+      if (this.account && typeof (this.account['courses']) !== 'undefined') {
+        const completedCourse = this.account.courses[this.course.id]
+        if (typeof (completedCourse['completedLessons']) !== 'undefined') {
+          completed = this.account.courses[this.course.id].completedLessons[lessonId]
+        }
+      }
+      return completed
+    },
+    activeOrCompleted (lessonId) {
+      return {
+        active: this.current === lessonId,
+        completed: this.isCompleted(lessonId)
+      }
     }
+  },
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
   }
 }
 </script>

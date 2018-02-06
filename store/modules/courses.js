@@ -47,22 +47,6 @@ const actions = {
         }
       ]})
       .then(course => {
-        let completed = false
-        try {
-          completed = rootState.account.account.completed[id]
-        } catch (error) {}
-        if (completed) {
-          // Add completed mark to lesson already watched
-          course.lessons.map((lesson, index) => {
-            try {
-              lesson.isCompleted = completed.completedLessons ? completed.completedLessons[lesson.id] : false
-            } catch (error) {
-              console.log(error)
-            }
-          })
-        }
-        // Add subscribed boolean to course
-        course.subscribed = completed ? completed.subscribed : false
         commit(types.RECEIVE_COURSE, { course })
       })
   },
@@ -92,16 +76,6 @@ const actions = {
     }).then(free => {
       commit(types.RECEIVE_FREE_VIDEOS, { free })
     })
-  },
-
-  userUpdateCompleted ({ commit, state }, param) {
-    let course = state.course
-    course.lessons.map((lesson) => {
-      if (lesson.id === param.lessonId) {
-        lesson.isCompleted = true
-      }
-    })
-    commit(types.UPDATE_COMPLETED_LESSON, { course })
   }
 }
 
@@ -121,9 +95,6 @@ const mutations = {
   },
   [types.RECEIVE_FREE_VIDEOS] (state, { free }) {
     state.free = free
-  },
-  [types.UPDATE_COMPLETED_LESSON] (state, { course }) {
-    state.course = course
   }
 }
 

@@ -3,11 +3,11 @@
 
   lessonHeader(:course="course")
 
-  courseSubscribe(:course="course")
+  courseSubscribe
 
   lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-  lessonsList(:lessons="course.lessons" :current="lessonId"  @selectLesson="selectLesson")
+  lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
 
   lessonBody(:course="current")
 
@@ -49,9 +49,6 @@ export default {
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseId)
-    this.$store.subscribe((mutation, state) => {
-      if (mutation.type === 'SET_USER') this.$store.dispatch('getCourse', this.courseId)
-    })
   },
 
   components: {
@@ -104,14 +101,8 @@ export default {
       }
       this.$store.dispatch('userUpdateCompleted', {
         lessonId: this.lessonId,
-        courseId: this.courseId
-      })
-    },
-
-    courseSubscribe (subscribed) {
-      this.$store.dispatch('userUpdateSubscribe', {
         courseId: this.courseId,
-        subscribed: subscribed
+        isCompleted: true
       })
     }
   }
