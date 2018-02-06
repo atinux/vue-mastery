@@ -1,5 +1,5 @@
 <template lang="pug">
-form.form
+form.form(v-cloak v-if="account")
   .form-group
     label.checkbox
       input(type="checkbox" v-model="subscribed" v-on:change="subscribedToMailingList")
@@ -12,6 +12,7 @@ form.form
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: ['course'],
   data () {
@@ -21,6 +22,11 @@ export default {
       formError: '',
       formSuccess: ''
     }
+  },
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
   },
   methods: {
     resetFormMessages () {
