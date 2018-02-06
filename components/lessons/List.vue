@@ -2,18 +2,17 @@
 .lessons-list(v-if="lessons" v-cloak)
   h4.title Lesson in this course
   .lessons-list-scroll
-    .list-item(v-for="(lesson, index) in lessons" v-bind:class="{ active: current === lesson.id , completed: lesson.isCompleted }")
+    .list-item(v-for="(lesson, index) in lessons" 
+               v-bind:class="{ active: current === lesson.id , completed: lesson.isCompleted }"
+               @click="selectLesson(lesson.id)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
           i.far.fa-clock
           span {{ lesson.duration | time}}
       .list-item-actions
-        //- Selecting Lesson (DUSTIN: "I'm not clear what the radio button is for. I'm hidding now to keep the design moving forward")
-        input(type="radio" v-model="selected" style="display: none" v-bind:value="lesson.id" @click="selectLesson")
-        //- Completing Lesson Checkbox
         label.checkmark
-          input(type="checkbox")
+          input(type="checkbox" v-model="lesson.isCompleted")
           span.check
 </template>
 
@@ -21,19 +20,9 @@
 export default {
   name: 'list',
   props: ['lessons', 'current'],
-  data () {
-    return {
-      selected: this.current
-    }
-  },
-  watch: {
-    current (newVal) {
-      this.selected = newVal
-    }
-  },
   methods: {
-    selectLesson () {
-      this.$emit('selectLesson', this.selected)
+    selectLesson (lessonId) {
+      this.$emit('selectLesson', lessonId)
     }
   }
 }
@@ -61,9 +50,11 @@ export default {
 .list-item
   display flex
   align-items center
+  cursor: pointer
   justify-content space-between
   padding 14px 24px
   background-color #1E3247
+
   .list-item-meta
     display flex
     align-items center
@@ -83,6 +74,10 @@ export default {
 
   &.completed
     background-color #EBEBEB
+
+  &:hover
+    background: linear-gradient(to right, #41B782 , #86D169)
+
 
 .list-item-title
   font-size 18px
