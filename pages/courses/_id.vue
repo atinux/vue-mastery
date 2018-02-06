@@ -1,5 +1,5 @@
 <template lang="pug">
-.course-wrapper(v-if="course" v-cloak)
+.lesson-wrapper(v-if="course" v-cloak)
 
   lessonHeader(:course="course")
 
@@ -10,8 +10,11 @@
   lessonBody(:course="current")
 
   aside.lesson-aside
-    a(:href="current.downloadLink" download) Download
-    socialShare
+    .control-group.-spaced
+      a.button.secondary(:href="current.downloadLink" download)
+        i.fa.fa-download
+        | Download
+      socialShare
     lessonresources(:resources="current.resources")
     lessonChallenges(:challenges="current.codingChallenge")
 
@@ -102,34 +105,23 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '~assets/css/_variables.styl'
+.lesson-wrapper
+  display grid
+  grid-template-columns 1fr 1fr
+  grid-template-areas "header header"\
+                      "video video"\
+                      "list list"\
+                      "content content"\
+                      "sidebar sidebar"\
+                      "footer footer"
+
 .lesson-header
   grid-area header
 
 .lesson-video
   grid-area video
 
-.lessons-list
-  grid-area list
-  background-color: #1E3247
-  color: #fff
-
-  .lessons-list-item
-    background-color: #1E3247
-
-  .completed
-    background-color #ccc
-
-  .active
-    background: linear-gradient(to top right, #41B782 , #86D169)
-
-  .title
-    background-color: #444444
-    margin-bottom: 0
-
-  .title,
-  .lessons-list-item
-    padding: 15px 20px
-    border-bottom: 1px solid #ccc
 .lesson-content
   grid-area content
 
@@ -139,11 +131,19 @@ export default {
 .lessons-nav
   grid-area footer
 
-.course-wrapper
-  display grid
-  grid-template-columns 1fr 1fr 490px
-  grid-template-areas "header  header  header"\
-                       "video   video   list"\
-                       "content content sidebar"\
-                       "footer  footer  footer"
++tablet-up()
+  .lesson-wrapper
+    grid-template-columns 1fr 1fr 33%
+    grid-template-areas "header header header"\
+                        "video video video"\
+                        "content content list"\
+                        "sidebar sidebar sidebar"\
+                        "footer footer footer"
++laptop-up()
+  .lesson-wrapper
+    grid-template-columns 1fr 1fr 490px
+    grid-template-areas "header  header  header"\
+                         "video   video   list"\
+                         "content content sidebar"\
+                         "footer  footer  footer"
 </style>
