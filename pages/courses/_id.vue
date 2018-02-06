@@ -131,9 +131,11 @@ export default {
   > div
     margin-bottom 20px
 
-  .control-group .button
-    width 100%
-    margin-right 15px
+  .control-group
+    flex-direction row
+    .button
+      width 100%
+      margin-right 15px
 
 .lessons-nav
   grid-area footer

@@ -65,12 +65,10 @@ $button-height-small = ($button-height - 10px)
     padding: 0
     color: $secondary-color
 
-  & + .button
-    margin-left: 25px
-
 .control-group
   display flex
   align-items center
+  flex-direction column
 
   &.-spaced
     justify-content space-evenly
@@ -91,3 +89,9 @@ $button-height-small = ($button-height - 10px)
       line-height: $button-height-small
       &.border
         line-height: ($button-height-small - ($border-size * 2))
+
+    & + .button
+      margin-left: 25px
+
+  .control-group
+    flex-direction row
