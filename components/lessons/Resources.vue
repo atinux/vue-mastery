@@ -1,5 +1,5 @@
 <template lang="pug">
-  .lesson-resources(v-if="resources && resources.length" v-cloak)
+  .card(v-if="resources && resources.length" v-cloak)
     h3 Lesson resource{{ resources.length > 1 ? 's' : '' }}
     ul
       li(v-for="resource in resources")
