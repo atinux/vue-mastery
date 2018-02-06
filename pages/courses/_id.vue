@@ -11,7 +11,7 @@
 
   aside.lesson-aside
     .control-group.-spaced
-      a.button.secondary(:href="current.downloadLink" download)
+      a.button.secondary.-has-icon(:href="current.downloadLink" download)
         i.fa.fa-download
         | Download
       socialShare
@@ -126,8 +126,14 @@ export default {
   grid-area content
 
 .lesson-aside
-  padding 0 4%
   grid-area sidebar
+  padding 0 4%
+  > div
+    margin-bottom 20px
+
+  .control-group .button
+    width 100%
+    margin-right 15px
 
 .lessons-nav
   grid-area footer
