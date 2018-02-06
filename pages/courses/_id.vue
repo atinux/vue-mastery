@@ -49,6 +49,9 @@ export default {
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseId)
+    this.$store.subscribe((mutation, state) => {
+      if (mutation.type === 'SET_USER') this.$store.dispatch('getCourse', this.courseId)
+    })
   },
 
   components: {
