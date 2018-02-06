@@ -36,10 +36,9 @@ export default {
     +laptop-up()
       padding-top ($header-height + $vertical-space/1.5)
       padding-bottom ($vertical-space/1.5)
-      // background-position 85% top
-      // background-size 185%
+      background-position 85% top
+      background-size 185%
       backgrond-size cover
-      background-position bottom
 
   .body
     display grid
