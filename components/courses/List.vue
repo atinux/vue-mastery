@@ -1,7 +1,7 @@
 <template lang="pug">
 div
-  ul.list(v-if="courses" v-cloak)
-    li(v-for="course, key, index in courses" v-if="index < 3")
+  .list(v-if="courses" v-cloak)
+    div(v-for="course, key, index in courses" v-if="index < 3")
       nuxt-link(:to="'/courses/'+course.id" class="list-card card" v-bind:class="{ showAction: showAction }")
         .media-block
           .media
@@ -80,7 +80,7 @@ export default {
     color: $gray
 
   .list
-    li
+    > div
       margin-bottom: 35px
 
   .media
