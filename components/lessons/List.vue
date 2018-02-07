@@ -2,7 +2,7 @@
 .lessons-list(v-if="course.lessons" v-cloak)
   h4.title Lesson in this course
   .lessons-list-scroll
-    .list-item(v-for="(lesson, index) in course.lessons" 
+    .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.id)"
                @click="selectLesson(lesson.id)")
       .list-item-content

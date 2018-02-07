@@ -12,8 +12,13 @@ div
             div.meta(v-if="!showAction" v-cloak)
               label
                 b {{ course.lessons.length | pluralizeLesson }}
-              label ・ {{ course.difficulty }}
-              label ・ (clock) {{ course.duration | time }}
+              label
+                span ・
+                | {{ course.difficulty }}
+              label
+                span ・
+                i.far.fa-clock
+                | {{ course.duration | time }}
         .actions(v-if="showAction" v-cloak)
           div(v-if="course.lessonsCount" v-cloak)
             span {{ course.lessonsCount | pluralizeLesson }}
