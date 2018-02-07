@@ -15,7 +15,7 @@ div
               label
                 span ・
                 | {{ course.difficulty }}
-              label
+              label.-has-icon
                 span ・
                 i.far.fa-clock
                 | {{ course.duration | time }}
