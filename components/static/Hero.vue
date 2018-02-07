@@ -31,14 +31,16 @@ export default {
     background-image url(/images/hero.svg)
     background-position center top
     background-size auto
-    background-repeat no-repeat
 
     +laptop-up()
       padding-top ($header-height + $vertical-space/1.5)
       padding-bottom ($vertical-space/1.5)
       background-position 85% top
-      background-size 185%
-      backgrond-size cover
+      background-size 185% cover
+
+    +desktop-only()
+      background-position 75% top
+      background-size cover
 
   .body
     display grid
