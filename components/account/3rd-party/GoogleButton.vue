@@ -1,5 +1,5 @@
 <template>
-  <button type="button" class="btn" v-on:click.prevent="GoogleButton" v-text="label" v-bind:disabled="disabled"></button>
+  <button type="button" class="btn" v-on:click.prevent="GoogleButton" v-text="label" v-html="icon + label" v-bind:disabled="disabled"></button>
 </template>
 
 <script>
@@ -16,6 +16,11 @@ export default {
   methods: {
     GoogleButton () {
       this.$store.dispatch('userGoogleLogin')
+    }
+  },
+  computed: {
+    icon () {
+      return '<i class="fab fa-google"></i>'
     }
   }
 }

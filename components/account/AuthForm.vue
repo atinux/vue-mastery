@@ -1,6 +1,6 @@
 <template lang="pug">
 form.form(v-on:submit.prevent="submit")
-  h2.form-title {{ title }}
+  h3.form-title {{ title }}
   .form-group
     label.label Email
     input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
@@ -11,28 +11,27 @@ form.form(v-on:submit.prevent="submit")
     input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
 
-  .form-group(v-if="isNew" v-cloak)
+  .form-group.-center(v-if="isNew" v-cloak)
     label.checkbox
       input(type="checkbox" name="terms" v-model="terms" @click="checkDisabled")
       span I accept the terms and conditions
-  
-  .form-error
-    .error(v-if="formError.length > 0" v-text="formError" v-cloak)
+
+  .form-error.text-center
+    span.help-text.-is-error(v-if="formError.length > 0" v-text="formError" v-cloak)
 
   .form-actions(@click="checkDisabled")
-    button.button.primary.-small(type="submit" :disabled="actionDisabled") {{ label }}
+    button.button.primary.-full(type="submit" :disabled="actionDisabled") {{ label }}
     .control-group(v-if="rememberPassword" v-cloak)
-      GoogleButton.button.inverted.-small(:label="label + ' with Google'" :disabled="actionDisabled")
-      GithubButton.button.inverted.-small(:label="label + ' with Github'" :disabled="actionDisabled")
+      GoogleButton.button.secondary.border.-has-icon.-small(:label="label + ' with Google'" :disabled="actionDisabled")
+      GithubButton.button.secondary.border.-has-icon.-small(:label="label + ' with Github'" :disabled="actionDisabled")
 
-  .form-footer.-spaced
+  .form-footer
     .control-group(v-if="isNew" v-cloak)
       button.button.link(type="button" @click="switchForm") I already have an account
-    .control-group(v-else)
+    .control-group.-separate(v-else)
       button.button.link(type="button" @click="switchForm" v-if="rememberPassword" v-cloak) Signup
       button.button.link(type="button" @click="retrievePassword" v-if="rememberPassword" v-cloak) Forgot your password?
       button.button.link(type="button" @click="switchForm" v-if="!rememberPassword" v-cloak) Or Sign in
-
 </template>
 
 <script>

@@ -4,7 +4,7 @@ $input-height-small = ($input-height - 10px)
 .input
   width 100%
   padding 0 ($input-height/2)
-  margin: 10px 0
+  margin: 5px 0
   height $input-height
   line-height $input-height
   border-style solid
@@ -41,6 +41,7 @@ $input-height-small = ($input-height - 10px)
   display: flex;
   justify-content: flex-start
   align-items center
+  width max-content
   font-size $font-size-base * 0.875
   .mark
   input[type="checkbox"]
@@ -95,7 +96,7 @@ $input-height-small = ($input-height - 10px)
 .help-text
   display block
   position relative
-  margin -8px 0 10px ($input-height/2)
+  margin 0 0 10px ($input-height/2)
   font-size $font-size-base * 0.875
   for name, state in $states
     &.-is-{name}
@@ -113,4 +114,15 @@ $input-height-small = ($input-height - 10px)
     width 1px
 
 .form-title
-  padding: 20px 4%
+  padding: 20px 5%
+
+.form-group
+  display flex
+  flex-direction column
+  margin 10px 0
+  &.-center
+    align-items center
+
+.form-error.help-text
+  padding-top 10px
+  padding-bottom 10px
