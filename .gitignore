@@ -17,6 +17,7 @@ dist
 # dont show the firebase file
 firebase.js
 serviceAccountKey.json
+functions/.runtimeconfig.json
 
 # hide the compiled service worker
 sw.*

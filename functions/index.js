@@ -8,6 +8,7 @@ const SparkPost = require('sparkpost')
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
 const mailerliteListId = '9028842' // "VueMastery.com New Users" group
 const mailerliteSubscribers = mailerlite.Subscribers
+const mailerliteList = mailerlite.Lists
 
 // Configure stripe
 // stripe.currency = functions.config().stripe.currency || 'USD'
@@ -24,6 +25,41 @@ exports.subscribeUserToMailerlite = functions.database.ref('/accounts/{uid}').on
   const message = `${val.email} to mailing list`
   console.log(val.subscribedToMailingList ? `Subscribe ${message}` : `Unsubscribe ${message}`)
   return val.subscribedToMailingList ? subscribeUserToMailerList(val, mailerliteListId) : UnSubscribeUserToMailerList(val, mailerliteListId)
+})
+
+// Subscribe a user to a course on the mailerLite course list
+exports.subscribeUserToMailerliteCourse = functions.database.ref('/accounts/{uid}/courses/{cid}').onWrite(event => {
+  const snapshot = event.data
+  const val = snapshot.val()
+  if (!snapshot.changed('subscribed')) {
+    return null
+  }
+  console.log(val)
+  console.log('la', event.params.cid)
+
+  createMailerList(event.params.cid)
+
+  // const message = `${val.email} to mailing list`
+  // console.log(val.subscribedToMailingList ? `Subscribe ${message}` : `Unsubscribe ${message}`)
+  // return val.subscribed ? subscribeUserToMailerList(val, event.params.cid) : UnSubscribeUserToMailerList(val, mailerliteListId)
+})
+
+// Subscribe a user to a course on the mailerLite course list
+exports.countLessonsInCourse = functions.database.ref('/flamelink/environments/production/content/courses/en-US/{cid}/lessons/{lid}').onWrite(event => {
+  const collectionRef = event.data.ref.parent
+  const countRef = collectionRef.parent.child('lessonsCount')
+
+  // Return the promise from countRef.transaction() so our function
+  // waits for this async event to complete before it exits.
+  return countRef.transaction(current => {
+    if (event.data.exists() && !event.data.previous.exists()) {
+      return (current || 0) + 1
+    } else if (!event.data.exists() && event.data.previous.exists()) {
+      return (current || 0) - 1
+    }
+  }).then(() => {
+    console.log('Counter updated.')
+  })
 })
 
 // Sends an email to the user when he forget his password.
@@ -86,8 +122,17 @@ function subscribeUserToMailerList (user, mailerliteListId) {
     })
 }
 
-function UnSubscribeUserToMailerList (user, mailerliteListId) {
+function createMailerList (mailerliteListName) {
+  return mailerliteList.addList({
+    form: {
+      'name': mailerliteListName
+    }
+  }).then((res) => {
+    console.log('Create new list:', res)
+  })
+}
 
+function UnSubscribeUserToMailerList (user, mailerliteListId) {
   return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
     .then((res) => {
       console.log(res)
