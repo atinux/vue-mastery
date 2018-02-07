@@ -8,7 +8,7 @@ footer.footer.section
 
   .nav
     h4 Navigate
-    ul
+    ul.list-unstyled
       li
         nuxt-link(to='/courses' class="-inverted") Courses
       li

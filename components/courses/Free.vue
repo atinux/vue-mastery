@@ -12,7 +12,10 @@
           nuxt-link(to='/' class="-inverted")
             div.meta
               b Associated Course
-              |  ・ {{ lesson.duration | time }}
+              label.-has-icon
+                span ・
+                i.far.fa-clock
+                | {{ lesson.duration | time }}
 
     .media-wrapper(v-else)
       each val in [1, 2, 3]

@@ -2,15 +2,14 @@
   div
     .card(v-if="latests" v-cloak)
       h2.title Latest Videos
-      ul
-        li(v-for="lesson in latests")
-          nuxt-link(:to="path(lesson)")
-            .media-block
-              .body
-                h4 {{ lesson.title }}
-                div.meta
-                  b {{ lesson.description }}
-                  label ・ {{ lesson.duration | time }}
+      div(v-for="lesson in latests")
+        nuxt-link(:to="path(lesson)")
+          .media-block
+            .body
+              h4 {{ lesson.title }}
+              div.meta
+                b {{ lesson.description }}
+                label ・ {{ lesson.duration | time }}
 </template>
 
 <script>
