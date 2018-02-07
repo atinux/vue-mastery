@@ -36,7 +36,7 @@ export default {
       padding-top ($header-height + $vertical-space/1.5)
       padding-bottom ($vertical-space/1.5)
       background-position 85% top
-      background-size 190%
+      background-size 185% cover
 
     +desktop-only()
       background-position 75% top
