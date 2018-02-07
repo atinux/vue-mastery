@@ -1,7 +1,8 @@
 const functions = require('firebase-functions')
 const Mailerlite = require('mailerlite')
 const SparkPost = require('sparkpost')
-// const admin = require('firebase-admin')
+const admin = require('firebase-admin')
+admin.initializeApp(functions.config().firebase)
 // const stripe = require('stripe')(functions.config().stripe.token)
 
 // Configure Mailerlite
@@ -30,18 +31,32 @@ exports.subscribeUserToMailerlite = functions.database.ref('/accounts/{uid}').on
 // Subscribe a user to a course on the mailerLite course list
 exports.subscribeUserToMailerliteCourse = functions.database.ref('/accounts/{uid}/courses/{cid}').onWrite(event => {
   const snapshot = event.data
-  const val = snapshot.val()
+  const subscribed = snapshot.val().subscribed
+  const courseID = event.params.cid
+  const accountID = event.params.uid
+
+  console.log('User Id: ', accountID, ' Course Id:', courseID)
   if (!snapshot.changed('subscribed')) {
+    console.log('no changes')
     return null
   }
-  console.log(val)
-  console.log('la', event.params.cid)
-
-  createMailerList(event.params.cid)
-
-  // const message = `${val.email} to mailing list`
-  // console.log(val.subscribedToMailingList ? `Subscribe ${message}` : `Unsubscribe ${message}`)
-  // return val.subscribed ? subscribeUserToMailerList(val, event.params.cid) : UnSubscribeUserToMailerList(val, mailerliteListId)
+  // Get user email address
+  const account = admin.database().ref(`accounts/${accountID}`)
+  return account.on('value', (snapshotAccount) => {
+    const accountVal = snapshotAccount.val()
+    const email = accountVal.email
+    // Get course name
+    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${courseID}`
+    const course = admin.database().ref(pathToCourse)
+    return course.on('value', (snapshotCourse) => {
+      const title = snapshotCourse.val().title
+      createMailerList(`Course: ${title}`).then((listID) => {
+        const message = `${email} to mailing list`
+        console.log(subscribed ? `Subscribe ${message}` : `Unsubscribe ${message}`)
+        return subscribed ? subscribeUserToMailerList(accountVal, listID) : UnSubscribeUserToMailerList(accountVal, listID)
+      })
+    })
+  })
 })
 
 // Subscribe a user to a course on the mailerLite course list
@@ -122,13 +137,31 @@ function subscribeUserToMailerList (user, mailerliteListId) {
     })
 }
 
-function createMailerList (mailerliteListName) {
-  return mailerliteList.addList({
-    form: {
-      'name': mailerliteListName
+function testIfMailerListExist (mailerliteListName) {
+  return mailerliteList.getAll().then((res) => {
+    let list = res.Results.filter((list) => {
+      return list.name === mailerliteListName
+    })
+    if (list.length) {
+      return list[0].id
+    } else {
+      return false
     }
-  }).then((res) => {
-    console.log('Create new list:', res)
+  })
+}
+
+function createMailerList (mailerliteListName) {
+  return testIfMailerListExist(mailerliteListName).then((listId) => {
+    if (listId) {
+      console.log('YOLO the list exist with id: ', listId)
+      return listId
+    } else {
+      console.log('Creating list named', mailerliteListName)
+      return mailerliteList.addList(mailerliteListName).then((res) => {
+        console.log('New list created', res)
+        return res.id
+      })
+    }
   })
 }
 
