@@ -2,8 +2,9 @@ const functions = require('firebase-functions')
 const Mailerlite = require('mailerlite')
 const SparkPost = require('sparkpost')
 const admin = require('firebase-admin')
-admin.initializeApp(functions.config().firebase)
 // const stripe = require('stripe')(functions.config().stripe.token)
+
+admin.initializeApp(functions.config().firebase)
 
 // Configure Mailerlite
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
@@ -23,40 +24,34 @@ exports.subscribeUserToMailerlite = functions.database.ref('/accounts/{uid}').on
     return null
   }
 
-  const message = `${val.email} to mailing list`
-  console.log(val.subscribedToMailingList ? `Subscribe ${message}` : `Unsubscribe ${message}`)
-  return val.subscribedToMailingList ? subscribeUserToMailerList(val, mailerliteListId) : UnSubscribeUserToMailerList(val, mailerliteListId)
+  subscribeUser(val, mailerliteListId, val.subscribedToMailingList)
 })
 
 // Subscribe a user to a course on the mailerLite course list
 exports.subscribeUserToMailerliteCourse = functions.database.ref('/accounts/{uid}/courses/{cid}').onWrite(event => {
   const snapshot = event.data
-  const subscribed = snapshot.val().subscribed
+  const subscribing = snapshot.val().subscribed
   const courseID = event.params.cid
   const accountID = event.params.uid
 
-  console.log('User Id: ', accountID, ' Course Id:', courseID)
   if (!snapshot.changed('subscribed')) {
     console.log('no changes')
     return null
   }
+
   // Get user email address
-  const account = admin.database().ref(`accounts/${accountID}`)
-  return account.on('value', (snapshotAccount) => {
-    const accountVal = snapshotAccount.val()
-    const email = accountVal.email
-    // Get course name
-    const pathToCourse = `flamelink/environments/production/content/courses/en-US/${courseID}`
-    const course = admin.database().ref(pathToCourse)
-    return course.on('value', (snapshotCourse) => {
-      const title = snapshotCourse.val().title
-      createMailerList(`Course: ${title}`).then((listID) => {
-        const message = `${email} to mailing list`
-        console.log(subscribed ? `Subscribe ${message}` : `Unsubscribe ${message}`)
-        return subscribed ? subscribeUserToMailerList(accountVal, listID) : UnSubscribeUserToMailerList(accountVal, listID)
-      })
+  const accountPath = `accounts/${accountID}`
+  const accountRef = admin.database().ref(accountPath).once('value')
+  // Get course name
+  const pathToCourse = `flamelink/environments/production/content/courses/en-US/${courseID}`
+  const courseRef = admin.database().ref(pathToCourse).once('value')
+
+  return Promise.all([accountRef, courseRef])
+    .then(results => results.map(result => result.val()))
+    .then(([account, course]) => {
+      getMailerList(`Course: ${course.title}`)
+        .then(listID => subscribeUser(account, listID, subscribing))
     })
-  })
 })
 
 // Subscribe a user to a course on the mailerLite course list
@@ -130,44 +125,25 @@ exports.createCustomer = functions.auth.user().onCreate(event => {
   //   })
 })
 
-function subscribeUserToMailerList (user, mailerliteListId) {
-  return mailerliteSubscribers.addSubscriber(mailerliteListId, user.email, user.displayName, {}, 1)
-    .then((res) => {
-      console.log(res)
-    })
+function subscribeUser (account, listID, isSubcribing) {
+  const message = `${account.email} to mailing list`
+  console.log(isSubcribing ? `Subscribe ${message}` : `Unsubscribe ${message}`)
+  if (isSubcribing) {
+    return mailerliteSubscribers.addSubscriber(listID, account.email, account.displayName, {}, 1)
+  } else {
+    return mailerliteSubscribers.deleteSubscriber(listID, account.email)
+  }
 }
 
-function testIfMailerListExist (mailerliteListName) {
+function getMailerList (mailerliteListName) {
   return mailerliteList.getAll().then((res) => {
-    let list = res.Results.filter((list) => {
-      return list.name === mailerliteListName
-    })
+    let list = res.Results.filter(list => list.name === mailerliteListName)
     if (list.length) {
+      console.log(`Using list: ${mailerliteListName}`)
       return list[0].id
     } else {
-      return false
+      console.log(`Using new list: ${mailerliteListName}`)
+      return mailerliteList.addList(mailerliteListName).then(res => res.id)
     }
   })
-}
-
-function createMailerList (mailerliteListName) {
-  return testIfMailerListExist(mailerliteListName).then((listId) => {
-    if (listId) {
-      console.log('YOLO the list exist with id: ', listId)
-      return listId
-    } else {
-      console.log('Creating list named', mailerliteListName)
-      return mailerliteList.addList(mailerliteListName).then((res) => {
-        console.log('New list created', res)
-        return res.id
-      })
-    }
-  })
-}
-
-function UnSubscribeUserToMailerList (user, mailerliteListId) {
-  return mailerliteSubscribers.deleteSubscriber(mailerliteListId, user.email)
-    .then((res) => {
-      console.log(res)
-    })
 }
