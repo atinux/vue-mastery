@@ -76,6 +76,7 @@ export default {
   min-height 200px
   overflow-y scroll
 
+
 .list-item
   display flex
   align-items center
@@ -91,7 +92,8 @@ export default {
     i
       margin-right 8px
 
-  &.active
+  &.active,
+  &:hover
     background: linear-gradient(to right, #41B782 , #86D169)
     .list-item-title
       font-weight 600
@@ -103,10 +105,6 @@ export default {
 
   &.completed
     background-color #EBEBEB
-
-  &:hover
-    background: linear-gradient(to right, #41B782 , #86D169)
-
 
 .list-item-title
   font-size 18px
