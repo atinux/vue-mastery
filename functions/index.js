@@ -18,27 +18,24 @@ const mailerliteList = mailerlite.Lists
 // Subscribe a user to mailerLite according to his settings.
 exports.subscribeUserToMailerlite = functions.database.ref('/accounts/{uid}').onWrite(event => {
   const snapshot = event.data
+
+  // If it's not a subscription change then return
+  if (!snapshot.child('subscribedToMailingList').changed()) return null
+
   const val = snapshot.val()
-
-  if (!snapshot.changed('subscribedToMailingList')) {
-    return null
-  }
-
-  subscribeUser(val, mailerliteListId, val.subscribedToMailingList)
+  return subscribeUser(val, mailerliteListId, val.subscribedToMailingList)
 })
 
 // Subscribe a user to a course on the mailerLite course list
 exports.subscribeUserToMailerliteCourse = functions.database.ref('/accounts/{uid}/courses/{cid}').onWrite(event => {
   const snapshot = event.data
+
+  // If it's not a subscription change then return
+  if (!snapshot.child('subscribed').changed()) return null
+
   const subscribing = snapshot.val().subscribed
   const courseID = event.params.cid
   const accountID = event.params.uid
-
-  if (!snapshot.changed('subscribed')) {
-    console.log('no changes')
-    return null
-  }
-
   // Get user email address
   const accountPath = `accounts/${accountID}`
   const accountRef = admin.database().ref(accountPath).once('value')
@@ -126,11 +123,11 @@ exports.createCustomer = functions.auth.user().onCreate(event => {
 })
 
 function subscribeUser (account, listID, isSubcribing) {
-  const message = `${account.email} to mailing list`
-  console.log(isSubcribing ? `Subscribe ${message}` : `Unsubscribe ${message}`)
   if (isSubcribing) {
+    console.log(`Subscribe ${account.email} to mailing list ${listID}`)
     return mailerliteSubscribers.addSubscriber(listID, account.email, account.displayName, {}, 1)
   } else {
+    console.log(`Unsubscribe ${account.email} from mailing list ${listID}`)
     return mailerliteSubscribers.deleteSubscriber(listID, account.email)
   }
 }
@@ -142,7 +139,7 @@ function getMailerList (mailerliteListName) {
       console.log(`Using list: ${mailerliteListName}`)
       return list[0].id
     } else {
-      console.log(`Using new list: ${mailerliteListName}`)
+      console.log(`Create new list: ${mailerliteListName}`)
       return mailerliteList.addList(mailerliteListName).then(res => res.id)
     }
   })
