@@ -4,28 +4,29 @@
       .account-image
         a(v-bind:href="account.image" target="_blank" title="Click To View")
           img(v-bind:src="account.image" width="100" height="100" v-bind:alt="imageAlt")
-      h3(v-text="account.displayName")
-      p View and manage your account
+      h2.account-name(v-text="account.displayName")
 
-    div
+      .account-actions
+        button.button.secondary.border.-has-icon.-small(type="button" v-on:click="toggleEditForm")
+          span(v-if="editing") Done
+          span(v-else)
+            i.fa.fa-cog
+            | Edit Account
+
+          //- button.button.primary.border.-small(type="button" class="btn btn-danger" v-on:click="signOut") Sign Out
+
+    div.account-content
       div(v-if="editing" v-cloak)
-        p Edit Your Profile
+        h3 Edit Your Profile
         EditAccountForm(:current="account")
 
       div(v-else)
-        div(v-if="account" v-cloak)
-          p 
-            | Information pulled from the firebase 
+        div.card(v-if="account" v-cloak)
+          p
+            | Information pulled from the firebase
             code /account
             | dataset
           pre(v-text="`${JSON.stringify(account, null, 2)}`")
-
-      div
-        button(type="button" class="btn btn-primary mr-2" v-on:click="toggleEditForm")
-          span(v-if="editing") Done
-          span(v-else) Edit
-
-        button(type="button" class="btn btn-danger" v-on:click="signOut") Sign Out
 </template>
 
 <script>
@@ -68,13 +69,53 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  .account-image 
-    img
-      border-radius 100px
-      overflow hidden
-      border 2px solid #b2b1b0
+@import '~assets/css/_variables.styl'
+.account
+  display grid
+  justify-items center
+  margin 0 4%
+  border-bottom solid 2px $secondary-color
+  grid-template-columns 1fr
+  grid-template-areas "avatar"\
+                      "account-name"\
+                      "account-actions"
 
-  pre
-    white-space pre-wrap
+  +laptop-up()
+    grid-template-columns 25% auto 25%
+    grid-template-areas ". avatar ."\
+                        "account-actions account-name ."
+
+
+.account-image
+  grid-area avatar
+  width 100px
+
+  img
+    border-radius 100px
+    overflow hidden
+
+.account-name
+  grid-area account-name
+  color $secondary-color
+
+.account-actions
+  grid-area account-actions
+  padding 0 4%
+  +laptop-up()
+    justify-self start
+
+.account-content
+  display flex
+  justify-content center
+  align-items center
+  padding ($vertical-space/2) 4%
+  > div
+    width 100%
+    +tablet-up()
+      width 50%
+
+pre
+  white-space pre-wrap
+
 
 </style>

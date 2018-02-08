@@ -16,54 +16,56 @@ $button-height-small = ($button-height - 10px)
   cursor pointer
 
   &:disabled
-    pointer-events: none
+    pointer-events none
 
   &:focus
     outline none
 
   &.primary
-    background: linear-gradient(to top right, #41B782 , #86D169)
+    background linear-gradient(to top right, #41B782 , #86D169)
 
     &.border
-      color: $primary-color
-      border-color: $primary-color
+      color $primary-color
+      border-color $primary-color
 
   &.secondary
-    background: linear-gradient(to top right, #122549, #203762)
+    background linear-gradient(to top right, #122549, #203762)
 
     &.border
-      color: $secondary-color
-      border-color: $secondary-color
+      color $secondary-color
+      border-color $secondary-color
 
   &.inverted
-    background: #FFFFFF
-    color: $primary-color
+    background #FFFFFF
+    color $primary-color
 
   &.border
-    background: transparent
-    border: solid $border-size $secondary-color
-    line-height: ($button-height-small - ($border-size * 2))
+    background transparent
+    border solid $border-size $secondary-color
+    line-height ($button-height-small - ($border-size * 2))
 
   &.-small
-    height: $button-height-small
-    padding: 0 15px
-    line-height: $button-height-small
+    height $button-height-small
+    padding 0 15px
+    line-height $button-height-small
+    &.-has-icon
+      line-height inherit
 
   &.-full
     width 100%
 
   &.-has-icon
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display flex
+    align-items center
+    justify-content center
     i[class*=fa]
       margin-right 10px
 
   &.link
-    background: none
-    border: none
-    padding: 0
-    color: $secondary-color
+    background none
+    border none
+    padding 0
+    color $secondary-color
 
 .control-group
   display flex
