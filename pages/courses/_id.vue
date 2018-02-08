@@ -4,8 +4,6 @@ div
 
     lessonHeader(:course="course")
 
-    courseSubscribe
-
     lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
     lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
@@ -18,6 +16,7 @@ div
           i.fa.fa-download
           | Download
         socialShare
+      courseSubscribe
       lessonresources(:resources="current.resources")
       lessonChallenges(:challenges="current.codingChallenge")
 

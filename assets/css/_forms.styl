@@ -55,9 +55,6 @@ $input-height-small = ($input-height - 10px)
   margin-bottom 22px
   font-size 22px
   cursor pointer
-  -webkit-user-select none
-  -moz-user-select none
-  -ms-user-select none
   user-select none
   .check
     position absolute
@@ -78,8 +75,6 @@ $input-height-small = ($input-height - 10px)
       height 10px
       border solid $primary-color
       border-width 0 2px 2px 0
-      -webkit-transform rotate(45deg)
-      -ms-transform rotate(45deg)
       transform rotate(45deg)
   input[type="checkbox"]
     position absolute
@@ -92,6 +87,41 @@ $input-height-small = ($input-height - 10px)
         display block
   &:hover input ~ .check
     background-color #FFF
+
+.switch
+  $switch-size = 60px
+  display flex
+  margin-right 10px
+  label
+    display block
+    position relative
+    width $switch-size
+    height ($switch-size/2)
+    background lighten($gray, 50%)
+    border-radius ($switch-size/2)
+    text-indent -9999px
+    cursor pointer
+    &::after
+      content ""
+      position absolute
+      top 4px
+      left 4px
+      width (($switch-size/2) - 8)
+      height (($switch-size/2) - 8)
+      background #fff
+      border-radius (($switch-size/2) - 8)
+      transition 0.3s
+    &:active::after
+      width ($switch-size/2)
+  input[type="checkbox"]
+    height 0
+    width 0
+    visibility hidden
+    &:checked + label
+      background $primary-color
+      &:after
+        left calc(100% - 5px)
+        transform translateX(-100%)
 
 .help-text
   display block

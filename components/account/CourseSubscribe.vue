@@ -1,9 +1,10 @@
 <template lang="pug">
 form.form(v-cloak v-if="account")
-  label.checkbox
-    input(type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
-    | I want to get notified when there is new lesson available for this course
-
+  .body
+    .switch
+      input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
+      label(for="subscribeSwitch") Toggle
+    span Notify me when new lessons are available.
 </template>
 
 <script>
@@ -32,3 +33,11 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+  .form
+    margin-bottom 30px
+  .body
+    display flex
+    justify-content: space-evenly
+    align-items: center
+</style>
