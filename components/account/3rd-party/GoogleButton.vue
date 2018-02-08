@@ -1,5 +1,11 @@
-<template>
-  <button type="button" class="btn" v-on:click.prevent="GoogleButton" v-text="label" v-html="icon + label" v-bind:disabled="disabled"></button>
+<template lang="pug">
+  button(type="button" @click.prevent="GoogleButton" :disabled="disabled")
+    i.fab.fa-google
+    | {{ label }}
+  //- <button type="button" class="btn" v-on:click.prevent="GoogleButton" v-bind:disabled="disabled">
+  //-   <i class="fab fa-google"></i>
+  //-   {{ label }}
+  //- </button>
 </template>
 
 <script>
@@ -16,11 +22,6 @@ export default {
   methods: {
     GoogleButton () {
       this.$store.dispatch('userGoogleLogin')
-    }
-  },
-  computed: {
-    icon () {
-      return '<i class="fab fa-google"></i>'
     }
   }
 }

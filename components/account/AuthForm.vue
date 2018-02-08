@@ -22,8 +22,9 @@ form.form(v-on:submit.prevent="submit")
   .form-actions(@click="checkDisabled")
     button.button.primary.-full(type="submit" :disabled="actionDisabled") {{ label }}
     .control-group(v-if="rememberPassword" v-cloak)
-      GoogleButton.button.secondary.border.-has-icon.-small(:label="label + ' with Google'" :disabled="actionDisabled")
-      GithubButton.button.secondary.border.-has-icon.-small(:label="label + ' with Github'" :disabled="actionDisabled")
+      label {{ label }} with:
+      GoogleButton.button.secondary.border.-has-icon.-small(:label="'Google'" :disabled="actionDisabled")
+      GithubButton.button.secondary.border.-has-icon.-small(:label="'Github'" :disabled="actionDisabled")
 
   .form-footer
     .control-group(v-if="isNew" v-cloak)
@@ -127,4 +128,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.form-actions .control-group label
+  margin-right 2%
+</style>

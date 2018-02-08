@@ -37,8 +37,20 @@ $input-height-small = ($input-height - 10px)
       &::placeholder
         color state
 
+.upload
+  display inline-block
+  position relative
+  overflow hidden
+  input[type=file]
+    font-size 100px
+    position absolute
+    left 0
+    top 0
+    opacity 0
+    cursor pointer
+
 .checkbox
-  display: flex;
+  display flex
   justify-content: flex-start
   align-items center
   width max-content
