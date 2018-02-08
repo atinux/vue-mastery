@@ -30,7 +30,7 @@ div
     .lesson-video.fake
       playerPlaceholder
     .lessons-list.fake
-      ul.list
+      ul.list-unstyled
         each val in [1, 2, 3]
           li
             .media-block.fake

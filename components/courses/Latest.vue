@@ -7,9 +7,13 @@
           .media-block
             .body
               h4 {{ lesson.title }}
+              p.truncate {{ lesson.description }}
               div.meta
-                b {{ lesson.description }}
-                label ・ {{ lesson.duration | time }}
+                b Associated Course
+                label.-has-icon
+                  span ・
+                  i.far.fa-clock
+                  | {{ lesson.duration | time }}
 </template>
 
 <script>
@@ -42,6 +46,9 @@ export default {
   .media-block
     grid-column-gap 0
     margin-bottom ($vertical-space/3)
+
+  .body p
+    margin 0
 
   h4
     font-size 22px

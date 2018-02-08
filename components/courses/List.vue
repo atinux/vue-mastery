@@ -33,14 +33,13 @@ div
             .button.primary.border.-full
               | Notify Me
 
-  ul.list(v-else)
+  ul.list-unstyled(v-else)
     each val in [1, 2, 3]
       li
         .media-block.fake
           .media.-small.fake
           .body.fake
         .actions.fake
-
 </template>
 
 <script>
@@ -79,7 +78,8 @@ export default {
   .content
     color: $gray
 
-  .list
+  .list,
+  .list-unstyled
     > div
       margin-bottom: 35px
 

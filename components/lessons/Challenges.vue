@@ -1,5 +1,5 @@
 <template lang="pug">
-  .lesson-challenge(v-if="challenges" v-cloak)
+  .lesson-challenge.card(v-if="challenges" v-cloak)
       h3 Coding Challenge
       div(v-html="challenges")
 </template>
@@ -12,5 +12,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+.card
+  padding 40px
 </style>
