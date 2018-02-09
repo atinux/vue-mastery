@@ -30,6 +30,7 @@ module.exports = {
     afterAll: false,
     runs: false,
     cy: false,
+    Cypress: false,
     context: false,
     before: false,
     after: false
