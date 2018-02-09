@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "cypress": "^1.4.2",
     "eslint": "^4.3.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.9.0",
