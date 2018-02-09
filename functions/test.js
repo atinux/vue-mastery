@@ -18,8 +18,6 @@
 
 // countLessonsInCourse('data', {params: {cid: 1516789793545, lid: 1516790332278}})
 
-const functions = require('firebase-functions')
-
 // Chai is a commonly used library for creating unit test suites. It is easily extended with plugins.
 const chai = require('chai')
 const assert = chai.assert
@@ -85,9 +83,9 @@ describe('Cloud Functions', () => {
 
       // [START stubDataRef]
       const childParam = {
-        displayName: "firstname lastname",
-        email: "firstname.lastname@test.com",
-        image: "",
+        displayName: 'firstname lastname',
+        email: 'firstname.lastname@test.com',
+        image: '',
         subscribedToMailingList: true
       }
       // const setParam = 'INPUT'
@@ -128,10 +126,10 @@ describe('Cloud Functions', () => {
       // .push({ original: 'input' }) to return a promise that resolves with { ref: 'new_ref' }.
       // This mimics the behavior of a push to the database, which returns an object containing a
       // ref property representing the URL of the newly pushed item.
-      databaseStub = sinon.stub(admin, 'database')
+      let databaseStub = sinon.stub(admin, 'database')
       databaseStub.get(() => () => ({ ref: refStub }))
-      refStub.withArgs(refParam).returns( { push: pushStub })
-      pushStub.withArgs(pushParam).returns( Promise.resolve({ ref: 'new_ref' }))
+      refStub.withArgs(refParam).returns({ push: pushStub })
+      pushStub.withArgs(pushParam).returns(Promise.resolve({ ref: 'new_ref' }))
       // [END stubAdminDatabase]
 
       // [START invokeHTTPS]
