@@ -24,3 +24,5 @@ sw.*
 
 # Personal file
 todo.md
+cypress/integration/example_spec.js
+cypress/screenshots/
