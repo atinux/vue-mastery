@@ -1,4 +1,4 @@
-let liveSite = 'https://vue-mastery.firebaseapp.com/'
+const liveSite = 'https://vue-mastery.firebaseapp.com/'
 
 describe('Test homepage elements', function () {
   beforeEach(function () {

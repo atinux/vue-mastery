@@ -1,7 +1,6 @@
 /* eslint-env mocha */
 /* global cy, Cypress */
 import {
-  resetDatabase,
   visit,
   newId,
   enterTodo,
@@ -13,7 +12,6 @@ import {
 
 // testing the central Vuex data store
 describe('UI to Vuex store', () => {
-  beforeEach(resetDatabase)
   beforeEach(() => visit())
 
   const getStore = () => cy.window().its('app.$store')
