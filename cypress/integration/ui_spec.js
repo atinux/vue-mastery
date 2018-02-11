@@ -1,5 +1,110 @@
 /* eslint-env mocha */
 /* global cy, File */
+
+// TODO: test scenarios:
+//
+// Home page
+//
+// New user should be created
+// - Visit the home page
+// - Click on sign up
+// - Popup should appear
+// - Enter email and password
+// - Click on sign up
+// - Wait for response
+// - User should be visible in header
+
+// User can logout
+// - Visit the home page
+// - Click on logout
+// - User should be not visible in header
+
+// New user with google account should be created
+// - Visit the home page
+// - Click on sign up
+// - Popup should appear
+// - Click on sign up with google
+// - Wait for response
+// - User should be visible in header
+
+// New user with github account should be created
+// - Visit the home page
+// - Click on sign up
+// - Popup should appear
+// - Click on sign up with github
+// - Wait for response
+// - User should be visible in header
+
+//
+// Lesson page
+//
+// Test end event video
+// - Visit the lesson page
+// - Click the play button
+// - Should play the video
+
+// Test end event video
+// - Visit the lesson page
+// - Play the video
+// - At the end the popup should appear
+
+// Mark the lesson as complete
+// - Visit the lesson page
+// - Click on complete toggle
+// - The video should be mark as completed
+
+// The subscribe button should not be visible if user not log in
+// - Visit the lesson page
+// - Subscribe button should not be visible
+
+// The subscribe button should  visible if user log in
+// - Visit the lesson page
+// - Login user
+// - Subscribe button should be visible
+// - Logout user
+// - Subscribe button should not be visible
+
+// The Subscribed lesson should be reset on user logout
+// - Visit the lesson page
+// - Login user
+// - Click on subscribe toggle
+// - Logout user
+// - Lesson uncompleted should not be visible
+
+// The completed toggle should not be visible if user not log in
+// - Visit the lesson page
+// - Completed toggle should be visible
+
+// The completed toggle should be visible if user is log in
+// - Visit the lesson page
+// - Login user
+// - Completed toggle should not be visible
+
+// Completed lesson should be reset on user logout
+// - Visit the lesson page
+// - Click on complete toggle
+// - Logout the user
+// - lesson should be mark as uncompleted
+
+// Test closing next video popup
+// - Visit the lesson page
+// - Play the video
+// - At the end the popup should appear
+// - Click to close video
+// - Should close the popup
+// - The lesson should be the same
+// - The current lesson should be mark as completed
+
+// Test closing next video popup
+// - Visit the lesson page
+// - Play the video
+// - At the end the popup should appear
+// - Click next lesson button
+// - Should close the popup
+// - The lesson should not be the same
+
+//
+
 import {
   resetDatabase,
   visit,

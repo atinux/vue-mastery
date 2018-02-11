@@ -2,7 +2,7 @@
   .container
     .courses-header
       h1.title Our Courses
-    .couses-body
+    .courses-body
       CourseList(showAction="true")
       Latest
     CheatSheetAlt
@@ -51,7 +51,7 @@ export default {
   color: #FFFFFF
   line-height: 60px
 
-.couses-body
+.courses-body
   display: grid
   width: 100%
   grid-column-gap: 2%
