@@ -5,12 +5,21 @@
     .body
       h2.h1.title Get the Ultimate Vue Cheat Sheet
       p.lead All the essential syntax at your fingertips.
-      a.button.inverted(href="/pdf/Vue-Essentials-Cheat-Sheet.pdf" download) Download it Free
+      DownloadButton(buttonClass='inverted')
+
 </template>
 
 <script>
-export default { 'name': 'CheatSheetMain' }
+import DownloadButton from '~/components/static/DownloadButton'
+
+export default {
+  components: {
+    DownloadButton
+  },
+  name: 'CheatSheetMain'
+}
 </script>
+
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'

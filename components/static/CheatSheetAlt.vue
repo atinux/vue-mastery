@@ -2,11 +2,19 @@
   .banner
     .body
       h2.h1.title Grab our free 2-page cheat sheet!
-      a.button.primary(href="/pdf/Vue-Essentials-Cheat-Sheet.pdf" download) Download it Free
+      DownloadButton(buttonClass='primary')
+
 </template>
 
 <script>
-export default { name: 'CheatSheetAlt' }
+import DownloadButton from '~/components/static/DownloadButton'
+
+export default {
+  components: {
+    DownloadButton
+  },
+  name: 'CheatSheetAlt'
+}
 </script>
 
 <style lang="stylus" scoped>
