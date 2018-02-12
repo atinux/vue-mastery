@@ -120,6 +120,17 @@ const actions = {
         this.dispatch('resetUser')
       })
   },
+  deleteUser ({ state }) {
+    const user = firebase.auth().currentUser
+
+    firebase.database().ref(`accounts/${user.uid}`).remove()
+
+    return user.delete().then(() => {
+      console.log('User deleted')
+    }).catch((error) => {
+      console.log(error)
+    })
+  },
   userRetrievePassword ({ state }, account) {
     return firebase.auth()
       .sendPasswordResetEmail(account.email)
