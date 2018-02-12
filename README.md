@@ -71,6 +71,13 @@ In order to keep other users from writing to paths they don't own, we need to ad
 
 We will setup social login for Google and Github. We will need to login to your Firebase console and enable those signin methods. Google will work out-of-the-box with any Firebase app. But we will need to create a new oAuth application if we would like to use Github signin.
 
+## Test
+
+We use Cypress to test 
+
+``` bash
+$(npm bin)/cypress open
+```
 
 ## Usage
 
