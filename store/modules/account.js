@@ -126,7 +126,7 @@ const actions = {
     firebase.database().ref(`accounts/${user.uid}`).remove()
 
     return user.delete().then(() => {
-      console.log('User deleted')
+      this.dispatch('resetUser')
     }).catch((error) => {
       console.log(error)
     })
