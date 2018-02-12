@@ -13,6 +13,11 @@
             i.fa.fa-cog
             | Edit Account
 
+        button.button.secondary.border.-has-icon.-small(type="button" v-on:click="deleteAccount")
+          span
+            i.fa.fa-cog
+            | Delete Account
+
           //- button.button.primary.border.-small(type="button" class="btn btn-danger" v-on:click="signOut") Sign Out
 
     div.account-content
@@ -57,6 +62,15 @@ export default {
     },
     signOut () {
       this.$store.dispatch('userLogout')
+        .then(() => {
+          this.$router.push('/')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    deleteAccount () {
+      this.$store.dispatch('deleteUser')
         .then(() => {
           this.$router.push('/')
         })
