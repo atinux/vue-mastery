@@ -1,9 +1,10 @@
-const liveSite = 'https://vue-mastery.firebaseapp.com/'
+import {
+  visitHome,
+  visitCourses
+} from '../support/utils'
 
 describe('Test homepage elements', function () {
-  beforeEach(function () {
-    cy.visit(liveSite)
-  })
+  beforeEach(visitHome)
 
   context('Home page basic features', () => {
     it('Test that the <title> is correct', function () {
@@ -63,9 +64,7 @@ describe('Test homepage elements', function () {
 })
 
 describe('Test Courses elements', function () {
-  beforeEach(function () {
-    cy.visit(liveSite + '/courses')
-  })
+  beforeEach(visitCourses)
   context('Courses page basic features', () => {
     it('Test that the <title> is correct', function () {
       cy.title().should('include', 'Courses page')

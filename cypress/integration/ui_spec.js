@@ -1,11 +1,14 @@
 /* eslint-env mocha */
 /* global cy, File */
 import {
-  visit
+  visitHome,
+  // visitAbout,
+  // visitCourses,
+  visitCourse
 } from '../support/utils'
 
 describe('UI on Homepage', () => {
-  beforeEach(() => visit())
+  beforeEach(visitHome)
 
   context('Sign up test', () => {
     it('New user with email and password should be created', () => {
@@ -43,9 +46,7 @@ describe('UI on Homepage', () => {
 })
 
 describe('UI on Lesson page', () => {
-  beforeEach(() => {
-    cy.visit(`${liveSite}/courses/**`)
-  })
+  beforeEach(visitCourse)
 
   context('Video component', () => {
     it('Video should be visible', () => {

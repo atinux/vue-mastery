@@ -1,2 +1,4 @@
-const liveSite = 'https://vue-mastery.firebaseapp.com/'
-export const visit = () => cy.visit(liveSite)
+export const visitHome = () => cy.visit('/')
+export const visitAbout = () => cy.visit('/about')
+export const visitCourses = () => cy.visit('/courses')
+export const visitCourse = () => cy.visit('/courses/**')
