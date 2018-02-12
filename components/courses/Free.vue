@@ -1,6 +1,6 @@
 <template lang="pug">
   .section
-    h2.title Free Videos
+    h2.title Free Lessons
     .media-wrapper(v-if="free" v-cloak)
       .media-block(v-for="lesson in free")
         .media
