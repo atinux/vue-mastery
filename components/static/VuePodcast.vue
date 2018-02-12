@@ -7,27 +7,14 @@
     p.lead We also help produce the Official Vue.js News. It's a free community resource where we curate the most impactful Vue.js news and tutorials. Consider subscribing today.
     .actions.control-group
       a.button.primary(href="https://news.vuejs.org/" target="_blank") Read Official Vue.js News
-      .button.secondary.-has-icon(@click="podcastUrl")
+      a.button.secondary.-has-icon(href="https://news.vuejs.org/" target="_blank")
         i.fa.fa-volume-up
         span Listen to the podcast
 </template>
 
 <script>
 export default {
-  name: 'VuePodcast',
-  methods: {
-    podcastUrl () {
-      let userAgent = navigator.userAgent || navigator.vendor || window.opera
-      let url = 'https://vuenews.fireside.fm/rss'
-      if (/android/i.test(userAgent)) {
-        url = 'https://subscribeonandroid.com/vuenews.fireside.fm/rss'
-      }
-      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-        url = 'https://itunes.apple.com/us/podcast/the-official-vue-news/id1329151772'
-      }
-      window.open(url, '_blank')
-    }
-  }
+  name: 'VuePodcast'
 }
 </script>
 
