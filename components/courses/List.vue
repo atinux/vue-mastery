@@ -2,7 +2,7 @@
 div
   .list(v-if="courses" v-cloak)
     div(v-for="course, key, index in courses" v-if="index < 3")
-      nuxt-link(:to="'/courses/'+course.id" class="list-card card" v-bind:class="{ showAction: showAction }")
+      a(:href="link(course)" class="list-card card" v-bind:class="{ showAction: showAction }")
         .media-block
           .media
             img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
@@ -58,9 +58,23 @@ export default {
     checkCourseStarted (courseId) {
       let started = false
       try {
-        started = this.account.completed[courseId]
+        started = this.account.courses[courseId].started
       } catch (error) {}
       return started
+    },
+    link (course) {
+      let lessonId = course.lessons[0]
+      try {
+        // Get the lessons started
+        let lessons = this.account.courses[course.id].completedLessons
+        // Get the last completed lesson
+        for (let key in lessons) {
+          if (lessons.hasOwnProperty(key) && lessons[key]) {
+            lessonId = key
+          }
+        }
+      } catch (error) {}
+      return `/courses/${course.id}?lesson=${lessonId}`
     }
   },
 
