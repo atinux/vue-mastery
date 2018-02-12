@@ -2,7 +2,10 @@
   "rules": {
     "flamelink": {
       ".read": "true",
-      ".write": "auth != null"
+      ".write": "auth != null",
+      "environments": { "production": {"content":{"lessons":{"en-US": {
+        ".indexOn": "free"
+      }}}}}
       // "environments": {
       //  	"production": {
       //  		"content": {
