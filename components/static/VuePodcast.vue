@@ -6,7 +6,7 @@
     h2.h1.title The Official Vue.js Podcast
     p.lead We also help produce the Official Vue.js News. It's a free community resource where we curate the most impactful Vue.js news and tutorials. Consider subscribing today.
     .actions.control-group
-      nuxt-link.button.primary(to="https://news.vuejs.org/" target="_blank") Visit News.Vuejs.Org
+      a.button.primary(href="https://news.vuejs.org/" target="_blank") Read Official Vue.js News
       .button.secondary.-has-icon(@click="podcastUrl")
         i.fa.fa-volume-up
         span Listen to the podcast
