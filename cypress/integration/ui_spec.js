@@ -4,12 +4,66 @@ import {
   visitHome,
   // visitAbout,
   // visitCourses,
-  visitCourse
+  // visitCourse,
+  currentUser
 } from '../support/utils'
 
 describe('UI on Homepage', () => {
   beforeEach(visitHome)
 
+  context('Sign up and delete account', () => {
+    it('sets auth cookie when logging in via form submission', () => {
+      // destructuring assignment of the this.currentUser object
+      const { email, password } = currentUser
+
+      cy.contains('.navbar-secondary', 'Sign Up').click()
+      cy.get('input[type=email]').type(email)
+
+      // {enter} causes the form to submit
+      cy.get('input[type=password]').type(password)
+
+      cy.get('form').submit()
+
+      // we should be redirected to /account
+      cy.url().should('include', '/account')
+
+      // our auth cookie should be present
+      // cy.getCookie('your-session-cookie').should('exist')
+
+      // UI should reflect this user being logged in
+      // cy.get('h1').should('contain', 'jane.lane')
+    })
+  })
+
+  context('Should delete account', () => {
+    it('sets auth cookie when logging in via form submission', () => {
+      // destructuring assignment of the this.currentUser object
+      const { email, password } = currentUser
+
+      cy.contains('.navbar-secondary', 'Sign Up').click()
+      cy.get('input[type=email]').type(email)
+
+      // {enter} causes the form to submit
+      cy.get('input[type=password]').type(password)
+
+      cy.get('form').submit()
+
+      // we should be redirected to /account
+      cy.url().should('include', '/account')
+
+      cy.contains('button', 'Delete Account').click()
+
+      cy.url().should('eq', 'http://localhost:3000/')
+
+      // our auth cookie should be present
+      // cy.getCookie('your-session-cookie').should('exist')
+
+      // UI should reflect this user being logged in
+      // cy.get('h1').should('contain', 'jane.lane')
+    })
+  })
+
+  /*
   context('Sign up test', () => {
     it('New user with email and password should be created', () => {
       // - Click on sign up
@@ -143,4 +197,5 @@ describe('UI on Lesson page', () => {
       // - The lesson should not be the same
     })
   })
+  */
 })
