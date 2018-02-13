@@ -1,14 +1,21 @@
 .media-block
   display grid
-  grid-template-columns auto 1fr
   grid-column-gap 4%
-  grid-row-gap ($vertical-space/2)
-  grid-template-areas "media body"
+  grid-row-gap ($vertical-space/4)
   align-items center
+  grid-template-columns 1fr
+  grid-template-areas "media"\
+                      "body"
+  +tablet-up()
+    grid-template-columns auto 1fr
+    grid-template-areas "media body"
+    grid-row-gap ($vertical-space/2)
 
   .media
     grid-area media
-    max-width 200px
+    display flex
+    justify-content center
+    align-items center
 
     &.fake
       min-height: 125px
@@ -20,14 +27,21 @@
 
     img
       object-fit contain
-      &.-small
-        width 120px
-      &.-large
-        width 200px
+      max-width 100px
+      +tablet-up()
+        max-width 200px
+      +tablet-up()
+        &.-small
+          width 120px
+        &.-large
+          width 200px
 
   .body
     grid-area body
     max-width 400px
+    text-align center
+    +tablet-up()
+      text-align left
 
     &.fake
       min-height: 100px
@@ -37,8 +51,11 @@
 
     .meta
       display flex
+      justify-content center
       margin-top: 10px
       font-weight 200
+      +tablet-up()
+        justify-content flex-start
       .-has-icon
         display flex
         align-items center

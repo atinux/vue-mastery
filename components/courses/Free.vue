@@ -70,6 +70,12 @@ export default {
 
   .media-block
     margin-bottom ($vertical-space/2)
+    grid-template-columns auto 1fr
+    grid-template-areas "media body"
+    .body
+      text-align left
+    .meta
+      justify-content flex-start
 
 
   +tablet-up()

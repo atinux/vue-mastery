@@ -88,8 +88,6 @@ export default {
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
 
-  .title
-    color: $secondary-color
   .content
     color: $gray
 
@@ -100,20 +98,30 @@ export default {
 
   .media
     img
-      width: 120px
-      height: 120px
-      object-fit contain
+      +tablet-up()
+        width: 120px
+        height: 120px
+
 
   .list-card
     display flex
+    flex-direction column
     justify-content space-between
+    +tablet-up()
+      flex-direction row
+
 
   .actions
     display flex
     align-items center
-    width 200px
-    margin-left 4%
+    justify-content center
+    width 100%
     text-align: center
+    margin-top 20px
+    +tablet-up()
+      width 200px
+      margin-left 4%
+      margin-top: 0
     span
       font-weight: 700
 </style>
