@@ -95,13 +95,14 @@ export default {
       this.rememberPassword = true
       this.isNew = !this.isNew
       this.terms = false
+      this.formError = ''
     },
     retrievePassword () {
       this.rememberPassword = false
     },
     checkDisabled () {
       this.formError = ''
-      if (!this.terms) this.formError = 'Please read and accept the terms and conditions'
+      if (!this.terms && this.isNew) this.formError = 'Please read and accept the terms and conditions'
     },
     checkForm () {
       let invalid = false
