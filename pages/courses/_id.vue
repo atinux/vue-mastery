@@ -106,7 +106,8 @@ export default {
     selectLesson (id) {
       this.lessonId = id
       // Change url without redirecting to avoid page jump
-      history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
+      // history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
+      this.$router.push(`/courses/${this.courseId}?lesson=${this.lessonId}`)
     },
 
     lessonCompleted () {
