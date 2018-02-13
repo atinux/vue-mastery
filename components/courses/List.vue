@@ -64,7 +64,6 @@ export default {
     },
     link (course) {
       let lessonId = course.lessons[0]
-      console.log('blb', course)
       try {
         // Get the lessons started
         let lessons = this.account.courses[course.id].completedLessons
