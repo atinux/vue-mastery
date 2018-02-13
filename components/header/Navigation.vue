@@ -97,16 +97,16 @@ export default {
   transition opacity .2s ease-in
   pointer-events: none
   top 0
+  pointer-events: initial
 
   +laptop-up()
     background-color transparent
-    pointer-events: initial
+    pointer-events: none
     opacity: 1
     justify-content space-between
     position relative
     height $header-height
     flex-direction: row
-    position: relatif
 
 .navbar-item
   color $secondary-color
