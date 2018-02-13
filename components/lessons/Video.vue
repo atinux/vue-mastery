@@ -1,6 +1,6 @@
 <template lang="pug">
   .lesson-video(v-if="videoId" v-cloak)
-    vimeo-player(:video-id = "videoId" player-width="860" @ended="videoEnded")
+    vimeo-player(ref="player" :video-id = "videoId" player-width="860" @ended="videoEnded" @ready="onReady")
 </template>
 
 <script>
@@ -8,6 +8,9 @@ export default {
   name: 'vimeo',
   props: ['videoId'],
   methods: {
+    onReady () {
+      this.$refs.player.play()
+    },
     videoEnded () {
       this.$emit('videoEnded')
     }
