@@ -1,6 +1,6 @@
 <template lang="pug">
 .lessons-list(v-if="course.lessons" v-cloak)
-  h4.title Lesson in this course
+  h4.title Lessons
   .lessons-list-scroll
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.id)"
