@@ -10,7 +10,7 @@
         .list-item-meta
           i.far.fa-clock
           span {{ lesson.duration | time}}
-      .list-item-actions
+      .list-item-actions(@click.stop)
         label.checkmark
           input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
           span.check
