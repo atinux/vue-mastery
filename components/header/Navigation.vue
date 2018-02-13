@@ -97,7 +97,6 @@ export default {
   transition opacity .2s ease-in
   pointer-events: none
   top 0
-  pointer-events: initial
 
   +laptop-up()
     background-color transparent
@@ -146,6 +145,7 @@ export default {
   text-align: center
   justify-content: space-evenly
   align-items: center
+  pointer-events: initial
 
   +laptop-up()
     flex-direction: row
