@@ -12,9 +12,9 @@
       template(slot="popover")
         p 
           | Please create a free account to access our cheat sheet.
-        button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
+        button.button.inverted.-small(type="button" v-on:click="openSignUp" v-close-popover) Sign Up
         |  or
-        button.button.primary.-small(type="button" v-on:click="openLogin") Login
+        button.button.primary.-small(type="button" v-on:click="openLogin" v-close-popover) Login
 
 </template>
 
