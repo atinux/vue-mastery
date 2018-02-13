@@ -10,7 +10,7 @@
         .list-item-meta
           i.far.fa-clock
           span {{ lesson.duration | time}}
-      .list-item-actions(v-if="account" v-cloak)
+      .list-item-actions
         label.checkmark
           input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
           span.check
@@ -21,26 +21,47 @@ import { mapState } from 'vuex'
 export default {
   name: 'list',
   props: ['course', 'current'],
+  data () {
+    return {
+      completedUnlogged: []
+    }
+  },
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
   methods: {
     selectLesson (lessonId) {
       this.$emit('selectLesson', lessonId)
     },
     toggleCompleted (lessonId) {
-      this.$store.dispatch('userUpdateCompleted', {
-        lessonId: lessonId,
-        courseId: this.course.id,
-        isCompleted: !this.isCompleted(lessonId)
-      })
+      if (this.account) {
+        this.$store.dispatch('userUpdateCompleted', {
+          lessonId: lessonId,
+          courseId: this.course.id,
+          isCompleted: !this.isCompleted(lessonId)
+        })
+      } else {
+        this.completedUnlogged.push(lessonId)
+        this.$modal.show('login-form', { newAccount: false })
+        return true
+      }
     },
     isCompleted (lessonId) {
-      let completed = false
-      if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[this.course.id]
-        if (typeof (completedCourse['completedLessons']) !== 'undefined') {
-          completed = this.account.courses[this.course.id].completedLessons[lessonId]
+      if (this.account) {
+        let completed = false
+        if (typeof (this.account['courses']) !== 'undefined') {
+          const completedCourse = this.account.courses[this.course.id]
+          if (typeof (completedCourse['completedLessons']) !== 'undefined') {
+            completed = this.account.courses[this.course.id].completedLessons[lessonId]
+          }
         }
+        return completed
+      } else {
+        let checkCompleted = this.completedUnlogged.filter((key) => key === lessonId)
+        return checkCompleted.length
       }
-      return completed
     },
     activeOrCompleted (lessonId) {
       return {
@@ -48,11 +69,6 @@ export default {
         completed: this.isCompleted(lessonId)
       }
     }
-  },
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
   }
 }
 </script>
