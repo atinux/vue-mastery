@@ -1,15 +1,20 @@
 <template lang="pug">
-  no-ssr
+  no-ssr    
     a.button(v-cloak 
              v-if="account"
              href="/pdf/Vue-Essentials-Cheat-Sheet.pdf"
              :class="buttonClass"
              download) Download it Free
-    button.button(v-cloak
-                  v-else
-                  @click="openSignUp"
-                  :class="buttonClass"
-                  download) Download it Free
+
+    v-popover(offset="16" v-else v-cloak)  
+      button.button.tooltip-target(:class="buttonClass") Download it Free
+
+      template(slot="popover")
+        p 
+          | Please create a free account to access our cheat sheet.
+        button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
+        |  or
+        button.button.primary.-small(type="button" v-on:click="openLogin") Login
 
 </template>
 
@@ -27,6 +32,9 @@ export default {
   methods: {
     openSignUp () {
       this.$modal.show('login-form', { newAccount: true })
+    },
+    openLogin () {
+      this.$modal.show('login-form', { newAccount: false })
     }
   }
 }
