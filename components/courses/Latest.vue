@@ -7,7 +7,7 @@
           .media-block
             .body
               h4 {{ lesson.title }}
-              p.truncate {{ lesson.description }}
+              p {{ lesson.description }}
               div.meta
                 b Associated Course
                 label.-has-icon

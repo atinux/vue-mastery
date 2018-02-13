@@ -8,7 +8,7 @@ div
             img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
           .body
             h3.title {{ course.title }}
-            p.content.truncate {{ course.description }}
+            p.content {{ course.description }}
             div.meta(v-if="!showAction" v-cloak)
               label
                 b {{ course.lessons.length | pluralizeLesson }}
@@ -64,6 +64,7 @@ export default {
     },
     link (course) {
       let lessonId = course.lessons[0]
+      console.log('blb', course)
       try {
         // Get the lessons started
         let lessons = this.account.courses[course.id].completedLessons
