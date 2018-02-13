@@ -64,6 +64,9 @@ containers = hero free-videos course-list meet-teachers cheatsheet community
     margin-bottom ($vertical-space/3)
     font-weight 600
     color $secondary-color
+    text-align center
+    +tablet-up()
+      text-align left
 
 .free-videos
   background-color $secondary-color
