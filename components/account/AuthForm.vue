@@ -3,7 +3,13 @@ form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
   .form-group
     label.label Email
-    input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+    input.input(v-bind:class="{ '-is-error': invalidEmail }" 
+                type="email" 
+                placeholder="Account Email"
+                @focus="isFocus = true"
+                @blur="isFocus = false"
+                v-model="email" 
+                autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group(v-if="rememberPassword" v-cloak)
@@ -57,7 +63,8 @@ export default {
       formError: '',
       isNew: this.newAccount,
       terms: !this.newAccount,
-      rememberPassword: true
+      rememberPassword: true,
+      isFocus: false
     }
   },
   computed: {
@@ -72,7 +79,9 @@ export default {
       return l
     },
     invalidEmail () {
-      return !this.email.includes('@') && this.email !== ''
+      if (!this.isFocus) {
+        return !this.email.includes('@') && this.email !== ''
+      }
     },
     invalidPassword () {
       return !this.password.length > 6
