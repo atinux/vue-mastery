@@ -67,10 +67,6 @@ module.exports = {
     {
       src: '~/plugins/social',
       ssr: false
-    },
-    {
-      src: '~/plugins/tooltip',
-      ssr: false
     }
   ],
   /*

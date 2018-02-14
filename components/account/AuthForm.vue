@@ -1,6 +1,8 @@
 <template lang="pug">
 form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
+  .form-header(v-if="header" v-html="header")
+    
   .form-group
     label.label Email
     input.input(v-bind:class="{ '-is-error': invalidEmail }" 
@@ -53,6 +55,9 @@ export default {
   },
   props: {
     newAccount: {
+      default: false
+    },
+    header: {
       default: false
     }
   },

@@ -37,15 +37,7 @@ div
               .button.primary.border.-full(@click="subscribedToMailingList(course.id)" v-if="account" v-cloak)
                 | Notify Me
 
-              v-popover(offset="16" v-else v-cloak)  
-                button.button.primary.border.-full.tooltip-target Notify Me
-
-                template(slot="popover")
-                  p 
-                    | Please create a free account to get notified when new lessons are available.
-                  button.button.inverted.-small(type="button" v-on:click="openSignUp" v-close-popover) Sign Up
-                  |  or
-                  button.button.primary.-small(type="button" v-on:click="openLogin" v-close-popover) Login
+              button.button.primary.border.-full(v-else v-cloak @click="openLogin") Notify Me
 
   ul.list-unstyled(v-else)
     each val in [1, 2, 3]
@@ -108,11 +100,11 @@ export default {
     subscribedToMailingList (courseId) {
       this.$store.dispatch('userUpdateSubscribe', courseId)
     },
-    openSignUp () {
-      this.$modal.show('login-form', { newAccount: true })
-    },
     openLogin () {
-      this.$modal.show('login-form', { newAccount: false })
+      this.$modal.show('login-form', { 
+        newAccount: false,
+        header: "Please create a free account to get notified when new lessons are available."
+      })
     }
   },
 
