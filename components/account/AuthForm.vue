@@ -2,6 +2,13 @@
 form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
   .form-header(v-if="header" v-html="header")
+
+  .benefits(v-if="isNew" v-cloak)
+    h4 Benefits for creating an account include:
+    ul
+      li The ability to track your progress as you complete lessons
+      li Early access to lessons before we officially release them
+      li Access to download our ultimate Vue.js Cheat Sheet
     
   .form-group
     label.label Email
