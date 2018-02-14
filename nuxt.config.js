@@ -223,6 +223,11 @@ module.exports = {
       {
         href: 'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
         rel: 'stylesheet'
+      },
+      // Manifest
+      {
+        href: '~/static/manifest.json',
+        rel: 'manifest'
       }
     ]
   },
