@@ -47,7 +47,7 @@ form.form(v-on:submit.prevent="submit")
     .control-group.-separate(v-else)
       button.button.link(type="button" @click="switchForm" v-if="rememberPassword" v-cloak) Signup
       button.button.link(type="button" @click="retrievePassword" v-if="rememberPassword" v-cloak) Forgot your password?
-      button.button.link(type="button" @click="switchForm" v-if="!rememberPassword" v-cloak) Or Sign in
+      button.button.link(type="button" @click="switchForm(false)" v-if="!rememberPassword" v-cloak) Or Sign in
 </template>
 
 <script>
@@ -103,9 +103,9 @@ export default {
     }
   },
   methods: {
-    switchForm () {
+    switchForm (isNew) {
       this.rememberPassword = true
-      this.isNew = !this.isNew
+      this.isNew = isNew === false ? isNew : !this.isNew
       this.terms = false
       this.formError = ''
     },
