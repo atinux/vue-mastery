@@ -60,13 +60,7 @@ const actions = {
     return firebase.auth()
       .createUserWithEmailAndPassword(account.email, account.password)
       .then((user) => {
-        user.sendEmailVerification().then(() => {
-          // Email sent.
-          return createNewAccount(user)
-        }).catch((error) => {
-          // An error happened.
-          console.log(`Can't create the new account. Error:  ${error}`)
-        })
+        return createNewAccount(user)
       })
   },
   userGoogleLogin ({ commit }) {
