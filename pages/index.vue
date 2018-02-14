@@ -27,8 +27,10 @@ import CheatSheetMain from '~/components/static/CheatSheetMain'
 
 export default {
   middleware: 'anonymous',
-  head: {
-    title: 'Home page'
+  head () {
+    return {
+      title: 'Home page'
+    }
   },
   components: {
     Hero,

@@ -54,6 +54,25 @@ import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
+  head () {
+    return {
+      title: this.course.title,
+      meta: [{
+        hid: `description${this.course.id}`,
+        name: 'description',
+        content: this.course.description
+      }, {
+        hid: `og:title${this.course.id}`,
+        property: 'og:title',
+        content: this.course.title
+      }, {
+        hid: `og:image${this.course.id}`,
+        property: 'og:image',
+        content: this.course.image[0].image[0].url
+      }]
+    }
+  },
+
   data () {
     return {
       courseId: parseInt(this.$route.params.id),
