@@ -101,9 +101,9 @@ export default {
       this.$store.dispatch('userUpdateSubscribe', courseId)
     },
     openLogin () {
-      this.$modal.show('login-form', { 
+      this.$modal.show('login-form', {
         newAccount: false,
-        header: "Please create a free account to get notified when new lessons are available."
+        header: 'Please create a free account to get notified when new lessons are available.'
       })
     }
   },

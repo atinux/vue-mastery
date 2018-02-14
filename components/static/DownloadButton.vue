@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     openLogin () {
-      this.$modal.show('login-form', { 
+      this.$modal.show('login-form', {
         newAccount: false,
         header: 'Please create a free account to access our cheat sheet.'
       })
