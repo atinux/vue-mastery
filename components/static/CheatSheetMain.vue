@@ -1,12 +1,12 @@
 <template lang="pug">
   .banner
-    .media
-      img(src="/images/img-cheatsheet-example.png")
-    .body
-      h2.h1.title Get the Ultimate Vue Cheat Sheet
-      p.lead All the essential syntax at your fingertips.
-      DownloadButton(buttonClass='inverted')
-
+    .wrapper
+      .media
+        img(src="/images/img-cheatsheet-example.png")
+      .body
+        h2.h1.title Get the Ultimate Vue Cheat Sheet
+        p.lead All the essential syntax at your fingertips.
+        DownloadButton(buttonClass='inverted')
 </template>
 
 <script>
@@ -23,12 +23,14 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
-  .banner
+  .wrapper
     grid-template-columns 1fr 1fr
     padding-top $vertical-space
-    background-image url(/images/bkg-cheatsheet-main.jpg)
     grid-template-areas "body body"\
                         "media media"
+  .banner
+    background-image url(/images/bkg-cheatsheet-main.jpg)
+
   .media
     display grid
     grid-area media
@@ -58,7 +60,7 @@ export default {
     text-transform uppercase
 
   +laptop-up()
-    .banner
+    .wrapper
       grid-template-areas "media body"\
                           "media body"
     .media img

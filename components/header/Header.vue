@@ -1,11 +1,12 @@
 <template lang="pug">
   header.header
-    nuxt-link.logo(to="/")
-      span.visually-hidden Vue mastery
-      img(src="/images/logo.png" role="logo")
+    .wrapper
+      nuxt-link.logo(to="/")
+        span.visually-hidden Vue mastery
+        img(src="/images/logo.png" role="logo")
 
-    navigation
-    hambuger
+      navigation
+      hambuger
 </template>
 
 <script>
@@ -32,13 +33,13 @@ export default {
 @import '~assets/css/_variables.styl'
 
 .header
-  height $header-height
-  padding 0 4%
   position relative
   z-index 2
-  display flex
-  flex-wrap wrap
-  align-items center
+  .wrapper
+    height $header-height
+    display flex
+    flex-wrap wrap
+    align-items center
 
 .logo
   display block

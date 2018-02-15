@@ -1,5 +1,5 @@
 <template lang="pug">
-  .wrapper(:class="openNav ? 'open-nav': ''")
+  .container(:class="openNav ? 'open-nav': ''")
     Top(:class="$route.name")
     nuxt
     VuePodcast

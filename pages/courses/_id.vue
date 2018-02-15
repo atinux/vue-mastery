@@ -163,7 +163,7 @@ export default {
 
 +tablet-up()
   .lesson-wrapper
-    grid-template-columns 1fr 1fr 33%
+    grid-template-columns 1fr 1fr 30%
     grid-template-areas "header header header"\
                         "video video video"\
                         "content content list"\
@@ -174,7 +174,7 @@ export default {
     margin $vertical-space 0
 +laptop-up()
   .lesson-wrapper
-    grid-template-columns 1fr 1fr 490px
+    grid-template-columns 1fr 1fr 30%
     grid-template-areas "header  header  header"\
                          "video   video   list"\
                          "content content sidebar"\
@@ -182,4 +182,14 @@ export default {
 
   .lesson-aside
     padding 0 8%
+
++desktop-up()
+  .lesson-wrapper
+    grid-template-columns 50% 25% 25%
+    grid-template-areas "header  header  header"\
+                         "video   video   list"\
+                         "content sidebar sidebar"\
+                         "footer  footer  footer"
+
+
 </style>

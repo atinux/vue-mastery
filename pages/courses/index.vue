@@ -1,8 +1,9 @@
 <template lang="pug">
   .container
     .courses-header
-      h1.title Our Courses
-    .courses-body
+      .wrapper
+        h1.title Our Courses
+    .courses-body.wrapper
       CourseList(showAction="true")
       Latest
     CheatSheetAlt
@@ -33,11 +34,6 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-.container
-  > div
-    padding-left 4%
-    padding-right 4%
-
 .courses-header
   height 220px
   display flex
@@ -57,7 +53,8 @@ export default {
   width 100%
   grid-column-gap 2%
   grid-row-gap 45px
-  padding 60px 4%
+  padding-top ($vertical-space/2)
+  padding-bottom ($vertical-space/2)
 
   +laptop-up()
     grid-template-columns 63% 35%

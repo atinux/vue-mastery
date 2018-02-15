@@ -1,12 +1,13 @@
 <template lang="pug">
   .banner
-    .body
-      h1.title The ultimate learning resource for Vue developers
-      p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
-    PlayerPlaceholder
+    .wrapper
+      .body
+        h1.title The ultimate learning resource for Vue developers
+        p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
+      PlayerPlaceholder
 
-    .actions
-      nuxt-link.button.secondary(to="/courses") START LEARNING
+      .actions
+        nuxt-link.button.secondary(to="/courses") START LEARNING
 </template>
 
 <script>
@@ -22,24 +23,24 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
-
-  .banner
+  .wrapper
     grid-row-gap 20px
     margin-top -($header-height)
     padding-top ($header-height + $vertical-space/2.5)
     padding-bottom ($vertical-space/2.5)
-    background-image url(/images/hero.svg)
-    background-position center top
-    background-size auto
-
     +laptop-up()
       padding-top ($header-height + $vertical-space/1.5)
       padding-bottom ($vertical-space/1.5)
-      background-position 85% top
-      background-size 190%
+  .banner
+    background-image url(/images/hero.svg)
+    background-position center top
+    background-size cover
 
-    +desktop-only()
+    +laptop-up()
       background-position 75% top
+      background-size 225%
+
+    +desktop-up()
       background-size cover
 
   .body

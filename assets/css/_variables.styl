@@ -34,6 +34,10 @@ tablet-up()
 laptop-up()
   @media screen and (min-width: 64em)
     {block}
+desktop-up()
+  @media screen and (min-width: 82em)
+    {block}
+// Reconsider; doesn't work well.
 desktop-only()
   @media screen and (min-width: 64em) and (max-width: 74.9375em)
     {block}
