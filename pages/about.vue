@@ -21,7 +21,7 @@
       p Gregg Pollack &amp; Adam Jahr are passionate at teaching computer programming online and living in Orlando, Florida.
       p Gregg previously founded Code School, and Adam previously taught at Iron Yard.
 
-      nuxt-link.button.secondary.border(to="/contact-us") Contact Us
+      nuxt-link.button.secondary.border(to="/contact") Contact Us
 
     .why-media
       PlayerPlaceholder

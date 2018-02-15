@@ -6,16 +6,216 @@ module.exports = {
     title: 'Vue Mastery',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'The ultimate learning resource for Vue developers.' }
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      }, {
+        hid: 'description',
+        name: 'description',
+        content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
+      }, {
+        hid: 'keywords',
+        name: 'keywords',
+        content: 'vue js, vue.js, vue javascript, vue.js tutorial, vue.js components, vue.js framework, javascript, learn to code, web development, web design, vue.js plugin, vue.js api, build vue.js, vue.js syntax'
+      }, {
+        hid: `og:title`,
+        property: 'og:title',
+        content: 'Vue Mastery'
+      // }, {
+      //   hid: `og:url`,
+      //   property: 'og:url',
+      //   content: 'www.viewmastery.com'
+      }, {
+        hid: `og:image`,
+        property: 'og:image',
+        content: '~/static/images/logo.png'
+      }, {
+        hid: `og:description`,
+        property: 'og:description',
+        content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
+      }, {
+        // Android
+        hid: 'theme-color',
+        name: 'theme-color',
+        content: '#39B982'
+      }, {
+        // Android
+        hid: 'mobile-web-app-capable',
+        name: 'mobile-web-app-capable',
+        content: 'yes'
+      }, {
+        // iOS
+        hid: 'apple-mobile-web-app-title',
+        name: 'apple-mobile-web-app-title',
+        content: 'Application Title'
+      }, {
+        // iOS
+        hid: 'apple-mobile-web-app-capable',
+        name: 'apple-mobile-web-app-capable',
+        content: 'yes'
+      }, {
+        // iOS
+        hid: 'apple-mobile-web-app-status-bar-style',
+        name: 'apple-mobile-web-app-status-bar-style',
+        content: 'default'
+      }, {
+        // Windows
+        hid: 'msapplication-navbutton-color',
+        name: 'msapplication-navbutton-color',
+        content: '#39B982'
+      }, {
+        // Windows
+        hid: 'msapplication-TileColor',
+        name: 'msapplication-TileColor',
+        content: '#39B982'
+      }, {
+        // Windows
+        hid: 'msapplication-TileImage',
+        name: 'msapplication-TileImage',
+        content: '~/static/icons/mstile-144x144.png'
+      }, {
+        // Windows
+        hid: 'msapplication-config',
+        name: 'msapplication-config',
+        content: 'browserconfig.xml'
+      },{
+        name='msapplication-square70x70logo',
+        content='~/static/icons/mstile-70x70.png'
+      }, {
+        name='msapplication-square150x150logo',
+        content='~/static/icons/mstile-150x150.png'
+      }, {
+        name='msapplication-wide310x150logo',
+        content='~/static/icons/mstile-310x150.png'
+      }, {
+        name='msapplication-square310x310logo',
+        content='~/static/icons/mstile-310x310.png'
+      }, {
+        // Pinned Sites
+        hid: 'application-name',
+        name: 'application-name',
+        content: 'Vue Mastery'
+      }, {
+        // Pinned Sites
+        hid: 'msapplication-tooltip',
+        name: 'msapplication-tooltip',
+        content: 'Vue Mastery is the ultimate learning resource for Vue.js developers. We release weekly video tutorials and articles as well as the proud producers of the official Vue.js News. You can consume it in newsletter and podcast format at news.vuejs.org.'
+      }, {
+        // Pinned Sites
+        hid: 'msapplication-starturl',
+        name: 'msapplication-starturl',
+        content: '/'
+      }, {
+        // Tap highlighting
+        hid: 'msapplication-tap-highlight',
+        name: 'msapplication-tap-highlight',
+        content: 'no'
+      }, {
+        // UC Mobile Browser
+        hid: 'full-screen',
+        name: 'full-screen',
+        content: 'Yes'
+      }, {
+        // UC Mobile Browser
+        hid: 'browsermode',
+        name: 'browsermode',
+        content: 'application'
+      }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '~/static/icons/favicon.ico' },
+      // Main Link Tags
+      {
+        href: '~/static/icons/favicon-16.png',
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16'
+      }, {
+        href: '~/static/icons/favicon-32.png',
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32'
+      }, {
+        href: '~/static/icons/favicon-48.png',
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '48x48'
+      },
+      // iOS
+      {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '57x57',
+        href: '~/static/icons/apple-touch-icon-57x57.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '114x114',
+        href: '~/static/icons/apple-touch-icon-114x114.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '72x72',
+        href: '~/static/icons/apple-touch-icon-72x72.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '144x144',
+        href: '~/static/icons/apple-touch-icon-144x144.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '60x60',
+        href: '~/static/icons/apple-touch-icon-60x60.png'
+      }, {
+        rel: 'apple-touch-icon',
+        sizes: '120x120',
+        href: '~/static/icons/apple-touch-icon-120x120.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '76x76',
+        href: '~/static/icons/apple-touch-icon-76x76.png'
+      }, {
+        rel: 'apple-touch-icon-precomposed',
+        sizes: '152x152',
+        href: '~/static/icons/apple-touch-icon-152x152.png'
+      },
+      // Pinned Tab
+      {
+        href: '~/static/images/logo.png',
+        rel: 'mask-icon',
+        size: 'any',
+        color: '#39B982'
+      },
+      // Android
+      {
+        rel: 'icon',
+        type: 'image/png',
+        href: '~/static/icons/favicon-196x196.png',
+        sizes: '196x196',
+      }, {
+        rel: 'icon',
+        type: 'image/png',
+        href: '~/static/icons/favicon-96x96.png',
+        sizes: '96x96',
+      }, {
+        rel: 'icon',
+        type: 'image/png',
+        href: '~/static/icons/favicon-32x32.png',
+        sizes: '32x32',
+      }, {
+        rel: 'icon',
+        type: 'image/png',
+        href: '~/static/icons/favicon-16x16.png',
+        sizes: '16x16',
+      }, {
+        rel: 'icon',
+        type: 'image/png',
+        href: '~/static/icons/favicon-128.png',
+        sizes: '128x128',
+      },
+      // CSS
       {
         rel: 'stylesheet',
         type: 'text/css',
         href: '/normalize.css'
       },
+      // Fonts
       {
         href: 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,600,700',
         rel: 'stylesheet'
@@ -23,6 +223,11 @@ module.exports = {
       {
         href: 'https://use.fontawesome.com/releases/v5.0.6/css/all.css',
         rel: 'stylesheet'
+      },
+      // Manifest
+      {
+        href: '~/static/manifest.json',
+        rel: 'manifest'
       }
     ]
   },

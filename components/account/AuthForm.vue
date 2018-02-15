@@ -1,9 +1,24 @@
 <template lang="pug">
 form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
+  .form-header(v-if="header" v-html="header")
+
+  .benefits(v-if="isNew" v-cloak)
+    h4 Benefits for creating an account include:
+    ul
+      li The ability to track your progress as you complete lessons
+      li Early access to lessons before we officially release them
+      li Access to download our ultimate Vue.js Cheat Sheet
+    
   .form-group
     label.label Email
-    input.input(v-bind:class="{ '-is-error': invalidEmail }" type="email" placeholder="Account Email" v-model="email" autocomplete="email")
+    input.input(v-bind:class="{ '-is-error': invalidEmail }" 
+                type="email" 
+                placeholder="Account Email"
+                @focus="isFocus = true"
+                @blur="isFocus = false"
+                v-model="email" 
+                autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
   .form-group(v-if="rememberPassword" v-cloak)
@@ -32,7 +47,7 @@ form.form(v-on:submit.prevent="submit")
     .control-group.-separate(v-else)
       button.button.link(type="button" @click="switchForm" v-if="rememberPassword" v-cloak) Signup
       button.button.link(type="button" @click="retrievePassword" v-if="rememberPassword" v-cloak) Forgot your password?
-      button.button.link(type="button" @click="switchForm" v-if="!rememberPassword" v-cloak) Or Sign in
+      button.button.link(type="button" @click="switchForm(false)" v-if="!rememberPassword" v-cloak) Or Sign in
 </template>
 
 <script>
@@ -48,6 +63,9 @@ export default {
   props: {
     newAccount: {
       default: false
+    },
+    header: {
+      default: false
     }
   },
   data () {
@@ -57,7 +75,8 @@ export default {
       formError: '',
       isNew: this.newAccount,
       terms: !this.newAccount,
-      rememberPassword: true
+      rememberPassword: true,
+      isFocus: false
     }
   },
   computed: {
@@ -72,7 +91,9 @@ export default {
       return l
     },
     invalidEmail () {
-      return !this.email.includes('@') && this.email !== ''
+      if (!this.isFocus) {
+        return !this.email.includes('@') && this.email !== ''
+      }
     },
     invalidPassword () {
       return !this.password.length > 6
@@ -82,17 +103,18 @@ export default {
     }
   },
   methods: {
-    switchForm () {
+    switchForm (isNew) {
       this.rememberPassword = true
-      this.isNew = !this.isNew
+      this.isNew = isNew === false ? isNew : !this.isNew
       this.terms = false
+      this.formError = ''
     },
     retrievePassword () {
       this.rememberPassword = false
     },
     checkDisabled () {
       this.formError = ''
-      if (!this.terms) this.formError = 'Please read and accept the terms and conditions'
+      if (!this.terms && this.isNew) this.formError = 'Please read and accept the terms and conditions'
     },
     checkForm () {
       let invalid = false
@@ -117,7 +139,7 @@ export default {
         password: this.password
       })
         .then(() => {
-          if (this.isNew) this.$router.push('/account')
+          // if (this.isNew) this.$router.push('/account')
         })
         .catch((error) => {
           console.log(error)

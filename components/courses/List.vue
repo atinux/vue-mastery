@@ -2,7 +2,7 @@
 div
   .list(v-if="courses" v-cloak)
     div(v-for="course, key, index in courses" v-if="index < 3")
-      a(:href="link(course)" class="list-card card" v-bind:class="{ showAction: showAction }")
+      .list-card.card(@click="link(course)" v-bind:class="{ showAction: showAction }")
         .media-block
           .media
             img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
@@ -29,9 +29,15 @@ div
               | Play
 
           div(v-else v-cloak)
-            span Coming Soon
-            .button.primary.border.-full
-              | Notify Me
+            div(v-if="isSubscribed(course.id)")
+              span Subscribed
+            div(v-else)
+              span Coming Soon
+
+              .button.primary.border.-full(@click="subscribedToMailingList(course.id)" v-if="account" v-cloak)
+                | Notify Me
+
+              button.button.primary.border.-full(v-else v-cloak @click="openLogin") Notify Me
 
   ul.list-unstyled(v-else)
     each val in [1, 2, 3]
@@ -63,19 +69,42 @@ export default {
       return started
     },
     link (course) {
-      let lessonId = course.lessons[0]
-      console.log('blb', course)
-      try {
-        // Get the lessons started
-        let lessons = this.account.courses[course.id].completedLessons
-        // Get the last completed lesson
-        for (let key in lessons) {
-          if (lessons.hasOwnProperty(key) && lessons[key]) {
-            lessonId = key
+      // Check if there is lesson in the course
+      if (course.lessonsCount) {
+        let lessonId = course.lessons[0]
+
+        try {
+          // Get the lessons started
+          let lessons = this.account.courses[course.id].completedLessons
+          // Get the last completed lesson
+          for (let key in lessons) {
+            if (lessons.hasOwnProperty(key) && lessons[key]) {
+              lessonId = key
+            }
           }
+        } catch (error) {}
+        this.$router.push(`/courses/${course.id}?lesson=${lessonId}`)
+      }
+      return true
+    },
+    isSubscribed (courseId) {
+      let subscribed = false
+      if (this.account && typeof (this.account['courses']) !== 'undefined') {
+        const completedCourse = this.account.courses[courseId]
+        if (completedCourse) {
+          subscribed = completedCourse.subscribed || false
         }
-      } catch (error) {}
-      return `/courses/${course.id}?lesson=${lessonId}`
+      }
+      return subscribed
+    },
+    subscribedToMailingList (courseId) {
+      this.$store.dispatch('userUpdateSubscribe', courseId)
+    },
+    openLogin () {
+      this.$modal.show('login-form', {
+        newAccount: true,
+        header: 'Please create a free account to get notified when new lessons are available.'
+      })
     }
   },
 

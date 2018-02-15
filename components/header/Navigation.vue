@@ -1,5 +1,5 @@
 <template lang="pug">
-  nav.navbar(role="navigation" aria-label="main navigation" @click="toggleNav()")
+  nav.navbar(role="navigation" aria-label="main navigation" @click="closeNav()")
     .navbar-main
       router-link.navbar-item(to="/courses") Courses
       router-link.navbar-item(to="/about") About
@@ -20,13 +20,19 @@ import { mapState, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.account,
+      openNav: result => result.openNav
     })
   },
   methods: {
     ...mapActions([
       'toggleNav'
     ]),
+    closeNav () {
+      if (this.openNav) {
+        this.toggleNav()
+      }
+    },
     signOut () {
       this.$store.dispatch('userLogout')
         .then(() => {
@@ -100,13 +106,12 @@ export default {
 
   +laptop-up()
     background-color transparent
-    pointer-events: initial
+    pointer-events: none
     opacity: 1
     justify-content space-between
     position relative
     height $header-height
     flex-direction: row
-    position: relatif
 
 .navbar-item
   color $secondary-color
@@ -146,6 +151,7 @@ export default {
   text-align: center
   justify-content: space-evenly
   align-items: center
+  pointer-events: initial
 
   +laptop-up()
     flex-direction: row
