@@ -21,7 +21,7 @@ export default {
   +tablet-up()
     margin $vertical-space 0
 
-  +desktop-up()
-    width 80%
-    justify-self flex-end
+  // +desktop-up()
+  //   width 80%
+  //   justify-self flex-end
 </style>
