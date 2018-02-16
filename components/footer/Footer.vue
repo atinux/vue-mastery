@@ -7,13 +7,13 @@ footer.footer
         img(src="/images/lgo-vue-mastery-green.png" role="logo")
       p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
       .social
-        nuxt-link.button.primary.link.inverted.-has-icon(to='https://www.facebook.com/vuemastery')
+        a.button.primary.link.inverted.-has-icon(href='https://www.facebook.com/vuemastery' target="_blank")
           i.fab.fa-facebook
-        nuxt-link.button.primary.link.inverted.-has-icon(to='https://twitter.com/vuemastery')
+        a.button.primary.link.inverted.-has-icon(href='https://twitter.com/vuemastery' target="_blank")
           i.fab.fa-twitter
-        nuxt-link.button.primary.link.inverted.-has-icon(to='https://medium.com/vue-mastery')
+        a.button.primary.link.inverted.-has-icon(href='https://medium.com/vue-mastery' target="_blank")
           i.fab.fa-medium
-        nuxt-link.button.primary.link.inverted.-has-icon(to='https://www.youtube.com/vue-mastery')
+        a.button.primary.link.inverted.-has-icon(href='https://www.youtube.com/vue-mastery' target="_blank")
           i.fab.fa-youtube
     .nav
       h4 Navigate
