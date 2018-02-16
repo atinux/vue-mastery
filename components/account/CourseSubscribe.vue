@@ -20,7 +20,7 @@ export default {
     isSubscribed () {
       let subscribed = false
       if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[this.course.id]
+        const completedCourse = this.account.courses[this.course.slug]
         if (completedCourse) {
           subscribed = completedCourse.subscribed || false
         }

@@ -26,11 +26,11 @@ function createNewAccount (user) {
   })
 }
 
-function getCourseHistory (currentHistory, courseId) {
+function getCourseHistory (currentHistory, courseSlug) {
   let courses = currentHistory || {}
   // Check if already started the course
-  if (typeof (courses[courseId]) === 'undefined') {
-    courses[courseId] = {
+  if (typeof (courses[courseSlug]) === 'undefined') {
+    courses[courseSlug] = {
       started: true,
       subscribed: false,
       completedLessons: {}
@@ -147,19 +147,19 @@ const actions = {
       image
     })
   },
-  userUpdateSubscribe ({ state }, courseId) {
-    let courses = getCourseHistory(state.account.courses, courseId)
-    courses[courseId].subscribed = !courses[courseId].subscribed
+  userUpdateSubscribe ({ state }, courseSlug) {
+    let courses = getCourseHistory(state.account.courses, courseSlug)
+    courses[courseSlug].subscribed = !courses[courseSlug].subscribed
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       courses
     })
   },
   userUpdateCompleted ({ state }, lesson) {
-    let courses = getCourseHistory(state.account.courses, lesson.courseId)
-    if (typeof (courses[lesson.courseId]['completedLessons']) === 'undefined') {
-      courses[lesson.courseId].completedLessons = {}
+    let courses = getCourseHistory(state.account.courses, lesson.courseSlug)
+    if (typeof (courses[lesson.courseSlug]['completedLessons']) === 'undefined') {
+      courses[lesson.courseSlug].completedLessons = {}
     }
-    courses[lesson.courseId].completedLessons[lesson.lessonId] = lesson.isCompleted
+    courses[lesson.courseSlug].completedLessons[lesson.lessonSlug] = lesson.isCompleted
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
       courses
     })

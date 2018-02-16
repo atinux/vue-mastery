@@ -6,7 +6,7 @@ div
 
     lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-    lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
+    lessonsList(:course="course" :current="lessonSlug"  @selectLesson="selectLesson")
 
     lessonBody(:course="current")
 
@@ -104,21 +104,13 @@ export default {
       course: result => result.courses.course
     }),
 
-    courseId () {
-      return this.course.id
-    },
-
-    lessonId () {
-      return this.course.lessons.filter((lesson) => lesson.slug === this.lessonSlug)[0].id
-    },
-
     current () {
       let currentLesson = null
       // If no lesson selected, get the first one of the course
-      if (this.lessonId === null) this.lessonId = this.course.lessons[0].id
+      if (this.lessonSlug === null) this.lessonSlug = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
-        if (this.lessonId === lesson.id) {
+        if (this.lessonSlug === lesson.slug) {
           // Load the current lesson
           currentLesson = lesson
           // Keep track of lesson index for the carousel
@@ -144,8 +136,8 @@ export default {
         })
       }
       this.$store.dispatch('userUpdateCompleted', {
-        lessonId: this.lessonId,
-        courseId: this.courseId,
+        lessonSlug: this.lessonSlug,
+        courseSlug: this.courseSlug,
         isCompleted: true
       })
     }
