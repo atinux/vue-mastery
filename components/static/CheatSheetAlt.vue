@@ -1,9 +1,9 @@
 <template lang="pug">
   .banner
-    .body
-      h2.h1.title Grab our free 2-page cheat sheet!
-      DownloadButton(buttonClass='primary')
-
+    .wrapper
+      .body
+        h2.h1.title Grab our free 2-page cheat sheet!
+        DownloadButton(buttonClass='primary')
 </template>
 
 <script>
@@ -19,12 +19,16 @@ export default {
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables'
-  .banner
+  .wrapper
     grid-template-rows $vertical-space 1fr $vertical-space
     align-items center
     justify-content center
     text-align center
+  .banner
     background-image url(/images/bkg-cheatsheet-alt.jpg)
+    +desktop-up()
+      background-repeat repeat-x
+      background-size: contain;
     .body
       grid-row-start 2
     .title

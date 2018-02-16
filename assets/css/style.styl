@@ -68,9 +68,9 @@ ul
   -webkit-box-orient: vertical
 
 .banner
-  display grid
-  padding-left 4%
-  padding-right 4%
+  // display grid
+  // padding-left 4%
+  // padding-right 4%
   background-size: cover
   background-position: center center
   background-repeat no-repeat
@@ -92,3 +92,11 @@ ul
   .player
     min-width: 100% !important
     max-width: 100%
+
+.wrapper
+  display grid
+  width 100%
+  padding 0 4%
+  +laptop-up()
+    margin 0 auto
+    max-width 1400px

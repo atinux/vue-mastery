@@ -12,7 +12,7 @@ export default { name: 'PlayerPlaceholder' }
   @import '~assets/css/_variables'
   .player
     height 200px
-    min-width: 100%
+    width: 100%
     max-width: 800px
     background-color $black
     display flex
@@ -40,6 +40,6 @@ export default { name: 'PlayerPlaceholder' }
       height: 320px
   +laptop-up()
     .player
-      min-width 650px
+      // min-width 650px
       height 379px
 </style>

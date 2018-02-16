@@ -1,34 +1,35 @@
 <template lang="pug">
-footer.footer.section
-  .brand
-    nuxt-link.logo(to="/")
-      span.visually-hidden Vue mastery
-      img(src="/images/lgo-vue-mastery-white.png" role="logo")
-    p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
+footer.footer
+  .wrapper
+    .brand
+      nuxt-link.logo(to="/")
+        span.visually-hidden Vue mastery
+        img(src="/images/lgo-vue-mastery-white.png" role="logo")
+      p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
 
-  .nav
-    h4 Navigate
-    ul.list-unstyled
-      li
-        nuxt-link(to='/courses' class="-inverted") Courses
-      li
-        nuxt-link(to='/about' class="-inverted") About
-      li
-        nuxt-link(to='/contact' class="-inverted") Contact
-      li
-        nuxt-link(to='/privacy' class="-inverted") Privacy Policy
-      li
-        nuxt-link(to='/terms' class="-inverted") Terms of Service
-  //- .form-section
-  //-   h4 Get notified when we release new lessons.
-  //-   form.form
-  //-     .form-group
-  //-       label.visually-hidden Name
-  //-       input(class="input primary -hollow" placeholder="Name")
-  //-     .form-group
-  //-       label.visually-hidden Email
-  //-       input(class="input primary -hollow" placeholder="Email")
-  //-     button(type="submit" class="button primary -small") Subscribe
+    .nav
+      h4 Navigate
+      ul.list-unstyled
+        li
+          nuxt-link(to='/courses' class="-inverted") Courses
+        li
+          nuxt-link(to='/about' class="-inverted") About
+        li
+          nuxt-link(to='/contact' class="-inverted") Contact
+        li
+          nuxt-link(to='/privacy' class="-inverted") Privacy Policy
+        li
+          nuxt-link(to='/terms' class="-inverted") Terms of Service
+    //- .form-section
+    //-   h4 Get notified when we release new lessons.
+    //-   form.form
+    //-     .form-group
+    //-       label.visually-hidden Name
+    //-       input(class="input primary -hollow" placeholder="Name")
+    //-     .form-group
+    //-       label.visually-hidden Email
+    //-       input(class="input primary -hollow" placeholder="Email")
+    //-     button(type="submit" class="button primary -small") Subscribe
 </template>
 
 <script>
@@ -41,13 +42,14 @@ export default {'name': 'Footer'}
 .footer
   background-color $secondary-color
   color #fff
-
+  padding ($vertical-space/2) 0
+.wrapper
   display grid
+  text-align center
   grid-template-columns 1fr
   grid-template-areas "nav"\
                       "brand"\
                       "form"
-  text-align center
 
   +tablet-up()
     text-align left

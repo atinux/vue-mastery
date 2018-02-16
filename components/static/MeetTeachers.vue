@@ -1,14 +1,15 @@
 <template lang="pug">
   .banner
-    h2.title Meet Your Teachers
-    .gregg
-      img(src="/images/gregg-avatar.jpg")
-      h3 Gregg Pollack
-      p Gregg is passionate about teaching open source technology online. Previously he created Code School, an online software programming school which was acquired by Pluralsight.  He lives in Orlando, Florida with his two kids Ender and Alanna.
-    .adam
-      img(src="/images/adam-avatar.jpg")
-      h3 Adam Jahr
-      p Adam Jahr is a developer and programming instructor passionate about making it easier to learn complex skills. He previously instructed at The Iron Yard’s coding bootcamp before joining Vue Mastery in order to help developers progress along their professional paths.
+    .wrapper
+      h2.title Meet Your Teachers
+      .gregg
+        img(src="/images/gregg-avatar.jpg")
+        h3 Gregg Pollack
+        p Gregg is passionate about teaching open source technology online. Previously he created Code School, an online software programming school which was acquired by Pluralsight.  He lives in Orlando, Florida with his two kids Ender and Alanna.
+      .adam
+        img(src="/images/adam-avatar.jpg")
+        h3 Adam Jahr
+        p Adam Jahr is a developer and programming instructor passionate about making it easier to learn complex skills. He previously instructed at The Iron Yard’s coding bootcamp before joining Vue Mastery in order to help developers progress along their professional paths.
 </template>
 
 <script>
@@ -17,7 +18,7 @@ export default { 'name': 'MeetTeachers' }
 
 <style lang="stylus" scoped>
   @import '~assets/css/_variables.styl'
-  .banner
+  .wrapper
     padding-top ($vertical-space/2)
     padding-bottom ($vertical-space/2)
     grid-template-columns 1fr
@@ -45,7 +46,7 @@ export default { 'name': 'MeetTeachers' }
   .adam
     grid-area adam
   +tablet-up()
-    .banner
+    .wrapper
       padding-top $vertical-space
       padding-bottom $vertical-space
       grid-column-gap 4%

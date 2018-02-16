@@ -30,7 +30,6 @@
       p We worked closely with the Vue Core team to produce this video which walks you through the core principles of this JS Framework.
 
       nuxt-link.button.secondary.border(to="/courses") START LEARNING NOW
-
   CheatSheetAlt
 </template>
 
@@ -59,10 +58,8 @@ export default {
 @import '../assets/css/_variables'
 containers = mission mission-media team-media team why why-media
 .wrapper
-  display grid
-  padding-left 4%
-  padding-right 4%
-  margin ($vertical-space/4) 0
+  margin-top ($vertical-space/4)
+  margin-bottom ($vertical-space/4)
   grid-template-columns 1fr
   grid-row-gap ($vertical-space/4)
   align-items: center
@@ -88,9 +85,10 @@ ul
   padding-bottom 30px
   line-height: 25px
 
-+tablet-up()
++laptop-up()
   .wrapper
-    margin $vertical-space 0
+    margin-top $vertical-space
+    margin-bottom $vertical-space
     grid-template-columns 1fr 1fr
     grid-row-gap $vertical-space * 1.5
     grid-column-gap ($vertical-space/2)

@@ -74,7 +74,7 @@ module.exports = {
         name: 'msapplication-TileImage',
         content: '~/static/icons/mstile-144x144.png'
       }, {
-        // Windows
+      // Windows
       //   hid: 'msapplication-config',
       //   name: 'msapplication-config',
       //   content: '~/static/browserconfig.xml'
