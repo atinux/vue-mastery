@@ -6,7 +6,15 @@ footer.footer
         span.visually-hidden Vue mastery
         img(src="/images/lgo-vue-mastery-green.png" role="logo")
       p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
-
+      .social
+        nuxt-link.button.primary.link.inverted.-has-icon(to='https://www.facebook.com/vuemastery')
+          i.fab.fa-facebook
+        nuxt-link.button.primary.link.inverted.-has-icon(to='https://twitter.com/vuemastery')
+          i.fab.fa-twitter
+        nuxt-link.button.primary.link.inverted.-has-icon(to='https://medium.com/vue-mastery')
+          i.fab.fa-medium
+        nuxt-link.button.primary.link.inverted.-has-icon(to='https://www.youtube.com/vue-mastery')
+          i.fab.fa-youtube
     .nav
       h4 Navigate
       ul.list-unstyled
@@ -76,6 +84,10 @@ export default {'name': 'Footer'}
     img
       display block
       width 100%
+
+.social
+  display flex
+  font-size 1.5em
 
 .nav
   grid-area nav
