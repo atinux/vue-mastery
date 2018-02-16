@@ -1,6 +1,6 @@
 <template lang="pug">
 .lessons-list(v-if="course.lessons" v-cloak)
-  h4.title Lessons
+  h3.title Lessons
   .lessons-list-scroll
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.id)"
@@ -77,11 +77,12 @@ export default {
 @import '~assets/css/_variables.styl'
 .lessons-list
   grid-area list
-  background-color: #1E3247
-  color: #fff
   position relative
   min-height 260px
   overflow-y hidden
+  background-color: #FFF
+  border-bottom: solid 1px #CACACA
+  border-left: solid 1px #CACACA
 
 .lessons-list-scroll
   position absolute
@@ -99,7 +100,7 @@ export default {
   cursor: pointer
   justify-content space-between
   padding 14px 24px
-  background-color #1E3247
+  background-color #fff
 
   .list-item-meta
     display flex
@@ -121,6 +122,8 @@ export default {
 
   &.completed
     background-color #EBEBEB
+    &:not([class*="active"]) .list-item-title
+      opacity 0.4
 
 .list-item-title
   font-size 18px
@@ -134,19 +137,16 @@ export default {
   align-items center
   margin-bottom 0
   padding 0 24px
-  font-size 18px
-  font-weight 600
   height 60px
-  background-color #444444
+  color: $secondary-color
 
 .title,
-.list-item
-  border-bottom: 1px solid #767D84
+.list-item:not([class*="active"])
+  border-bottom: 1px solid #CACACA
 
 +tablet-up()
   .title
     height 76px
-    font-size 24px
   .lessons-list-scroll
     top 76px
     height: 100%
