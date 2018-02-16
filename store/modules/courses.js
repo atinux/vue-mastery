@@ -78,6 +78,9 @@ const actions = {
       equalTo: true,
       populate: [{
         field: 'image'
+      }, {
+        field: 'belongsToCourse',
+        subFields: [ 'slug' ]
       }]
     }).then(free => {
       commit(types.RECEIVE_FREE_VIDEOS, { free })
