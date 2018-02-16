@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     goTo (direction) {
-      this.$emit('selectLesson', this.lessons[this.selected + direction].id)
+      this.$emit('selectLesson', this.lessons[this.selected + direction].slug)
     }
   }
 }

@@ -23,7 +23,7 @@ export default {
   methods: {
     selectLesson () {
       this.$modal.hide('next-lesson')
-      this.$emit('selectLesson', this.lesson.id)
+      this.$emit('selectLesson', this.lesson.slug)
     },
     beforeOpen (event) {
       this.lesson = event.params.lesson

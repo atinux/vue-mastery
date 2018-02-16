@@ -28,14 +28,20 @@ const actions = {
         {
           field: 'image',
           subFields: [ 'image' ]
+        },
+        {
+          field: 'lessons',
+          fields: [ 'slug' ]
         }
       ]})
       .then(courses => {
         commit(types.RECEIVE_COURSES, { courses })
       })
   },
-  getCourse ({ commit, state, rootState }, id) {
-    return db.get('courses', id, {
+  getCourse ({ commit, state, rootState }, slug) {
+    return db.get('courses', {
+      orderByChild: 'slug',
+      equalTo: slug,
       populate: [
         {
           field: 'image',
@@ -47,6 +53,7 @@ const actions = {
         }
       ]})
       .then(course => {
+        course = course[Object.keys(course)[0]]
         commit(types.RECEIVE_COURSE, { course })
       })
   },
@@ -55,8 +62,8 @@ const actions = {
     return db.get('lessons', {
       limitToLast: 3,
       populate: [{
-        field: 'lessons',
-        subFields: [ 'lessons' ]
+        field: 'belongsToCourse',
+        fields: [ 'slug' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST_VIDEOS, { latests })

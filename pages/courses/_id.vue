@@ -56,33 +56,33 @@ import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 export default {
   head () {
     return {
-      title: this.course.title,
-      meta: [{
-        hid: `description${this.course.id}`,
-        name: 'description',
-        content: this.course.description
-      }, {
-        hid: `og:title${this.course.id}`,
-        property: 'og:title',
-        content: this.course.title
-      }, {
-        hid: `og:image${this.course.id}`,
-        property: 'og:image',
-        content: this.course.image[0].image[0].url
-      }]
+      // title: this.course.title,
+      // meta: [{
+      //   hid: `description${this.course.id}`,
+      //   name: 'description',
+      //   content: this.course.description
+      // }, {
+      //   hid: `og:title${this.course.id}`,
+      //   property: 'og:title',
+      //   content: this.course.title
+      // }, {
+      //   hid: `og:image${this.course.id}`,
+      //   property: 'og:image',
+      //   content: this.course.image[0].image[0].url
+      // }]
     }
   },
 
   data () {
     return {
-      courseId: parseInt(this.$route.params.id),
-      lessonId: parseInt(this.$route.query.lesson) || null,
+      courseSlug: this.$route.params.id,
+      lessonSlug: this.$route.query.lesson || null,
       selected: null
     }
   },
 
   mounted () {
-    this.$store.dispatch('getCourse', this.courseId)
+    this.$store.dispatch('getCourse', this.courseSlug)
   },
 
   components: {
@@ -104,6 +104,14 @@ export default {
       course: result => result.courses.course
     }),
 
+    courseId () {
+      return this.course.id
+    },
+
+    lessonId () {
+      return this.course.lessons.filter((lesson) => lesson.slug === this.lessonSlug)[0].id
+    },
+
     current () {
       let currentLesson = null
       // If no lesson selected, get the first one of the course
@@ -122,11 +130,11 @@ export default {
   },
 
   methods: {
-    selectLesson (id) {
-      this.lessonId = id
+    selectLesson (slug) {
+      this.lessonSlug = slug
       // Change url without redirecting to avoid page jump
-      // history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
-      this.$router.push(`/courses/${this.courseId}?lesson=${this.lessonId}`)
+      // history.pushState({}, null, `/courses/${this.courseSlug}?lesson=${slug}`)
+      this.$router.push(`/courses/${this.courseSlug}?lesson=${slug}`)
     },
 
     lessonCompleted () {

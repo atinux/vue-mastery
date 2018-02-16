@@ -4,7 +4,7 @@
   .lessons-list-scroll
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.id)"
-               @click="selectLesson(lesson.id)")
+               @click="selectLesson(lesson.slug)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta

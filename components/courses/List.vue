@@ -71,7 +71,7 @@ export default {
     link (course) {
       // Check if there is lesson in the course
       if (course.lessonsCount) {
-        let lessonId = course.lessons[0]
+        let lessonSlug = course.lessons[0].slug
 
         try {
           // Get the lessons started
@@ -79,11 +79,12 @@ export default {
           // Get the last completed lesson
           for (let key in lessons) {
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              lessonId = key
+              lessonSlug = lessons[key].slug
             }
           }
         } catch (error) {}
-        this.$router.push(`/courses/${course.id}?lesson=${lessonId}`)
+        // Transform to friendly url
+        this.$router.push(`/courses/${course.slug}?lesson=${lessonSlug}`)
       }
       return true
     },
@@ -136,6 +137,8 @@ export default {
     display flex
     flex-direction column
     justify-content space-between
+    cursor: pointer
+
     +tablet-up()
       flex-direction row
 
