@@ -4,7 +4,7 @@ footer.footer
     .brand
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
-        img(src="/images/lgo-vue-mastery-white.png" role="logo")
+        img(src="/images/lgo-vue-mastery-green.png" role="logo")
       p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
 
     .nav
