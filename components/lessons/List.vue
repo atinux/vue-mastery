@@ -14,10 +14,13 @@
         label.checkmark
           input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
           span.check
+    .list-subscribe
+      courseSubscribe
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import courseSubscribe from '~/components/account/CourseSubscribe'
 export default {
   name: 'list',
   props: ['course', 'current'],
@@ -25,6 +28,9 @@ export default {
     return {
       completedUnlogged: []
     }
+  },
+  components: {
+    courseSubscribe
   },
   computed: {
     ...mapState({
@@ -93,6 +99,13 @@ export default {
   min-height 200px
   overflow-y scroll
 
+.list-subscribe
+  display flex
+  align-items center
+  cursor: pointer
+  justify-content space-between
+  padding 14px 24px
+  background-color #fff
 
 .list-item
   display flex
@@ -141,7 +154,8 @@ export default {
   color: $secondary-color
 
 .title,
-.list-item:not([class*="active"])
+.list-item:not([class*="active"]),
+.list-subscribe
   border-bottom: 1px solid #CACACA
 
 +tablet-up()
