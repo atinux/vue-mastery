@@ -148,6 +148,7 @@ const actions = {
     })
   },
   userUpdateSubscribe ({ state }, courseSlug) {
+    console.log('ici', courseSlug)
     let courses = getCourseHistory(state.account.courses, courseSlug)
     courses[courseSlug].subscribed = !courses[courseSlug].subscribed
     return firebase.database().ref(`accounts/${state.user.uid}`).update({

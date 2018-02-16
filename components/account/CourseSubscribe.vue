@@ -28,7 +28,7 @@ export default {
       return subscribed
     },
     subscribedToMailingList () {
-      this.$store.dispatch('userUpdateSubscribe', this.course.id)
+      this.$store.dispatch('userUpdateSubscribe', this.course.slug)
     }
   }
 }
