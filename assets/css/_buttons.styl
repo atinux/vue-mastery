@@ -59,7 +59,8 @@ $button-height-small = ($button-height - 10px)
     display flex
     align-items center
     justify-content center
-    i[class*=fa]
+    i[class*=fa],
+    i[class*=fab]
       margin-right 10px
 
   &.link
@@ -96,7 +97,7 @@ $button-height-small = ($button-height - 10px)
         line-height: ($button-height-small - ($border-size * 2))
 
     & + .button
-      margin-left: 25px
+      // margin-left: 25px
 
   .control-group
     flex-direction row
