@@ -1,10 +1,10 @@
 <template lang="pug">
 form.form(v-cloak v-if="account")
   .body
+    span Notify me when new lessons are available.
     .switch
       input(id="subscribeSwitch" type="checkbox" :checked="isSubscribed()" @change="subscribedToMailingList")
       label(for="subscribeSwitch") Toggle
-    span Notify me when new lessons are available.
 </template>
 
 <script>
@@ -34,8 +34,6 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-  .form
-    margin-bottom 30px
   .body
     display flex
     justify-content: space-evenly

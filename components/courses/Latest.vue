@@ -7,7 +7,6 @@
           .media-block
             .body
               h4 {{ lesson.title }}
-              p {{ lesson.description }}
               div.meta
                 b Associated Course
                 label.-has-icon
@@ -45,7 +44,9 @@ export default {
 
   .media-block
     grid-column-gap 0
-    margin-bottom ($vertical-space/3)
+    margin-bottom ($vertical-space/4)
+    border-bottom solid 1px #EEE
+    padding-bottom ($vertical-space/4)
 
   .body p
     margin 0
