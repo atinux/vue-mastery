@@ -63,7 +63,7 @@ const actions = {
       limitToLast: 3,
       populate: [{
         field: 'belongsToCourse',
-        fields: [ 'slug' ]
+        subFields: [ 'slug' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST_VIDEOS, { latests })
