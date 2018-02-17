@@ -2,7 +2,7 @@
 div
   .list(v-if="courses" v-cloak)
     div(v-for="course, key, index in courses" v-if="index < 3")
-      .list-card.card(@click="link(course)" v-bind:class="{ showAction: showAction }")
+      nuxt-link.list-card.card(:to="link(course)" v-bind:class="{ showAction: showAction }")
         .media-block
           .media
             img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
@@ -22,7 +22,7 @@ div
         .actions(v-if="showAction" v-cloak)
           div(v-if="course.lessonsCount" v-cloak)
             span {{ course.lessonsCount | pluralizeLesson }}
-            .button.primary.-full(v-if="checkCourseStarted(course.id)" v-cloak)
+            .button.primary.-full(v-if="checkCourseStarted(course.slug)" v-cloak)
               | Resume
 
             .button.secondary.border.-full(v-else v-cloak)
@@ -79,14 +79,14 @@ export default {
           // Get the last completed lesson
           for (let key in lessons) {
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              lessonSlug = lessons[key].slug
+              lessonSlug = key
             }
           }
         } catch (error) {}
         // Transform to friendly url
-        this.$router.push(`/courses/${course.slug}?lesson=${lessonSlug}`)
+        return `/courses/${course.slug}?lesson=${lessonSlug}`
       }
-      return true
+      return ''
     },
     isSubscribed (courseSlug) {
       let subscribed = false
