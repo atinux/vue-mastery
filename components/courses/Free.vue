@@ -32,16 +32,21 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState({ free: result => result.courses.free })
+    ...mapState({ free: result => result.courses.free }),
+    ...mapState({ courses: result => result.courses.courses })
   },
 
   mounted: function () {
-    this.$store.dispatch('freeVideos')
+    this.$store.dispatch('featured')
   },
 
   methods: {
     path (lesson) {
-      return `/courses/${lesson.belongsToCourse[0].slug}?lesson=${lesson.slug}`
+      if (this.courses) {
+        const course = this.courses[lesson.belongsToCourse]
+        return `/courses/${course.slug}?lesson=${lesson.slug}`
+      }
+      return '#'
     }
   }
 }
