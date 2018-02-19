@@ -1,3 +1,4 @@
+// import * as types from './mutation-types'
 import Vuex from 'vuex'
 import account from './modules/account'
 import courses from './modules/courses'
@@ -9,9 +10,11 @@ const createStore = () => {
       courses
     },
     state: {
-      openNav: false
+      openNav: false,
+      storage: null
     },
     getters: {
+      // storage: state => state.storage,
       openNav: state => state.openNav
     },
     actions: {
@@ -20,6 +23,9 @@ const createStore = () => {
       }
     },
     mutations: {
+      // [types.APP_READY] (state, app) {
+      //   state.storage = app.storage
+      // },
       toggleNav (state) {
         state.openNav = !state.openNav
       }

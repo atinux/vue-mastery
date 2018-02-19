@@ -7,7 +7,7 @@
     .course-list
       .section
         h2.title Courses
-        CourseList
+        Featured
         nuxt-link.button.primary.border(to="/courses") More
     .meet-teachers
       MeetTeachers
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import CourseList from '~/components/courses/List'
+import Featured from '~/components/courses/Featured'
 import Free from '~/components/courses/Free'
 import Hero from '~/components/static/Hero'
 import MeetTeachers from '~/components/static/MeetTeachers'
@@ -34,7 +34,7 @@ export default {
   },
   components: {
     Hero,
-    CourseList,
+    Featured,
     Free,
     MeetTeachers,
     CommunitySupport,

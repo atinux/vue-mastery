@@ -1,159 +1,38 @@
 <template lang="pug">
-div
-  .list(v-if="courses" v-cloak)
-    div(v-for="course, key, index in courses" v-if="index < 3")
-      nuxt-link.list-card.card(:to="link(course)" v-bind:class="{ showAction: showAction }")
-        .media-block
-          .media
-            img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
-          .body
-            h3.title {{ course.title }}
-            p.content {{ course.description }}
-            div.meta(v-if="!showAction" v-cloak)
-              label
-                b {{ course.lessons.length | pluralizeLesson }}
-              label
-                span ・
-                | {{ course.difficulty }}
-              label.-has-icon
-                span ・
-                i.far.fa-clock
-                | {{ course.duration | time }}
-        .actions(v-if="showAction" v-cloak)
-          div(v-if="course.lessonsCount" v-cloak)
-            span {{ course.lessonsCount | pluralizeLesson }}
-            .button.primary.-full(v-if="checkCourseStarted(course.slug)" v-cloak)
-              | Resume
+.media-block(v-if="course")
+  .media
+    img(v-bind:src="course.image[0].url")
+  
+  .body
+    h3.title {{ course.title }}
+    p.content {{ course.description }}
+  
+    .meta(v-if="showDetail" v-cloak)
+      label
+        b {{ course.lessons.length | pluralizeLesson }}
+      label
+        span ・
+        | {{ course.difficulty }}
+      label.-has-icon
+        span ・
+        i.far.fa-clock
+        | {{ course.duration | time }}
 
-            .button.secondary.border.-full(v-else v-cloak)
-              | Play
-
-          div(v-else v-cloak)
-            div(v-if="isSubscribed(course.slug)")
-              span Subscribed
-            div(v-else)
-              span Coming Soon
-
-              .button.primary.border.-full(@click="subscribedToMailingList(course.slug)" v-if="account" v-cloak)
-                | Notify Me
-
-              button.button.primary.border.-full(v-else v-cloak @click="openLogin") Notify Me
-
-  ul.list-unstyled(v-else)
-    each val in [1, 2, 3]
-      li
-        .media-block.fake
-          .media.-small.fake
-          .body.fake
-        .actions.fake
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
-  props: ['showAction'],
-  computed: {
-    ...mapState({
-      account: result => result.account.account,
-      courses: result => result.courses.courses
-    })
-  },
-
-  methods: {
-    checkCourseStarted (courseId) {
-      let started = false
-      try {
-        started = this.account.courses[courseId].started
-      } catch (error) {}
-      return started
-    },
-    link (course) {
-      // Check if there is lesson in the course
-      if (course.lessonsCount) {
-        let lessonSlug = course.lessons[0].slug
-
-        try {
-          // Get the lessons started
-          let lessons = this.account.courses[course.slug].completedLessons
-          // Get the last completed lesson
-          for (let key in lessons) {
-            if (lessons.hasOwnProperty(key) && lessons[key]) {
-              lessonSlug = key
-            }
-          }
-        } catch (error) {}
-        // Transform to friendly url
-        return `/courses/${course.slug}?lesson=${lessonSlug}`
-      }
-      return ''
-    },
-    isSubscribed (courseSlug) {
-      let subscribed = false
-      if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[courseSlug]
-        if (completedCourse) {
-          subscribed = completedCourse.subscribed || false
-        }
-      }
-      return subscribed
-    },
-    subscribedToMailingList (courseSlug) {
-      this.$store.dispatch('userUpdateSubscribe', courseSlug)
-    },
-    openLogin () {
-      this.$modal.show('login-form', {
-        newAccount: true,
-        header: 'Please create a free account to get notified when new lessons are available.'
-      })
-    }
-  },
-
-  mounted: function () {
-    this.$store.dispatch('getAllCourses')
-  }
+  props: ['showDetail', 'course']
 }
 </script>
 
 <style lang="stylus" scoped>
-  @import '~assets/css/_variables'
+@import '~assets/css/_variables'
 
-  .content
-    color: $gray
-
-  .list,
-  .list-unstyled
-    > div
-      margin-bottom: 35px
-
-  .media
-    img
-      +tablet-up()
-        width: 120px
-        height: 120px
-
-
-  .list-card
-    display flex
-    flex-direction column
-    justify-content space-between
-    cursor: pointer
-
+.media
+  img
     +tablet-up()
-      flex-direction row
+      width: 120px
+      height: 120px
 
-
-  .actions
-    display flex
-    align-items center
-    justify-content center
-    width 100%
-    text-align: center
-    margin-top 20px
-    +tablet-up()
-      width 200px
-      margin-left 4%
-      margin-top: 0
-    span
-      font-weight: 700
 </style>

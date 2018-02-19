@@ -8,16 +8,18 @@ const state = {
   course: null,
   lessons: null,
   latests: null,
-  free: null
+  free: null,
+  featured: null
 }
 
 // getters
 const getters = {
-  allCourses: state => state.courses,
+  courses: state => state.courses,
   course: state => state.course,
   lessons: state => state.lessons,
   latests: state => state.latests,
-  free: state => state.free
+  free: state => state.free,
+  featured: state => state.featured
 }
 
 // actions
@@ -65,12 +67,23 @@ const actions = {
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
         subFields: [ 'image' ]
       }, {
-        field: 'latests',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ],
-        subFields: [ 'belongsToCourse' ]
+        field: 'featured',
+        fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
+        subFields: [ 'image' ]
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
+    })
+  },
+
+  latest ({ commit, state }) {
+    return db.get('course', {
+      populate: [ {
+        field: 'latests',
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ]
+      }]
+    }).then(latests => {
+      commit(types.RECEIVE_LATEST, { latests })
     })
   }
 }
@@ -88,7 +101,10 @@ const mutations = {
   },
   [types.RECEIVE_FEATURED] (state, { featured }) {
     state.free = featured.free
-    state.latests = featured.latests
+    state.featured = featured.featured
+  },
+  [types.RECEIVE_LATEST] (state, { latests }) {
+    state.latests = latests.latests
   }
 }
 

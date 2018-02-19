@@ -25,15 +25,15 @@ export default {
   },
 
   mounted: function () {
-    this.$store.dispatch('featured')
+    this.$store.dispatch('latest')
   },
 
   methods: {
     path (lesson) {
-      if (this.courses) {
-        const course = this.courses[lesson.belongsToCourse]
-        return `/courses/${course.slug}?lesson=${lesson.slug}`
-      }
+      // if (this.courses) {
+      //   const course = this.courses[lesson.belongsToCourse]
+      //   return `/courses/${course.slug}?lesson=${lesson.slug}`
+      // }
       return '#'
     }
   }
