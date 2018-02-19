@@ -14,7 +14,7 @@
         label.checkmark
           input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
           span.check
-    .list-subscribe
+    .list-subscribe(v-cloak v-if="account")
       courseSubscribe
 </template>
 
