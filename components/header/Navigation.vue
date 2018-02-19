@@ -3,6 +3,7 @@
     .navbar-main
       router-link.navbar-item(to="/courses") Courses
       router-link.navbar-item(to="/about") About
+      router-link.navbar-item(to="/contact") Contact
     no-ssr
       .navbar-secondary(v-cloak v-if="account")
         button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
