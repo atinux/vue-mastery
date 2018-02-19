@@ -37,7 +37,7 @@ form.form(v-on:submit.prevent="submit")
 
   .form-actions(@click="checkDisabled")
     button.button.primary.-full(type="submit" :disabled="actionDisabled") {{ label }}
-    .control-group(v-if="rememberPassword" v-cloak)
+    .control-group.-spaced(v-if="rememberPassword" v-cloak)
       label {{ label }} with:
       GoogleButton.button.secondary.border.-has-icon.-small(:label="'Google'" :disabled="actionDisabled")
       GithubButton.button.secondary.border.-has-icon.-small(:label="'Github'" :disabled="actionDisabled")

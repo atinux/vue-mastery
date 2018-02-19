@@ -37,6 +37,18 @@ $input-height-small = ($input-height - 10px)
       &::placeholder
         color state
 
+.textarea
+  width 100%
+  padding ($input-height/2)
+  margin: 5px 0
+  border-style solid
+  border-width $border-size
+  border-color lighten($gray, 60%)
+  border-radius $form-radius
+
+  &:focus
+    width 100%
+    outline none
 .upload
   display inline-block
   position relative
