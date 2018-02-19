@@ -1,0 +1,9 @@
+.callout
+  padding 1em
+  border-radius 10px
+
+  for name, state in $states
+    &.-{name}
+      background lighten(state, 75%)
+      border: solid 1px state
+      color darken(state, 40%)

@@ -3,21 +3,22 @@ form.form(v-on:submit.prevent="submit")
   h3.form-title {{ title }}
   .form-header(v-if="header" v-html="header")
 
-  .benefits(v-if="isNew" v-cloak)
-    h4 Benefits for creating an account include:
-    ul
-      li The ability to track your progress as you complete lessons
-      li Early access to lessons before we officially release them
-      li Access to download our ultimate Vue.js Cheat Sheet
-    
+  .form-group
+    .callout.-info(v-if="isNew" v-cloak)
+      h4 Benefits for creating an account include:
+      ul
+        li The ability to track your progress as you complete lessons
+        li Early access to lessons before we officially release them
+        li Access to download our ultimate Vue.js Cheat Sheet
+
   .form-group
     label.label Email
-    input.input(v-bind:class="{ '-is-error': invalidEmail }" 
-                type="email" 
+    input.input(v-bind:class="{ '-is-error': invalidEmail }"
+                type="email"
                 placeholder="Account Email"
                 @focus="isFocus = true"
                 @blur="isFocus = false"
-                v-model="email" 
+                v-model="email"
                 autocomplete="email")
     span.help-text.-is-error(v-if="invalidEmail" v-cloak) This email is invalid
 
