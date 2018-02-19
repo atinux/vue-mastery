@@ -16,12 +16,16 @@ import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 
 export default {
   middleware: 'anonymous',
-  head: {
-    title: 'Courses page',
-    meta: [
-      { hid: 'description', name: 'description', content: '' },
-      { hid: 'description', name: 'description', content: 'This is the page description' }
-    ]
+  // head: {
+  //   title: 'Courses page',
+  //   meta: [
+  //     { hid: 'description', name: 'description', content: 'This is the page description' }
+  //   ]
+  // },
+  head () {
+    return {
+      title: 'Courses page'
+    }
   },
   components: {
     CourseList,

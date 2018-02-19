@@ -74,22 +74,22 @@ module.exports = {
         name: 'msapplication-TileImage',
         content: '~/static/icons/mstile-144x144.png'
       }, {
-        // Windows
-        hid: 'msapplication-config',
-        name: 'msapplication-config',
-        content: 'browserconfig.xml'
-      },{
-        name:'msapplication-square70x70logo',
-        content:'~/static/icons/mstile-70x70.png'
+      // Windows
+      //   hid: 'msapplication-config',
+      //   name: 'msapplication-config',
+      //   content: '~/static/browserconfig.xml'
+      // }, {
+        name: 'msapplication-square70x70logo',
+        content: '~/static/icons/mstile-70x70.png'
       }, {
-        name:'msapplication-square150x150logo',
-        content:'~/static/icons/mstile-150x150.png'
+        name: 'msapplication-square150x150logo',
+        content: '~/static/icons/mstile-150x150.png'
       }, {
-        name:'msapplication-wide310x150logo',
-        content:'~/static/icons/mstile-310x150.png'
+        name: 'msapplication-wide310x150logo',
+        content: '~/static/icons/mstile-310x150.png'
       }, {
-        name:'msapplication-square310x310logo',
-        content:'~/static/icons/mstile-310x310.png'
+        name: 'msapplication-square310x310logo',
+        content: '~/static/icons/mstile-310x310.png'
       }, {
         // Pinned Sites
         hid: 'application-name',
@@ -187,27 +187,27 @@ module.exports = {
         rel: 'icon',
         type: 'image/png',
         href: '~/static/icons/favicon-196x196.png',
-        sizes: '196x196',
+        sizes: '196x196'
       }, {
         rel: 'icon',
         type: 'image/png',
         href: '~/static/icons/favicon-96x96.png',
-        sizes: '96x96',
+        sizes: '96x96'
       }, {
         rel: 'icon',
         type: 'image/png',
         href: '~/static/icons/favicon-32x32.png',
-        sizes: '32x32',
+        sizes: '32x32'
       }, {
         rel: 'icon',
         type: 'image/png',
         href: '~/static/icons/favicon-16x16.png',
-        sizes: '16x16',
+        sizes: '16x16'
       }, {
         rel: 'icon',
         type: 'image/png',
         href: '~/static/icons/favicon-128.png',
-        sizes: '128x128',
+        sizes: '128x128'
       },
       // CSS
       {

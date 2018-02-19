@@ -6,7 +6,7 @@ div
 
     lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
 
-    lessonsList(:course="course" :current="lessonId"  @selectLesson="selectLesson")
+    lessonsList(:course="course" :current="lessonSlug"  @selectLesson="selectLesson")
 
     lessonBody(:course="current")
 
@@ -54,16 +54,35 @@ import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
+  head () {
+    return {
+      // title: this.course.title,
+      // meta: [{
+      //   hid: `description${this.course.id}`,
+      //   name: 'description',
+      //   content: this.course.description
+      // }, {
+      //   hid: `og:title${this.course.id}`,
+      //   property: 'og:title',
+      //   content: this.course.title
+      // }, {
+      //   hid: `og:image${this.course.id}`,
+      //   property: 'og:image',
+      //   content: this.course.image[0].image[0].url
+      // }]
+    }
+  },
+
   data () {
     return {
-      courseId: parseInt(this.$route.params.id),
-      lessonId: parseInt(this.$route.query.lesson) || null,
+      courseSlug: this.$route.params.id,
+      lessonSlug: this.$route.query.lesson || null,
       selected: null
     }
   },
 
   mounted () {
-    this.$store.dispatch('getCourse', this.courseId)
+    this.$store.dispatch('getCourse', this.courseSlug)
   },
 
   components: {
@@ -88,10 +107,10 @@ export default {
     current () {
       let currentLesson = null
       // If no lesson selected, get the first one of the course
-      if (this.lessonId === null) this.lessonId = this.course.lessons[0].id
+      if (this.lessonSlug === null) this.lessonSlug = this.course.lessons[0].slug
       this.course.lessons.map((lesson, index) => {
         // Find the selected lesson in the list
-        if (this.lessonId === lesson.id) {
+        if (this.lessonSlug === lesson.slug) {
           // Load the current lesson
           currentLesson = lesson
           // Keep track of lesson index for the carousel
@@ -103,11 +122,11 @@ export default {
   },
 
   methods: {
-    selectLesson (id) {
-      this.lessonId = id
+    selectLesson (slug) {
+      this.lessonSlug = slug
       // Change url without redirecting to avoid page jump
-      // history.pushState({}, null, `/courses/${this.courseId}?lesson=${this.lessonId}`)
-      this.$router.push(`/courses/${this.courseId}?lesson=${this.lessonId}`)
+      // history.pushState({}, null, `/courses/${this.courseSlug}?lesson=${slug}`)
+      this.$router.push(`/courses/${this.courseSlug}?lesson=${slug}`)
     },
 
     lessonCompleted () {
@@ -117,8 +136,8 @@ export default {
         })
       }
       this.$store.dispatch('userUpdateCompleted', {
-        lessonId: this.lessonId,
-        courseId: this.courseId,
+        lessonSlug: this.lessonSlug,
+        courseSlug: this.courseSlug,
         isCompleted: true
       })
     }

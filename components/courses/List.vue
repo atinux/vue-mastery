@@ -29,12 +29,12 @@ div
               | Play
 
           div(v-else v-cloak)
-            div(v-if="isSubscribed(course.id)")
+            div(v-if="isSubscribed(course.slug)")
               span Subscribed
             div(v-else)
               span Coming Soon
 
-              .button.primary.border.-full(@click="subscribedToMailingList(course.id)" v-if="account" v-cloak)
+              .button.primary.border.-full(@click="subscribedToMailingList(course.slug)" v-if="account" v-cloak)
                 | Notify Me
 
               button.button.primary.border.-full(v-else v-cloak @click="openLogin") Notify Me
@@ -71,34 +71,35 @@ export default {
     link (course) {
       // Check if there is lesson in the course
       if (course.lessonsCount) {
-        let lessonId = course.lessons[0]
+        let lessonSlug = course.lessons[0].slug
 
         try {
           // Get the lessons started
-          let lessons = this.account.courses[course.id].completedLessons
+          let lessons = this.account.courses[course.slug].completedLessons
           // Get the last completed lesson
           for (let key in lessons) {
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              lessonId = key
+              lessonSlug = lessons[key].slug
             }
           }
         } catch (error) {}
-        this.$router.push(`/courses/${course.id}?lesson=${lessonId}`)
+        // Transform to friendly url
+        this.$router.push(`/courses/${course.slug}?lesson=${lessonSlug}`)
       }
       return true
     },
-    isSubscribed (courseId) {
+    isSubscribed (courseSlug) {
       let subscribed = false
       if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[courseId]
+        const completedCourse = this.account.courses[courseSlug]
         if (completedCourse) {
           subscribed = completedCourse.subscribed || false
         }
       }
       return subscribed
     },
-    subscribedToMailingList (courseId) {
-      this.$store.dispatch('userUpdateSubscribe', courseId)
+    subscribedToMailingList (courseSlug) {
+      this.$store.dispatch('userUpdateSubscribe', courseSlug)
     },
     openLogin () {
       this.$modal.show('login-form', {
@@ -136,6 +137,8 @@ export default {
     display flex
     flex-direction column
     justify-content space-between
+    cursor: pointer
+
     +tablet-up()
       flex-direction row
 

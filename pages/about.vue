@@ -39,8 +39,13 @@ import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 
 export default {
   middleware: 'anonymous',
-  head: {
-    title: 'About page'
+  // head: {
+  //   title: 'About page'
+  // },
+  head () {
+    return {
+      title: 'About page'
+    }
   },
   components: {
     PlayerPlaceholder,

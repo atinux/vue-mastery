@@ -41,7 +41,7 @@ export default {
 
   methods: {
     path (lesson) {
-      return `/courses/${lesson.belongsToCourse}?lesson=${lesson.id}`
+      return `/courses/${lesson.belongsToCourse[0].slug}?lesson=${lesson.slug}`
     }
   }
 }

@@ -3,8 +3,8 @@
   h3.title Lessons
   .lessons-list-scroll
     .list-item(v-for="(lesson, index) in course.lessons"
-               v-bind:class="activeOrCompleted(lesson.id)"
-               @click="selectLesson(lesson.id)")
+               v-bind:class="activeOrCompleted(lesson.slug)"
+               @click="selectLesson(lesson.slug)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
@@ -12,7 +12,7 @@
           span {{ lesson.duration | time}}
       .list-item-actions(@click.stop)
         label.checkmark
-          input(type="checkbox" :checked="isCompleted(lesson.id)" @change="toggleCompleted(lesson.id)")
+          input(type="checkbox" :checked="isCompleted(lesson.slug)" @change="toggleCompleted(lesson.slug)")
           span.check
     .list-subscribe(v-cloak v-if="account")
       courseSubscribe
@@ -38,41 +38,41 @@ export default {
     })
   },
   methods: {
-    selectLesson (lessonId) {
-      this.$emit('selectLesson', lessonId)
+    selectLesson (lessonSlug) {
+      this.$emit('selectLesson', lessonSlug)
     },
-    toggleCompleted (lessonId) {
+    toggleCompleted (lessonSlug) {
       if (this.account) {
         this.$store.dispatch('userUpdateCompleted', {
-          lessonId: lessonId,
-          courseId: this.course.id,
-          isCompleted: !this.isCompleted(lessonId)
+          lessonSlug: lessonSlug,
+          courseSlug: this.course.slug,
+          isCompleted: !this.isCompleted(lessonSlug)
         })
       } else {
-        this.completedUnlogged.push(lessonId)
+        this.completedUnlogged.push(lessonSlug)
         this.$modal.show('login-form', { newAccount: false })
         return true
       }
     },
-    isCompleted (lessonId) {
+    isCompleted (lessonSlug) {
       if (this.account) {
         let completed = false
         if (typeof (this.account['courses']) !== 'undefined') {
-          const completedCourse = this.account.courses[this.course.id]
-          if (typeof (completedCourse['completedLessons']) !== 'undefined') {
-            completed = this.account.courses[this.course.id].completedLessons[lessonId]
+          const completedCourse = this.account.courses[this.course.slug]
+          if (completedCourse && typeof (completedCourse['completedLessons']) !== 'undefined') {
+            completed = this.account.courses[this.course.slug].completedLessons[lessonSlug]
           }
         }
         return completed
       } else {
-        let checkCompleted = this.completedUnlogged.filter((key) => key === lessonId)
+        let checkCompleted = this.completedUnlogged.filter((key) => key === lessonSlug)
         return checkCompleted.length
       }
     },
-    activeOrCompleted (lessonId) {
+    activeOrCompleted (lessonSlug) {
       return {
-        active: this.current === lessonId,
-        completed: this.isCompleted(lessonId)
+        active: this.current === lessonSlug,
+        completed: this.isCompleted(lessonSlug)
       }
     }
   }

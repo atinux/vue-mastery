@@ -5,8 +5,13 @@ div
 <script>
 export default {
   middleware: 'anonymous',
-  head: {
-    title: 'Privacy Policy'
+  // head: {
+  //   title: 'Privacy Policy'
+  // }
+  head () {
+    return {
+      title: 'Privacy Policy'
+    }
   }
 }
 </script>

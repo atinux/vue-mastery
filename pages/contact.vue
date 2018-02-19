@@ -33,8 +33,13 @@
 <script>
 export default {
   middleware: 'anonymous',
-  head: {
-    title: 'Contact Us'
+  // head: {
+  //   title: 'Contact Us'
+  // }
+  head () {
+    return {
+      title: 'Contact Us'
+    }
   }
 }
 </script>
