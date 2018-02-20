@@ -65,11 +65,11 @@ const actions = {
       populate: [ {
         field: 'free',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
-        subFields: [ 'image' ]
+        populate: [ 'image' ]
       }, {
         field: 'featured',
         fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
-        subFields: [ 'image' ]
+        populate: [ 'image' ]
       }]
     }).then(featured => {
       commit(types.RECEIVE_FEATURED, { featured })
