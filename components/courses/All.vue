@@ -46,7 +46,7 @@ export default {
           }
         } catch (error) {}
         // Transform to friendly url
-        return `/courses/${course.slug}?lesson=${lessonSlug}`
+        return `/courses/${course.slug}/${lessonSlug}`
       }
       return ''
     }

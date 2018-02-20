@@ -16,7 +16,7 @@ div
           i.fa.fa-download
           | Download
         socialShare
-      //- courseSubscribe
+      courseSubscribe
       lessonresources(:resources='current.resources')
       lessonChallenges(:challenges='current.codingChallenge')
 
@@ -75,8 +75,8 @@ export default {
 
   data () {
     return {
-      courseSlug: this.$route.params.id,
-      lessonSlug: this.$route.query.lesson || null,
+      courseSlug: this.$route.params.lesson,
+      lessonSlug: this.$route.params.slug,
       selected: null
     }
   },
@@ -134,9 +134,7 @@ export default {
   methods: {
     selectLesson (slug) {
       this.lessonSlug = slug
-      // Change url without redirecting to avoid page jump
-      // history.pushState({}, null, `/courses/${this.courseSlug}?lesson=${slug}`)
-      this.$router.push(`/courses/${this.courseSlug}?lesson=${slug}`)
+      this.$router.push(`/courses/${this.courseSlug}/${slug}`)
     },
 
     lessonCompleted () {

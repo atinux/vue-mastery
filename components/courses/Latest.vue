@@ -30,10 +30,10 @@ export default {
 
   methods: {
     path (lesson) {
-      // if (this.courses) {
-      //   const course = this.courses[lesson.belongsToCourse]
-      //   return `/courses/${course.slug}?lesson=${lesson.slug}`
-      // }
+      if (this.courses) {
+        const course = this.courses[lesson.belongsToCourse]
+        return `/courses/${course.slug}/${lesson.slug}`
+      }
       return '#'
     }
   }

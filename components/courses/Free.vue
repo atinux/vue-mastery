@@ -44,7 +44,7 @@ export default {
     path (lesson) {
       if (this.courses) {
         const course = this.courses[lesson.belongsToCourse]
-        return `/courses/${course.slug}?lesson=${lesson.slug}`
+        return `/courses/${course.slug}/${lesson.slug}`
       }
       return '#'
     }
