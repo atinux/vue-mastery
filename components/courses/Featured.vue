@@ -1,7 +1,8 @@
 <template lang="pug">
 div
   .list(v-if="courses" v-cloak)
-    nuxt-link.list-card.card(:to="`/courses/${course.slug}?lesson=${course.lessons[0].slug}`" v-for="course, key in courses")
+    nuxt-link.list-card.card(:to="`/courses/${course.slug}?lesson=${course.lessons[0].slug}`"
+                              v-for="course, key in courses" :key="course.id")
       courseList(:course="course")
 
   fakeList(v-else)
