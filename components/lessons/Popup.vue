@@ -6,7 +6,7 @@ no-ssr
 
     .progress
       svg(height="60" width="60")
-        circle(cx="30" cy="30" r="20" stroke-width="10" fill="none" v-on:animationend="selectLesson")
+        //- circle(cx="30" cy="30" r="20" stroke-width="10" fill="none" v-on:animationend="selectLesson")
 
     button.button.primary(@click="selectLesson" rel="next") Next Lesson
     //- button.button.primary(@click="stop" rel="next") Cancel

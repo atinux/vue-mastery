@@ -1,28 +1,28 @@
-<template lang="pug">
+<template lang='pug'>
 div
-  .lesson-wrapper(v-if="course" v-cloak)
+  .lesson-wrapper(v-if='course' v-cloak)
 
-    lessonHeader(:course="course")
+    lessonHeader(:course='course')
 
-    lessonVideo(:videoId = "current.videoEmbedId" @videoEnded="lessonCompleted")
+    lessonVideo(:videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
 
-    lessonsList(:course="course" :current="lessonSlug"  @selectLesson="selectLesson")
+    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
 
-    lessonBody(:course="current")
+    lessonBody(:course='current')
 
     aside.lesson-aside
       .control-group.-spaced
-        a.button.secondary.-has-icon(:href="current.downloadLink" download)
+        a.button.secondary.-has-icon(:href='current.downloadLink' download)
           i.fa.fa-download
           | Download
         socialShare
       //- courseSubscribe
-      lessonresources(:resources="current.resources")
-      lessonChallenges(:challenges="current.codingChallenge")
+      lessonresources(:resources='current.resources')
+      lessonChallenges(:challenges='current.codingChallenge')
 
-    lessonNav(:lessons="course.lessons" :selected="selected" @selectLesson="selectLesson")
+    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson')
 
-    lessonPopup(@selectLesson="selectLesson")
+    lessonPopup(@selectLesson='selectLesson')
 
   .lesson-wrapper(v-else)
     .lesson-header.fake
@@ -83,6 +83,16 @@ export default {
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseSlug)
+
+    // TODO: @dustin remove this when popup is styled
+    setTimeout(() => {
+      this.$modal.show('next-lesson', {
+        lesson: {
+          title: 'Intro to Vue.JS',
+          description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
+        }
+      })
+    }, 500)
   },
 
   components: {
@@ -145,17 +155,17 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang='stylus' scoped>
 @import '~assets/css/_variables.styl'
 .lesson-wrapper
   display grid
   grid-template-columns 1fr 1fr
-  grid-template-areas "header header"\
-                      "video video"\
-                      "list list"\
-                      "content content"\
-                      "sidebar sidebar"\
-                      "footer footer"
+  grid-template-areas 'header header'\
+                      'video video'\
+                      'list list'\
+                      'content content'\
+                      'sidebar sidebar'\
+                      'footer footer'
 
 .lesson-header
   grid-area header
@@ -184,21 +194,21 @@ export default {
 +tablet-up()
   .lesson-wrapper
     grid-template-columns 1fr 1fr 30%
-    grid-template-areas "header header header"\
-                        "video video video"\
-                        "content content list"\
-                        "sidebar sidebar sidebar"\
-                        "footer footer footer"
+    grid-template-areas 'header header header'\
+                        'video video video'\
+                        'content content list'\
+                        'sidebar sidebar sidebar'\
+                        'footer footer footer'
 
   .lesson-aside
     margin $vertical-space 0
 +laptop-up()
   .lesson-wrapper
     grid-template-columns 1fr 1fr 30%
-    grid-template-areas "header  header  header"\
-                         "video   video   list"\
-                         "content content sidebar"\
-                         "footer  footer  footer"
+    grid-template-areas 'header  header  header'\
+                         'video   video   list'\
+                         'content content sidebar'\
+                         'footer  footer  footer'
 
   .lesson-aside
     padding 0 8%
@@ -206,10 +216,10 @@ export default {
 // +desktop-up()
 //   .lesson-wrapper
 //     grid-template-columns 50% 25% 25%
-//     grid-template-areas "header  header  header"\
-//                          "video   video   list"\
-//                          "content sidebar sidebar"\
-//                          "footer  footer  footer"
+//     grid-template-areas 'header  header  header'\
+//                          'video   video   list'\
+//                          'content sidebar sidebar'\
+//                          'footer  footer  footer'
 
 
 </style>
