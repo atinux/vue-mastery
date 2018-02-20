@@ -5,7 +5,7 @@ footer.footer
       nuxt-link.logo(to="/")
         span.visually-hidden Vue mastery
         img(src="/images/lgo-vue-mastery-green.png" role="logo")
-      p A small summary paragraph talking about what Vue Mastery is. Maybe even adding it’s connection to CodePop here as well. Thoughts?
+      p As the ultimate resource for Vue.js developers, Vue Mastery produces weekly lessons so you can learn what you need to succeed as a Vue.js Developer.
       .social
         a.button.primary.link.inverted.-has-icon(href='https://www.facebook.com/vuemastery' target="_blank")
           i.fab.fa-facebook
