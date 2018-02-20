@@ -2,7 +2,7 @@
   .lesson-header
     .wrapper
       .media
-        img(v-bind:src="course.image[0].image[0].url" :alt="course.image[0].description")
+        img(v-bind:src="course.image[0].url" :alt="course.image[0].description")
       .body
         h1.title {{ course.title }}
 </template>
