@@ -20,16 +20,21 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState({ latests: result => result.courses.latests })
+    ...mapState({ latests: result => result.courses.latests }),
+    ...mapState({ courses: result => result.courses.courses })
   },
 
   mounted: function () {
-    this.$store.dispatch('lastVideos')
+    this.$store.dispatch('latest')
   },
 
   methods: {
     path (lesson) {
-      return `/courses/${lesson.belongsToCourse[0].slug}?lesson=${lesson.slug}`
+      // if (this.courses) {
+      //   const course = this.courses[lesson.belongsToCourse]
+      //   return `/courses/${course.slug}?lesson=${lesson.slug}`
+      // }
+      return '#'
     }
   }
 }

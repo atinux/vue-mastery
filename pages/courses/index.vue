@@ -4,13 +4,13 @@
       .wrapper
         h1.title Our Courses
     .courses-body.wrapper
-      CourseList(showAction="true")
+      CourseList
       Latest
     CheatSheetAlt
 </template>
 
 <script>
-import CourseList from '~/components/courses/List'
+import CourseList from '~/components/courses/All'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
 

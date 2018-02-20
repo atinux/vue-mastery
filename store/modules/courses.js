@@ -8,16 +8,18 @@ const state = {
   course: null,
   lessons: null,
   latests: null,
-  free: null
+  free: null,
+  featured: null
 }
 
 // getters
 const getters = {
-  allCourses: state => state.courses,
+  courses: state => state.courses,
   course: state => state.course,
   lessons: state => state.lessons,
   latests: state => state.latests,
-  free: state => state.free
+  free: state => state.free,
+  featured: state => state.featured
 }
 
 // actions
@@ -58,32 +60,30 @@ const actions = {
       })
   },
 
-  lastVideos ({ commit, state }) {
-    return db.get('lessons', {
-      limitToLast: 3,
-      populate: [{
-        field: 'belongsToCourse',
-        fields: [ 'slug' ]
+  featured ({ commit, state }) {
+    return db.get('home', {
+      populate: [ {
+        field: 'free',
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        subFields: [ 'image' ]
+      }, {
+        field: 'featured',
+        fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
+        subFields: [ 'image' ]
       }]
-    }).then(latests => {
-      commit(types.RECEIVE_LATEST_VIDEOS, { latests })
+    }).then(featured => {
+      commit(types.RECEIVE_FEATURED, { featured })
     })
   },
 
-  freeVideos ({ commit, state }) {
-    // Get free lessons
-    return db.get('lessons', {
-      limitToLast: 3,
-      orderByChild: 'free',
-      equalTo: true,
-      populate: [{
-        field: 'image'
-      }, {
-        field: 'belongsToCourse',
-        subFields: [ 'slug' ]
+  latest ({ commit, state }) {
+    return db.get('course', {
+      populate: [ {
+        field: 'latests',
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ]
       }]
-    }).then(free => {
-      commit(types.RECEIVE_FREE_VIDEOS, { free })
+    }).then(latests => {
+      commit(types.RECEIVE_LATEST, { latests })
     })
   }
 }
@@ -99,11 +99,12 @@ const mutations = {
   [types.RECEIVE_COURSE] (state, { course }) {
     state.course = course
   },
-  [types.RECEIVE_LATEST_VIDEOS] (state, { latests }) {
-    state.latests = latests
+  [types.RECEIVE_FEATURED] (state, { featured }) {
+    state.free = featured.free
+    state.featured = featured.featured
   },
-  [types.RECEIVE_FREE_VIDEOS] (state, { free }) {
-    state.free = free
+  [types.RECEIVE_LATEST] (state, { latests }) {
+    state.latests = latests.latests
   }
 }
 
