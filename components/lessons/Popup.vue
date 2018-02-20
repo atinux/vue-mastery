@@ -1,15 +1,17 @@
 <template lang="pug">
 no-ssr
   modal(name="next-lesson" v-cloak height="auto" @before-open="beforeOpen")
-    h2(v-if="lesson") Next Lesson: {{ lesson.title }}
-    p(v-if="lesson") {{ lesson.description }}
+    h3.form-title(v-if="lesson") Next Lesson: {{ lesson.title }}
+    .body
+      p(v-if="lesson") {{ lesson.description }}
 
     .progress
       svg(height="60" width="60")
         //- circle(cx="30" cy="30" r="20" stroke-width="10" fill="none" v-on:animationend="selectLesson")
-
-    button.button.primary(@click="selectLesson" rel="next") Next Lesson
-    //- button.button.primary(@click="stop" rel="next") Cancel
+    .form-footer
+      .control-group.-spaced
+        button.button.link.-full(@click="selectLesson" rel="next") Next Lesson
+        //- button.button.primary(@click="stop" rel="next") Cancel
 </template>
 
 <script>
@@ -35,6 +37,9 @@ export default {
 <style lang="stylus" scoped>
 $offset = 130
 $stroke = #444
+
+.body
+  padding: 0 20px
 
 .progress
   transform: rotate(-90deg)
