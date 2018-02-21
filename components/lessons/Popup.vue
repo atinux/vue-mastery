@@ -6,11 +6,11 @@ no-ssr
       p(v-if="lesson") {{ lesson.description }}
 
     .progress
-      svg(height="60" width="60")
-        //- circle(cx="30" cy="30" r="20" stroke-width="10" fill="none" v-on:animationend="selectLesson")
+      p Next lesson starting in:
+      h2.blink 10
     .form-footer
       .control-group.-spaced
-        button.button.link.-full(@click="selectLesson" rel="next") Next Lesson
+        button.button.link.-full(@click="selectLesson" rel="next") Go to Next Lesson
         //- button.button.primary(@click="stop" rel="next") Cancel
 </template>
 
@@ -35,27 +35,27 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-$offset = 130
-$stroke = #444
+@import '~assets/css/_variables.styl'
 
 .body
   padding: 0 20px
 
 .progress
-  transform: rotate(-90deg)
-  stroke: $stroke
-  position: absolute
-  left: 233px
-  bottom: 0px
+  width 100%
+  text-align center
+  .blink
+    color $secondary-color
+    animation blink 1s infinite
 
-  circle
-    stroke-dasharray: $offset
-    stroke-dashoffset: $offset
-    animation: dash 30s normal forwards
+@keyframes blink
+  0%
+    transform: scale(0)
+    opacity: 0
+	49%
+    opacity: 0
+    transform: scale(1)
+	50%
+    opacity: 1
+    transform: scale(2)
 
-@keyframes dash
-  50%
-    stroke-dashoffset: 0
-  100%
-    stroke-dashoffset: -$offset
 </style>
