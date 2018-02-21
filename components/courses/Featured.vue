@@ -2,7 +2,7 @@
 div
   .list(v-if="courses" v-cloak)
     nuxt-link.list-card.card(:to="`/courses/${course.slug}/${course.lessons[0].slug}`"
-                              v-for="course, key in courses" :key="course.id")
+                              v-for="course, key in courses" :key="course.id" v-if="course.lessons")
       courseList(:course="course")
 
   fakeList(v-else)
