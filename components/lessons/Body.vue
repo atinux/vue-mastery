@@ -1,8 +1,7 @@
 <template lang="pug">
   .lesson-content
-    div
-      h2 {{ course.title}}
-      div(v-html="course.body")
+    h2 {{ course.title}}
+    div.lesson-body(v-html="course.body")
 </template>
 
 <script>
@@ -17,11 +16,9 @@ export default {
 
 .lesson-content
   padding 0 4%
-
   +tablet-up()
     margin $vertical-space 0
 
-  // +desktop-up()
-  //   width 80%
-  //   justify-self flex-end
+.lesson-body
+  font-size 22px
 </style>
