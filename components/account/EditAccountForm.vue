@@ -82,7 +82,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 .form-group.-switched
   display flex
   flex-direction: row

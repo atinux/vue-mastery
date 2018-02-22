@@ -78,6 +78,8 @@ for container in containers
 .title
   color: $primary-color
   font-weight 600
+  +tablet-up()
+    font-size 56px
 
 ul
   list-style-type: disc

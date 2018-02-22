@@ -45,7 +45,7 @@ export default {'name': 'Footer'}
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .footer
   background-color $secondary-color

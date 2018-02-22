@@ -12,7 +12,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .lesson-content
   padding 0 4%

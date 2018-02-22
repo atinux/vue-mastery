@@ -30,7 +30,7 @@ export default {
 </style>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .header
   position relative
