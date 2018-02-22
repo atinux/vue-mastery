@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 .lessons-list
   grid-area list
   position relative

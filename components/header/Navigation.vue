@@ -12,7 +12,6 @@
       .navbar-secondary(v-cloak v-else)
         button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
         button.button.primary.-small(type="button" v-on:click="openLogin") Login
-
 </template>
 
 <script>
@@ -86,7 +85,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .navbar
   position: fixed
@@ -175,7 +174,7 @@ export default {
 </style>
 
 <style lang="stylus">
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .open-nav
   max-height: 100vh

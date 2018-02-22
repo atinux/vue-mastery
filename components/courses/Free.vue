@@ -53,42 +53,44 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-  @import '~assets/css/_variables'
+@import '~assets/css/_variables'
 
-  .section
-    color #fff
-    height: 100%
-    display: flex
-    flex-direction: column
-    justify-content: space-between
+.section
+  color #fff
+  height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: space-between
 
-    > .title
-      margin-bottom ($vertical-space/3)
-      font-weight 600
-      text-align center
+  > .title
+    margin-bottom ($vertical-space/3)
+    font-weight 600
+    text-align center
+    +tablet-up()
+      font-size 40.5px
+
+.button
+  width 100%
+
+.media-wrapper
+  height: 100%
+  padding-top: 20px
+
+.media-block
+  margin-bottom ($vertical-space/2)
+  grid-template-columns auto 1fr
+  grid-template-areas "media body"
+  .body
+    text-align left
+  .meta
+    justify-content flex-start
+
+
++tablet-up()
+  .section > .title
+    text-align left
 
   .button
-    width 100%
-
-  .media-wrapper
-    height: 100%
-    padding-top: 20px
-
-  .media-block
-    margin-bottom ($vertical-space/2)
-    grid-template-columns auto 1fr
-    grid-template-areas "media body"
-    .body
-      text-align left
-    .meta
-      justify-content flex-start
-
-
-  +tablet-up()
-    .section > .title
-      text-align left
-
-    .button
-      width max-content
+    width max-content
 
 </style>

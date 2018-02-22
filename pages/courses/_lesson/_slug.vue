@@ -154,7 +154,7 @@ export default {
 </script>
 
 <style lang='stylus' scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 .lesson-wrapper
   display grid
   grid-template-columns 1fr 1fr

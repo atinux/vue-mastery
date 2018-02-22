@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 
 .hamburger
   background-color: transparent

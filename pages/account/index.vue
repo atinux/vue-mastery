@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables.styl'
+@import '~assets/css/_variables'
 .account
   display grid
   justify-items center
