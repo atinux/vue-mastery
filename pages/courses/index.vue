@@ -4,12 +4,14 @@
       .wrapper
         h1.title Our Courses
     .courses-body.wrapper
-      CourseList
-      Latest
+      CourseList(:courses="courses" :account="account")
+      Latest(:courses="courses" :latests="latests")
     CheatSheetAlt
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import CourseList from '~/components/courses/All'
 import Latest from '~/components/courses/Latest'
 import CheatSheetAlt from '~/components/static/CheatSheetAlt'
@@ -31,6 +33,23 @@ export default {
     CourseList,
     Latest,
     CheatSheetAlt
+  },
+
+  computed: {
+    ...mapState({
+      account: result => result.account.account,
+      courses: result => result.courses.courses,
+      latests: result => result.courses.latests
+    })
+  },
+
+  // fetch ({ store }) {
+  //   store.dispatch('latest')
+  //   store.dispatch('getAllCourses')
+  // },
+  mounted: function () {
+    this.$store.dispatch('latest')
+    this.$store.dispatch('getAllCourses')
   }
 }
 </script>
