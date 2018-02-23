@@ -10,8 +10,6 @@ div
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import courseList from '~/components/courses/List'
 import courseAction from '~/components/courses/Actions'
 import fakeList from '~/components/courses/FakeList'
@@ -22,12 +20,7 @@ export default {
     courseAction,
     fakeList
   },
-  computed: {
-    ...mapState({
-      account: result => result.account.account,
-      courses: result => result.courses.courses
-    })
-  },
+  props: [ 'courses', 'account' ],
 
   methods: {
     link (course) {
@@ -41,7 +34,11 @@ export default {
           // Get the last completed lesson
           for (let key in lessons) {
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              lessonSlug = key
+              if (course.lessons[key]) {
+                lessonSlug = key
+              } else {
+                console.log('The last completed lesson doesn\'t belong to this course anymore')
+              }
             }
           }
         } catch (error) {}
@@ -50,10 +47,6 @@ export default {
       }
       return ''
     }
-  },
-
-  mounted: function () {
-    this.$store.dispatch('getAllCourses')
   }
 }
 </script>

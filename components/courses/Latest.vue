@@ -15,17 +15,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
-  computed: {
-    ...mapState({ latests: result => result.courses.latests }),
-    ...mapState({ courses: result => result.courses.courses })
-  },
-
-  mounted: function () {
-    this.$store.dispatch('latest')
-  },
+  props: ['latests', 'courses'],
 
   methods: {
     path (lesson) {

@@ -4,7 +4,7 @@ div
 
     lessonHeader(:course='course')
 
-    lessonVideo(:videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+    lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
 
     lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
 
@@ -12,7 +12,7 @@ div
 
     aside.lesson-aside
       .control-group.-spaced
-        a.button.secondary.-has-icon(:href='current.downloadLink' download)
+        a.button.secondary.-has-icon(:href='current.downloadLink' download v-if="current")
           i.fa.fa-download
           | Download
         socialShare
@@ -20,7 +20,7 @@ div
       lessonresources(:resources='current.resources')
       lessonChallenges(:challenges='current.codingChallenge')
 
-    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson')
+    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
     lessonPopup(@selectLesson='selectLesson')
 
@@ -85,14 +85,14 @@ export default {
     this.$store.dispatch('getCourse', this.courseSlug)
 
     // TODO: @dustin remove this when popup is styled
-    setTimeout(() => {
-      this.$modal.show('next-lesson', {
-        lesson: {
-          title: 'Intro to Vue.JS',
-          description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
-        }
-      })
-    }, 500)
+    // setTimeout(() => {
+    //   this.$modal.show('next-lesson', {
+    //     lesson: {
+    //       title: 'Intro to Vue.JS',
+    //       description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
+    //     }
+    //   })
+    // }, 500)
   },
 
   components: {
