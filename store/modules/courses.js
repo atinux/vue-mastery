@@ -56,6 +56,10 @@ const actions = {
       ]})
       .then(course => {
         course = course[Object.keys(course)[0]]
+        // Disable code compilation from content
+        // for (let lesson of course.lessons) {
+        //   lesson.body = lesson.body.replace('<code>', '<code v-pre>')
+        // }
         commit(types.RECEIVE_COURSE, { course })
       })
   },
