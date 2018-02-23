@@ -32,7 +32,7 @@ export default {
     padding-top ($header-height + $vertical-space/1.5)
     padding-bottom ($vertical-space/1.5)
 .banner
-  background-image url(/images/hero.svg)
+  background-image url(/images/hero-1.svg)
   background-position center top
   background-size cover
 
