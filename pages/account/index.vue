@@ -13,18 +13,18 @@
 
       div.account-content
         div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
-          div.main-course-list
+          div.main-course-list(v-if="Object.keys(inProgress).length !== 0" v-cloak)
             h3.title In Progress
             //- TODO: Add percentage completed above Action
-            CourseList
-          aside.completed-course-list
+            CourseList(:courses="inProgress" :account="account")
+          aside.completed-course-list(v-if="Object.keys(completed).length !== 0" v-cloak)
             h3.title Completed Courses
             //- TODO: Add list of completed courses with Course image swapped with badge
-            CourseList
-          div.recommend-course-list
+            CourseList(:courses="completed" :account="account")
+          div.recommend-course-list(v-if="Object.keys(recommended).length !== 0" v-cloak)
             h3.title Recommended Courses
             //- TODO: Add all courses not already in progress list.
-            CourseList
+            CourseList(:courses="recommended" :account="account")
         div(v-else-if="selectedTab == 'Settings'" v-cloak)
           h4 Settings
           h3 Edit Your Profile
@@ -50,8 +50,30 @@ export default {
   },
   computed: {
     ...mapState({
-      account: result => result.account.account
+      account: result => result.account.account,
+      courses: result => result.courses.courses
     }),
+    inProgress () {
+      let inProgress = {}
+      for (let courseId in this.courses) {
+        const course = this.courses[courseId]
+        if (this.account.courses.hasOwnProperty(course.slug)) {
+          const startedCourse = this.account.courses[course.slug]
+          if (startedCourse.hasOwnProperty('completedLessons') && Object.keys(startedCourse.completedLessons).length >= course.lessonsCount) {
+            this.completed[courseId] = course
+          } else {
+            if (startedCourse.started) {
+              inProgress[courseId] = course
+            } else {
+              this.recommended[courseId] = course    
+            }
+          }
+        } else {
+          this.recommended[courseId] = course
+        }
+      }
+      return inProgress
+    },
     imageAlt () {
       return `${this.account.displayName} profile image`
     }
@@ -60,8 +82,13 @@ export default {
     return {
       tabs: ['Dashboard', 'Settings'],
       editing: false,
-      selectedTab: 'Dashboard'
+      selectedTab: 'Dashboard',
+      completed: {},
+      recommended: {}
     }
+  },
+  mounted: function () {
+    this.$store.dispatch('getAllCourses')
   },
   methods: {
     toggleEditForm () {
