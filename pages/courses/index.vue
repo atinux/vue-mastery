@@ -43,14 +43,14 @@ export default {
     })
   },
 
-  // fetch ({ store }) {
-  //   store.dispatch('latest')
-  //   store.dispatch('getAllCourses')
-  // },
-  mounted: function () {
-    this.$store.dispatch('latest')
-    this.$store.dispatch('getAllCourses')
+  async fetch ({ store }) {
+    await store.dispatch('latest')
+    await store.dispatch('getAllCourses')
   }
+  // mounted: function () {
+  //   this.$store.dispatch('latest')
+  //   this.$store.dispatch('getAllCourses')
+  // }
 }
 </script>
 
