@@ -27,7 +27,6 @@ export default {
       // Check if there is lesson in the course
       if (course.lessonsCount) {
         let lessonSlug = course.lessons[0].slug
-
         try {
           // Get the lessons started
           let lessons = this.account.courses[course.slug].completedLessons

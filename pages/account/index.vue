@@ -13,28 +13,31 @@
 
       div.account-content
         div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
+          
           div.main-course-list(v-if="Object.keys(inProgress).length !== 0" v-cloak)
             h3.title In Progress
-            //- TODO: Add percentage completed above Action
             CourseList(:courses="inProgress" :account="account")
+          
           aside.completed-course-list(v-if="Object.keys(completed).length !== 0" v-cloak)
             h3.title Completed Courses
-            //- TODO: Add list of completed courses with Course image swapped with badge
             CourseList(:courses="completed" :account="account")
+          
           div.recommend-course-list(v-if="Object.keys(recommended).length !== 0" v-cloak)
             h3.title Recommended Courses
-            //- TODO: Add all courses not already in progress list.
             CourseList(:courses="recommended" :account="account")
+        
         div(v-else-if="selectedTab == 'Settings'" v-cloak)
           h4 Settings
           h3 Edit Your Profile
+          
           div(v-if="account" v-cloak)
             EditAccountForm(:current="account")
+          
           button.button.secondary.-has-icon.-small(type="button" v-on:click="deleteAccount")
             span
               i.fa.fa-cog
               | Delete Account
-          //- pre(v-text="`${JSON.stringify(account, null, 2)}`")
+
 </template>
 
 <script>
@@ -54,25 +57,28 @@ export default {
       courses: result => result.courses.courses
     }),
     inProgress () {
-      let inProgress = {}
       for (let courseId in this.courses) {
+        let category = 'recommended'
         const course = this.courses[courseId]
+        // Check if user started the course
         if (this.account.courses.hasOwnProperty(course.slug)) {
           const startedCourse = this.account.courses[course.slug]
-          if (startedCourse.hasOwnProperty('completedLessons') && Object.keys(startedCourse.completedLessons).length >= course.lessonsCount) {
-            this.completed[courseId] = course
-          } else {
-            if (startedCourse.started) {
-              inProgress[courseId] = course
-            } else {
-              this.recommended[courseId] = course    
-            }
+          if (startedCourse.hasOwnProperty('completedLessons')) {
+            const completedLessons = Object.values(startedCourse.completedLessons).filter((completed) => { return completed })
+            // Check how many lessons are completed
+            course.progression = Math.round(completedLessons.length / course.lessonsCount * 100)
+            category = course.progression >= 100 ? 'completed' : 'uncompleted'
           }
-        } else {
-          this.recommended[courseId] = course
         }
+        this[category][courseId] = course
       }
-      return inProgress
+
+      // TODO: Swap completed Course image with badge ?
+      // this.completed.map( (course) => {
+      //   course.image[0].url = ....
+      // })
+
+      return this.uncompleted
     },
     imageAlt () {
       return `${this.account.displayName} profile image`
@@ -84,7 +90,8 @@ export default {
       editing: false,
       selectedTab: 'Dashboard',
       completed: {},
-      recommended: {}
+      recommended: {},
+      uncompleted: {}
     }
   },
   mounted: function () {
