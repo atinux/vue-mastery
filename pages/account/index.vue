@@ -70,14 +70,10 @@ export default {
             category = course.progression >= 100 ? 'completed' : 'uncompleted'
           }
         }
+        // TODO: Swap completed Course image with badge ?
+        // if (category = uncompleted) course.image[0].url = ....
         this[category][courseId] = course
       }
-
-      // TODO: Swap completed Course image with badge ?
-      // this.completed.map( (course) => {
-      //   course.image[0].url = ....
-      // })
-
       return this.uncompleted
     },
     imageAlt () {
