@@ -81,19 +81,22 @@ export default {
     }
   },
 
-  mounted () {
-    this.$store.dispatch('getCourse', this.courseSlug)
-
-    // TODO: @dustin remove this when popup is styled
-    // setTimeout(() => {
-    //   this.$modal.show('next-lesson', {
-    //     lesson: {
-    //       title: 'Intro to Vue.JS',
-    //       description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
-    //     }
-    //   })
-    // }, 500)
+  async fetch ({ store }) {
+    await store.dispatch('getCourse', this.courseSlug)
   },
+  // mounted () {
+  //   this.$store.dispatch('getCourse', this.courseSlug)
+
+  //   TODO: @dustin remove this when popup is styled
+  //   setTimeout(() => {
+  //     this.$modal.show('next-lesson', {
+  //       lesson: {
+  //         title: 'Intro to Vue.JS',
+  //         description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
+  //       }
+  //     })
+  //   }, 500)
+  // },
 
   components: {
     lessonHeader,

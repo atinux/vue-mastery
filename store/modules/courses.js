@@ -24,40 +24,48 @@ const getters = {
 
 // actions
 const actions = {
-  async getAllCourses ({ commit, state }) {
-    const { courses } = await db.get('courses', {
-      populate: [{
-        field: 'image',
-        subFields: [ 'image' ]
-      }, {
-        field: 'lessons',
-        fields: [ 'slug' ]
-      }]
-    })
-    commit(types.RECEIVE_COURSES, { courses })
+  getAllCourses ({ commit, state }) {
+    return db.get('courses', {
+      populate: [
+        // {
+        //   field: 'image',
+        //   subFields: [ 'image' ]
+        // },
+        {
+          field: 'lessons',
+          fields: [ 'slug' ]
+        }
+      ]})
+      .then(courses => {
+        commit(types.RECEIVE_COURSES, { courses })
+      })
   },
-  async getCourse ({ commit, state, rootState }, slug) {
-    let { course } = await db.get('courses', {
+  getCourse ({ commit, state, rootState }, slug) {
+    return db.get('courses', {
       orderByChild: 'slug',
       equalTo: slug,
-      populate: [{
-        field: 'image',
-        subFields: [ 'image' ]
-      }, {
-        field: 'lessons',
-        subFields: [ 'lessons' ]
-      }]
-    })
-    course = course[Object.keys(course)[0]]
-    // Disable code compilation from content
-    // for (let lesson of course.lessons) {
-    //   lesson.body = lesson.body.replace('<code>', '<code v-pre>')
-    // }
-    commit(types.RECEIVE_COURSE, { course })
+      populate: [
+        // {
+        //   field: 'image',
+        //   subFields: [ 'image' ]
+        // },
+        {
+          field: 'lessons',
+          subFields: [ 'lessons' ]
+        }
+      ]})
+      .then(course => {
+        course = course[Object.keys(course)[0]]
+        // Disable code compilation from content
+        // for (let lesson of course.lessons) {
+        //   lesson.body = lesson.body.replace('<code>', '<code v-pre>')
+        // }
+        commit(types.RECEIVE_COURSE, { course })
+      })
   },
 
-  async featured ({ commit, state }) {
-    const { featured } = await db.get('home', {
+  featured ({ commit, state }) {
+    return db.get('home', {
       populate: [ {
         field: 'free',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
@@ -67,18 +75,20 @@ const actions = {
         fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
         populate: [ 'image', 'lessons' ]
       }]
+    }).then(featured => {
+      commit(types.RECEIVE_FEATURED, { featured })
     })
-    commit(types.RECEIVE_FEATURED, { featured })
   },
 
-  async latest ({ commit, state }) {
-    const { latests } = await db.get('course', {
+  latest ({ commit, state }) {
+    return db.get('course', {
       populate: [ {
         field: 'latests',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ]
       }]
+    }).then(latests => {
+      commit(types.RECEIVE_LATEST, { latests })
     })
-    commit(types.RECEIVE_LATEST, { latests })
   }
 }
 
