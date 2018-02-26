@@ -10,12 +10,11 @@ form.form.card
       button.button.primary.border Upload Image
       input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
 
-  //- TODO: Uncomment before push. The subscribe switch is throwing errors.
-  //- .form-group.-switched
-  //-   .switch
-  //-     input(id="subscribeSwitch" type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
-  //-     label(:for="subscribeSwitch")
-  //-   span I want to receive occasional emails about new educational content
+  .form-group.-switched
+    .switch
+      input(id="subscribeSwitch" type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
+      label(:for="subscribeSwitch")
+    span I want to receive occasional emails about new educational content
 
   .form-error
     .-is-error(v-if="formError.length > 0" v-text="formError")

@@ -13,43 +13,65 @@
 
       div.account-content
         div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
-          
-          div.main-course-list(v-if="Object.keys(inProgress).length !== 0" v-cloak)
-            h3.title In Progress
-            CourseList(:courses="inProgress" :account="account")
-          
-          aside.completed-course-list(v-if="Object.keys(completed).length !== 0" v-cloak)
-            h3.title Completed Courses
-            CourseList(:courses="completed" :account="account")
-          
-          div.recommend-course-list(v-if="Object.keys(recommended).length !== 0" v-cloak)
-            h3.title Recommended Courses
-            CourseList(:courses="recommended" :account="account")
-        
-        div(v-else-if="selectedTab == 'Settings'" v-cloak)
-          h4 Settings
-          h3 Edit Your Profile
-          
-          div(v-if="account" v-cloak)
-            EditAccountForm(:current="account")
-          
-          button.button.secondary.-has-icon.-small(type="button" v-on:click="deleteAccount")
-            span
-              i.fa.fa-cog
-              | Delete Account
 
+          div.main-course-list
+            h3.title In Progress
+            CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
+            .empty(v-else)
+              h3.empty-title You have no courses currently in progress
+
+          aside.completed-course-list
+            h3.title Earned Badges
+            CourseGrid(:courses="completed" :account="account"
+              v-if="Object.keys(completed).length !== 0" v-cloak)
+            .empty(v-else)
+              h5.empty-title You have not completed any courses yet
+
+          div.recommend-course-list
+            h3.title Recommended Courses
+            CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
+
+        div.settings(v-else-if="selectedTab == 'Settings'" v-cloak)
+          div.profile-settings(v-if="account" v-cloak)
+            h3.title Edit Profile
+            EditAccountForm(:current="account")
+
+          div.account-settings
+            h3.title Edit Account
+
+            form.form.card
+              .form-group
+                label.label New Password
+                input.input(type="password" placeholder="New Password")
+
+              .form-group
+                label.label Confirm Password
+                input.input(type="password" placeholder="Confirm Password")
+
+              button.button.primary(type="button") Submit
+
+          div.delete-account
+            h3.title Delete Account
+            p Are you sure you want to delete your account?
+
+            button.button.danger.-has-icon.-small(type="button" v-on:click="deleteAccount")
+              span
+                i.fa.fa-cog
+                | Delete Account
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
 import CourseList from '~/components/courses/All.vue'
+import CourseGrid from '~/components/courses/Grid.vue'
 
 export default {
   middleware: 'authenticated',
   components: {
     EditAccountForm,
-    CourseList
+    CourseList,
+    CourseGrid
   },
   computed: {
     ...mapState({
@@ -121,6 +143,7 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+
 .account
   display flex
   justify-items flex-start
@@ -166,6 +189,10 @@ export default {
 
 .recommend-course-list
   grid-area recommend
+  margin-top $vertical-space
+  margin-bottom $vertical-space
+  .grid
+    justify-content flex-start
   .title
     color $secondary-color
     font-weight 600
@@ -196,9 +223,13 @@ export default {
   &:focus
     outline none
 
+
 .active-tab
   color $secondary-color
   font-weight 600
+
+.settings > div
+  margin-bottom $vertical-space
 
 pre
   white-space pre-wrap
