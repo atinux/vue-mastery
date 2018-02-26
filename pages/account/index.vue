@@ -38,8 +38,9 @@
 
           div.account-settings
             h3.title Edit Account
-
+            //- TODO: Change password form.
             form.form.card
+              label Change Password
               .form-group
                 label.label New Password
                 input.input(type="password" placeholder="New Password")
@@ -49,6 +50,15 @@
                 input.input(type="password" placeholder="Confirm Password")
 
               button.button.primary(type="button") Submit
+
+            //- TODO: Moved Notifications under account settings
+            form.form.card
+              legend Notifications
+              .form-group.-switched
+                .switch
+                  input(id="subscribeSwitch" type="checkbox")
+                  label(:for="subscribeSwitch")
+                span I want to receive occasional emails about new educational content
 
           div.delete-account
             h3.title Delete Account
@@ -230,6 +240,8 @@ export default {
 
 .settings > div
   margin-bottom $vertical-space
+  .card
+    margin-bottom: ($vertical-space/2)
 
 pre
   white-space pre-wrap
