@@ -20,7 +20,15 @@
             .empty(v-else)
               h3.empty-title You have no courses currently in progress
 
-          aside.completed-course-list
+          div.completed-course-list
+            aside.completed-course-list
+              h3.title Completed Courses
+              CourseList(:courses="completed" :account="account"
+                v-if="Object.keys(completed).length !== 0" v-cloak)
+              .empty(v-else)
+                h5.empty-title You have not completed any courses yet
+
+          aside.earned-badge-list
             h3.title Earned Badges
             CourseGrid(:courses="completed" :account="account"
               v-if="Object.keys(completed).length !== 0" v-cloak)
@@ -176,11 +184,12 @@ export default {
   grid-template-columns 63% 33%
   grid-column-gap: 4%
   grid-template-areas "main aside"\
+                      "completed aside"\
                       "recommend recommend"
 
 .main-course-list
   grid-area main
-
+  margin-bottom $vertical-space
   .title
     color $secondary-color
     font-weight 600
@@ -189,9 +198,10 @@ export default {
       font-size 40.5px
 
 .completed-course-list
-  grid-area aside
+  grid-area completed
+  margin-bottom ($vertical-space/2)
   .title
-    color $primary-color
+    color $secondary-color
     font-weight 600
     margin-bottom: 22px
     +tablet-up()
@@ -199,12 +209,20 @@ export default {
 
 .recommend-course-list
   grid-area recommend
-  margin-top $vertical-space
   margin-bottom $vertical-space
   .grid
     justify-content flex-start
   .title
     color $secondary-color
+    font-weight 600
+    margin-bottom: 22px
+    +tablet-up()
+      font-size 40.5px
+
+.earned-badge-list
+  grid-area aside
+  .title
+    color $primary-color
     font-weight 600
     margin-bottom: 22px
     +tablet-up()
