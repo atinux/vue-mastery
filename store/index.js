@@ -18,16 +18,16 @@ const createStore = () => {
       storage: null
     },
     getters: {
-      // storage: state => state.storage,
       openNav: state => state.openNav
     },
     actions: {
       nuxtServerInit ({ commit }, { req }) {
         if (!firebase.apps.length) {
+          console.log('sdasdasdasd')
           const firebaseApp = firebase.initializeApp(firebaseConfig)
           this.commit(types.APP_READY, flamelink({ firebaseApp }))
         } else {
-          console.log(firebase.app())
+          console.log('DDDDDWDSDSDSDSSDSD', firebase.app().options)
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebase.app() }))
         }
       },
@@ -36,9 +36,6 @@ const createStore = () => {
       }
     },
     mutations: {
-      // [types.APP_READY] (state, app) {
-      //   state.storage = app.storage
-      // },
       toggleNav (state) {
         state.openNav = !state.openNav
       }
