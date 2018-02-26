@@ -61,7 +61,7 @@ export default {
         let category = 'recommended'
         const course = this.courses[courseId]
         // Check if user started the course
-        if (this.account.courses.hasOwnProperty(course.slug)) {
+        if (this.account.hasOwnProperty('courses') && this.account.courses.hasOwnProperty(course.slug)) {
           const startedCourse = this.account.courses[course.slug]
           if (startedCourse.hasOwnProperty('completedLessons')) {
             const completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed)
