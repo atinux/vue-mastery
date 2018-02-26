@@ -1,7 +1,7 @@
 <template lang="pug">
 div
-  .list(v-if="courses" v-cloak)
-    nuxt-link.list-card.card(:to="link(course)"
+  .grid(v-if="courses" v-cloak)
+    nuxt-link.grid-card.card(:to="link(course)"
                               v-for="course, key, index in courses" :key="course.id")
       courseList(:course="course")
       courseAction(:course="course")
@@ -55,18 +55,31 @@ export default {
 .content
   color: $gray
 
-.list,
-.list-unstyled
-  > a
-    margin-bottom: 35px
+.grid
+  display flex
 
-.list-card
+.grid-card
   display flex
   flex-direction column
   justify-content space-between
-  cursor: pointer
+  cursor pointer
 
-  +tablet-up()
-    flex-direction row
+.recommend-course-list .grid-card
+  width 30%
+  margin-right 3.5%
+  &:nth-child(3n)
+    margin-right 0
 
+
+  .media-block
+    text-align center
+    grid-row-gap ($vertical-space/3)
+    margin-bottom ($vertical-space/3)
+    grid-template-columns 1fr
+    grid-template-areas "media"\
+                        "body"
+
+  .actions
+    width 100%
+    margin-left 0
 </style>
