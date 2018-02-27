@@ -1,6 +1,5 @@
 <template lang="pug">
 form.form.card
-  legend Notifications
   .form-group.-switched
     .switch
       input(id="subscribeSwitch" type="checkbox" v-model="subscribedToMailingList" v-on:change="subscribe")

@@ -1,21 +1,13 @@
 <template lang="pug">
 form.form.card
   .form-group
-    label.label Display Name
-    input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
-
-  .form-group
-    label.label Profile Image
+    label Profile Image
     .upload
       button.button.primary.border Upload Image
       input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
-
-  //- TODO: Move Notifications under account settings
-  //- .form-group.-switched
-  //-   .switch
-  //-     input(id="subscribeSwitchOld" type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
-  //-     label(:for="subscribeSwitchOld")
-  //-   span I want to receive occasional emails about new educational content
+  .form-group
+    label Display Name
+    input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
 
   .form-error
     .-is-error(v-if="formError.length > 0" v-text="formError")
@@ -80,6 +72,9 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+label
+  font-weight 600
+  margin-bottom 5px
 .form-group.-switched
   display flex
   flex-direction: row
