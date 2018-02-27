@@ -45,20 +45,8 @@
 
       div.account-settings
         h3.title Edit Account
-        //- TODO: Change password form.
-        form.form.card
-          label Change Password
-          .form-group
-            label.label New Password
-            input.input(type="password" placeholder="New Password")
-
-          .form-group
-            label.label Confirm Password
-            input.input(type="password" placeholder="Confirm Password")
-
-          button.button.primary(type="button") Submit
-
-        SubscribeToMailingList(:current="account")
+        ChangePassword(:account="account")
+        SubscribeToMailingList(:account="account")
 
       div.delete-account
         h3.title Delete Account
@@ -73,6 +61,7 @@
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
+import ChangePassword from '~/components/account/ChangePassword.vue'
 import SubscribeToMailingList from '~/components/account/SubscribeToMailingList.vue'
 import CourseList from '~/components/courses/All.vue'
 import CourseGrid from '~/components/courses/Grid.vue'
@@ -81,6 +70,7 @@ export default {
   middleware: 'authenticated',
   components: {
     EditAccountForm,
+    ChangePassword,
     SubscribeToMailingList,
     CourseList,
     CourseGrid

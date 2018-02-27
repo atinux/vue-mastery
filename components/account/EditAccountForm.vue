@@ -23,20 +23,16 @@ form.form.card
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import firebase from 'firebase'
 
 export default {
-  computed: mapState({
-    account: result => result.account.account
-  }),
-  props: ['current'],
+  props: ['account'],
   data () {
     return {
       newData: {
-        displayName: this.current.displayName,
-        image: this.current.image,
-        subscribedToMailingList: this.current.subscribedToMailingList
+        displayName: this.account.displayName,
+        image: this.account.image,
+        subscribedToMailingList: this.account.subscribedToMailingList
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',

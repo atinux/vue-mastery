@@ -125,6 +125,15 @@ const actions = {
       console.log(error)
     })
   },
+  userUpdatePassword ({ state }, newPassword) {
+    const user = firebase.auth().currentUser
+
+    user.updatePassword(newPassword).then(() => {
+      console.log(`Update password for the account ${user.email}`)
+    }).catch((error) => {
+      console.log(`Can't update the password. Error:  ${error}`)
+    })
+  },
   userRetrievePassword ({ state }, account) {
     return firebase.auth()
       .sendPasswordResetEmail(account.email)
