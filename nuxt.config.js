@@ -239,8 +239,7 @@ module.exports = {
    ** Global CSS
    */
   css: [
-    '~/assets/css/style.styl',
-    'bulma.styl/bulma.styl'
+    '~/assets/css/style.styl'
   ],
   /*
    ** Site Modules

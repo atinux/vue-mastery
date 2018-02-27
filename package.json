@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@nuxtjs/pwa": "^2.0.4",
-    "bulma.styl": "^0.6.11",
     "firebase": "^4.8.2",
     "firebase-admin": "^5.8.1",
     "firebase-auth": "^0.1.2",
