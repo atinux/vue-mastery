@@ -10,13 +10,6 @@ form.form.card
       button.button.primary.border Upload Image
       input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
 
-  //- TODO: Move Notifications under account settings
-  //- .form-group.-switched
-  //-   .switch
-  //-     input(id="subscribeSwitchOld" type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
-  //-     label(:for="subscribeSwitchOld")
-  //-   span I want to receive occasional emails about new educational content
-
   .form-error
     .-is-error(v-if="formError.length > 0" v-text="formError")
     .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
@@ -31,8 +24,7 @@ export default {
     return {
       newData: {
         displayName: this.account.displayName,
-        image: this.account.image,
-        subscribedToMailingList: this.account.subscribedToMailingList
+        image: this.account.image
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
