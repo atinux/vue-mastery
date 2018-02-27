@@ -12,7 +12,7 @@
             p.content {{ lesson.description }}
           nuxt-link(to='/' class="-inverted")
             div.meta
-              b Associated Course
+              b {{ lessonsCourse(lesson) }}
               label.-has-icon
                 span ・
                 i.far.fa-clock
@@ -47,6 +47,12 @@ export default {
         return `/courses/${course.slug}/${lesson.slug}`
       }
       return '#'
+    },
+    lessonsCourse (lesson) {
+      if (this.courses) {
+        const course = this.courses[lesson.belongsToCourse]
+        return course.title
+      }
     }
   }
 }
