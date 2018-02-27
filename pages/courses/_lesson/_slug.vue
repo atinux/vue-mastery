@@ -6,7 +6,7 @@ div
 
     lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
 
-    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
+    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account')
 
     lessonBody(:course='current')
 
@@ -56,20 +56,20 @@ import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 export default {
   head () {
     return {
-      // title: this.course.title,
-      // meta: [{
-      //   hid: `description${this.course.id}`,
-      //   name: 'description',
-      //   content: this.course.description
+      title: this.course.title,
+      meta: [{
+        hid: `og:description`,
+        name: 'description',
+        content: this.course.description
+      }, {
+        hid: `og:title`,
+        property: 'og:title',
+        content: this.course.title
       // }, {
-      //   hid: `og:title${this.course.id}`,
-      //   property: 'og:title',
-      //   content: this.course.title
-      // }, {
-      //   hid: `og:image${this.course.id}`,
+      //   hid: `og:image`,
       //   property: 'og:image',
       //   content: this.course.image[0].image[0].url
-      // }]
+      }]
     }
   },
 
@@ -84,19 +84,6 @@ export default {
   async fetch ({ store }) {
     await store.dispatch('getCourse', this.courseSlug)
   },
-  // mounted () {
-  //   this.$store.dispatch('getCourse', this.courseSlug)
-
-  //   TODO: @dustin remove this when popup is styled
-  //   setTimeout(() => {
-  //     this.$modal.show('next-lesson', {
-  //       lesson: {
-  //         title: 'Intro to Vue.JS',
-  //         description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
-  //       }
-  //     })
-  //   }, 500)
-  // },
 
   components: {
     lessonHeader,
@@ -114,7 +101,8 @@ export default {
 
   computed: {
     ...mapState({
-      course: result => result.courses.course
+      course: result => result.courses.course,
+      account: result => result.account.account
     }),
 
     current () {

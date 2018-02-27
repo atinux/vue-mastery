@@ -19,11 +19,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import courseSubscribe from '~/components/account/CourseSubscribe'
 export default {
   name: 'list',
-  props: ['course', 'current'],
+  props: ['course', 'current', 'account'],
   data () {
     return {
       completedUnlogged: []
@@ -31,11 +30,6 @@ export default {
   },
   components: {
     courseSubscribe
-  },
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
   },
   methods: {
     selectLesson (lessonSlug) {
