@@ -12,12 +12,11 @@
 
   div.account-content
     div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
-
       div.main-course-list
         h3.title In Progress
         CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
         .empty(v-else)
-          h3.empty-title You have no courses currently in progress
+          h4.empty-title You have no courses currently in progress
 
       div.completed-course-list
         aside.completed-course-list
@@ -25,11 +24,11 @@
           CourseList(:courses="completed" :account="account"
             v-if="Object.keys(completed).length !== 0" v-cloak)
           .empty(v-else)
-            h5.empty-title You have not completed any courses yet
+            h4.empty-title You have not completed any courses yet
 
       aside.earned-badge-list
         h3.title Earned Badges
-        CourseGrid(:courses="completed" :account="account"
+        BadgeGrid(:courses="completed" :account="account"
           v-if="Object.keys(completed).length !== 0" v-cloak)
         .empty(v-else)
           h5.empty-title You have not completed any courses yet
@@ -38,42 +37,31 @@
         h3.title Recommended Courses
         CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
 
-    div.settings(v-else-if="selectedTab == 'Settings'" v-cloak)
-      div.profile-settings(v-if="account" v-cloak)
-        h3.title Edit Profile
+    div.settings(v-if="selectedTab == 'Profile'" v-cloak)
+      .profile-settings
+        h3.title Update Profile
         EditAccountForm(:account="account")
 
-      div.account-settings
-        h3.title Edit Account
-        ChangePassword(:account="account")
-        SubscribeToMailingList(:account="account")
-
-      div.delete-account
-        h3.title Delete Account
-        p Are you sure you want to delete your account?
-
-        button.button.danger.-has-icon.-small(type="button" v-on:click="deleteAccount")
-          span
-            i.fa.fa-cog
-            | Delete Account
+    div(v-else-if="selectedTab == 'Account Settings'" v-cloak)
+      AccountSettings
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
-import ChangePassword from '~/components/account/ChangePassword.vue'
-import SubscribeToMailingList from '~/components/account/SubscribeToMailingList.vue'
 import CourseList from '~/components/courses/All.vue'
 import CourseGrid from '~/components/courses/Grid.vue'
+import BadgeGrid from '~/components/courses/BadgeGrid.vue'
+import AccountSettings from '~/components/account/AccountSettings.vue'
 
 export default {
   middleware: 'authenticated',
   components: {
     EditAccountForm,
-    ChangePassword,
-    SubscribeToMailingList,
     CourseList,
-    CourseGrid
+    CourseGrid,
+    BadgeGrid,
+    AccountSettings
   },
   computed: {
     ...mapState({
@@ -95,7 +83,7 @@ export default {
           }
         }
         // TODO: Swap completed Course image with badge ?
-        // if (category = uncompleted) course.image[0].url = ....
+        // if (category = uncompleted) course.image[0].url = ...
         this[category][courseId] = course
       }
       return this.uncompleted
@@ -106,7 +94,7 @@ export default {
   },
   data () {
     return {
-      tabs: ['Dashboard', 'Settings'],
+      tabs: ['Dashboard', 'Profile', 'Account Settings'],
       editing: false,
       selectedTab: 'Dashboard',
       completed: {},
@@ -129,15 +117,6 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-    },
-    deleteAccount () {
-      this.$store.dispatch('deleteUser')
-        .then(() => {
-          this.$router.push('/')
-        })
-        .catch((error) => {
-          console.log(error)
-        })
     }
   }
 }
@@ -145,7 +124,9 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
-
+.settings
+  display flex
+  justify-content center
 .account
   display flex
   justify-items flex-start
@@ -165,53 +146,45 @@ export default {
 
 .course-list
   display grid
-  grid-template-columns 63% 33%
-  grid-column-gap: 4%
-  grid-template-areas "main aside"\
-                      "completed aside"\
-                      "recommend recommend"
+  grid-template-areas "main"\
+                      "aside"\
+                      "completed"\
+                      "recommend"
+  +tablet-up()
+    grid-template-columns 63% 33%
+    grid-column-gap: 4%
+    grid-template-areas "main aside"\
+                        "completed aside"\
+                        "recommend recommend"
+
+
+.main-course-list,
+.completed-course-list,
+.recommend-course-list,
+.earned-badge-list,
+.profile-settings
+  .title
+    color $secondary-color
+    font-weight 600
+    margin-bottom: 22px
+    +tablet-up()
+      font-size 40.5px
 
 .main-course-list
   grid-area main
   margin-bottom $vertical-space
-  .title
-    color $secondary-color
-    font-weight 600
-    margin-bottom: 22px
-    +tablet-up()
-      font-size 40.5px
 
 .completed-course-list
   grid-area completed
   margin-bottom ($vertical-space/2)
-  .title
-    color $secondary-color
-    font-weight 600
-    margin-bottom: 22px
-    +tablet-up()
-      font-size 40.5px
 
 .recommend-course-list
   grid-area recommend
   margin-bottom $vertical-space
-  .grid
-    justify-content flex-start
-  .title
-    color $secondary-color
-    font-weight 600
-    margin-bottom: 22px
-    +tablet-up()
-      font-size 40.5px
 
 .earned-badge-list
   grid-area aside
-  .title
-    color $primary-color
-    font-weight 600
-    margin-bottom: 22px
-    +tablet-up()
-      font-size 40.5px
-
+  margin-bottom $vertical-space
 
 .account-actions
   display flex
@@ -240,10 +213,11 @@ export default {
   color $secondary-color
   font-weight 600
 
-.settings > div
-  margin-bottom $vertical-space
-  .card
-    margin-bottom: ($vertical-space/2)
+.profile-settings
+  width 100%
+  margin-bottom: $vertical-space
+  +tablet-up()
+    width 70%
 
 pre
   white-space pre-wrap
