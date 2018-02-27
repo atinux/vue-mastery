@@ -4,10 +4,13 @@
     div(v-for="lesson in latests")
       nuxt-link(:to="path(lesson)")
         .media-block
+          .media
+            //- TODO: @Pierre we need the latest uploaded lessons displaying here. Also, need the image to display
+            //- img(v-bind:src="lesson.image[0].url")
           .body
             h4 {{ lesson.title }}
             div.meta
-              b Associated Course
+              b {{ lessonsCourse(lesson) }}
               label.-has-icon
                 span ・
                 i.far.fa-clock
@@ -26,6 +29,12 @@ export default {
         return `/courses/${course.slug}/${lesson.slug}`
       }
       return '#'
+    },
+    lessonsCourse (lesson) {
+      if (this.courses) {
+        const course = this.courses[lesson.belongsToCourse]
+        return course.title
+      }
     }
   }
 }

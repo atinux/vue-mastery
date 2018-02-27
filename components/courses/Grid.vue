@@ -57,19 +57,30 @@ export default {
 
 .grid
   display flex
+  flex-direction column
+  justify-content flex-start
+  +tablet-up()
+    justify-content space-between
+    flex-direction row
+  +laptop-up()
+    justify-content flex-start
 
 .grid-card
   display flex
   flex-direction column
   justify-content space-between
   cursor pointer
+  margin-bottom ($vertical-space/2)
 
 .recommend-course-list .grid-card
-  width 30%
-  margin-right 3.5%
-  &:nth-child(3n)
-    margin-right 0
-
+  width 100%
+  +tablet-up()
+    width 48%
+  +laptop-up()
+    width 30%
+    margin-right 3.5%
+    &:nth-child(3n)
+      margin-right 0
 
   .media-block
     text-align center

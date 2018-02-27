@@ -1,6 +1,5 @@
 <template lang="pug">
 form.form.card
-  legend Change Password
   .form-group
     label.label New Password
     input.input(type="password" placeholder="New Password" v-model="newPassword")
