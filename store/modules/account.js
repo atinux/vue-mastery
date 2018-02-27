@@ -136,10 +136,14 @@ const actions = {
         console.log(`Can't send retrieve password email. Error:  ${error}`)
       })
   },
+  userUpdateSubscription ({ state }, subscribedToMailingList) {
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      subscribedToMailingList: subscribedToMailingList
+    })
+  },
   userUpdate ({ state }, newData) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-      displayName: newData.displayName,
-      subscribedToMailingList: newData.subscribedToMailingList
+      displayName: newData.displayName
     })
   },
   userUpdateImage ({ state }, image) {
