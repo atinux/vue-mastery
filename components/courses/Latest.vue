@@ -5,8 +5,8 @@
       nuxt-link(:to="path(lesson)")
         .media-block
           .media
-            //- TODO: @Pierre we need the latest uploaded lessons displaying here. Also, need the image to display
-            //- img(v-bind:src="lesson.image[0].url")
+            img(v-bind:src="lesson.image[0].url")
+
           .body
             h4 {{ lesson.title }}
             div.meta

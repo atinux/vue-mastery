@@ -80,7 +80,8 @@ const actions = {
     return db.get('course', {
       populate: [ {
         field: 'latests',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ]
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        populate: [ 'image' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST, { latests })
