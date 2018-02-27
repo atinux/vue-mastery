@@ -1,86 +1,68 @@
 <template lang="pug">
-  div
-    .wrapper
-      .account(v-if="account" v-cloak)
-        .account-image
-          a(v-bind:href="account.image" target="_blank" title="Click To View")
-            img(v-bind:src="account.image" width="100" height="100" v-bind:alt="imageAlt")
-        .account-info
-          h3(v-text="account.displayName")
+.wrapper
+  .account(v-if="account" v-cloak)
+    .account-image
+      a(v-bind:href="account.image" target="_blank" title="Click To View")
+        img(v-bind:src="account.image" width="100" height="100" v-bind:alt="imageAlt")
+    .account-info
+      h3(v-text="account.displayName")
 
-      .account-actions
-        button.tab(type="button" v-for="tab in tabs" @click="selectedTab = tab" :class="{'active-tab': selectedTab == tab}") {{ tab }}
+  .account-actions
+    button.tab(type="button" v-for="tab in tabs" @click="selectedTab = tab" :class="{'active-tab': selectedTab == tab}") {{ tab }}
 
-      div.account-content
-        div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
+  div.account-content
+    div.course-list(v-if="selectedTab == 'Dashboard'" v-cloak)
 
-          div.main-course-list
-            h3.title In Progress
-            CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
-            .empty(v-else)
-              h3.empty-title You have no courses currently in progress
+      div.main-course-list
+        h3.title In Progress
+        CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
+        .empty(v-else)
+          h3.empty-title You have no courses currently in progress
 
-          div.completed-course-list
-            aside.completed-course-list
-              h3.title Completed Courses
-              CourseList(:courses="completed" :account="account"
-                v-if="Object.keys(completed).length !== 0" v-cloak)
-              .empty(v-else)
-                h5.empty-title You have not completed any courses yet
+      div.completed-course-list
+        aside.completed-course-list
+          h3.title Completed Courses
+          CourseList(:courses="completed" :account="account"
+            v-if="Object.keys(completed).length !== 0" v-cloak)
+          .empty(v-else)
+            h5.empty-title You have not completed any courses yet
 
-          aside.earned-badge-list
-            h3.title Earned Badges
-            CourseGrid(:courses="completed" :account="account"
-              v-if="Object.keys(completed).length !== 0" v-cloak)
-            .empty(v-else)
-              h5.empty-title You have not completed any courses yet
+      aside.earned-badge-list
+        h3.title Earned Badges
+        CourseGrid(:courses="completed" :account="account"
+          v-if="Object.keys(completed).length !== 0" v-cloak)
+        .empty(v-else)
+          h5.empty-title You have not completed any courses yet
 
-          div.recommend-course-list
-            h3.title Recommended Courses
-            CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
+      div.recommend-course-list
+        h3.title Recommended Courses
+        CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
 
-        div.settings(v-else-if="selectedTab == 'Settings'" v-cloak)
-          div.profile-settings(v-if="account" v-cloak)
-            h3.title Edit Profile
-            EditAccountForm(:current="account")
+    div.settings(v-else-if="selectedTab == 'Settings'" v-cloak)
+      div.profile-settings(v-if="account" v-cloak)
+        h3.title Edit Profile
+        EditAccountForm(:account="account")
 
-          div.account-settings
-            h3.title Edit Account
-            //- TODO: Change password form.
-            form.form.card
-              label Change Password
-              .form-group
-                label.label New Password
-                input.input(type="password" placeholder="New Password")
+      div.account-settings
+        h3.title Edit Account
+        ChangePassword(:account="account")
+        SubscribeToMailingList(:account="account")
 
-              .form-group
-                label.label Confirm Password
-                input.input(type="password" placeholder="Confirm Password")
+      div.delete-account
+        h3.title Delete Account
+        p Are you sure you want to delete your account?
 
-              button.button.primary(type="button") Submit
-
-            //- TODO: Moved Notifications under account settings
-            form.form.card
-              legend Notifications
-              .form-group.-switched
-                .switch
-                  input(id="subscribeSwitch" type="checkbox")
-                  label(:for="subscribeSwitch")
-                span I want to receive occasional emails about new educational content
-
-          div.delete-account
-            h3.title Delete Account
-            p Are you sure you want to delete your account?
-
-            button.button.danger.-has-icon.-small(type="button" v-on:click="deleteAccount")
-              span
-                i.fa.fa-cog
-                | Delete Account
+        button.button.danger.-has-icon.-small(type="button" v-on:click="deleteAccount")
+          span
+            i.fa.fa-cog
+            | Delete Account
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import EditAccountForm from '~/components/account/EditAccountForm.vue'
+import ChangePassword from '~/components/account/ChangePassword.vue'
+import SubscribeToMailingList from '~/components/account/SubscribeToMailingList.vue'
 import CourseList from '~/components/courses/All.vue'
 import CourseGrid from '~/components/courses/Grid.vue'
 
@@ -88,6 +70,8 @@ export default {
   middleware: 'authenticated',
   components: {
     EditAccountForm,
+    ChangePassword,
+    SubscribeToMailingList,
     CourseList,
     CourseGrid
   },
