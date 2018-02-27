@@ -54,6 +54,7 @@ import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
+  middleware: 'anonymous',
   head () {
     return {
       // title: this.course.title,
@@ -82,6 +83,7 @@ export default {
   },
 
   mounted () {
+    console.log('getCourse')
     this.$store.dispatch('getCourse', this.courseSlug)
 
     // TODO: @dustin remove this when popup is styled
