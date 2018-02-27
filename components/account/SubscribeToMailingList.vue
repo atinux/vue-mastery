@@ -14,10 +14,10 @@ form.form.card
 
 <script>
 export default {
-  props: ['current', 'account'],
+  props: ['account'],
   data () {
     return {
-      subscribedToMailingList: this.current.subscribedToMailingList,
+      subscribedToMailingList: this.account.subscribedToMailingList,
       debounceTimer: setTimeout(() => {}),
       formError: '',
       formSuccess: ''

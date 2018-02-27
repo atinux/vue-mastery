@@ -41,7 +41,7 @@
     div.settings(v-else-if="selectedTab == 'Settings'" v-cloak)
       div.profile-settings(v-if="account" v-cloak)
         h3.title Edit Profile
-        EditAccountForm(:current="account" :account="account")
+        EditAccountForm(:account="account")
 
       div.account-settings
         h3.title Edit Account
