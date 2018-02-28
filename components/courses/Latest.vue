@@ -6,7 +6,6 @@
         .media-block
           .media
             img(v-bind:src="lesson.image[0].url")
-
           .body
             h4 {{ lesson.title }}
             div.meta
@@ -43,7 +42,6 @@ export default {
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
 
-
 .title
   color $primary-color
   font-weight 600
@@ -61,7 +59,7 @@ export default {
   margin 0
 
 h4
-  font-size 22px
+  font-size 20px
   font-weight: 600
   color $secondary-color
 

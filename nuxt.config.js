@@ -245,8 +245,18 @@ module.exports = {
    ** Site Modules
    */
   modules: [
-    ['@nuxtjs/pwa', { icon: false }]
+    ['@nuxtjs/pwa', { icon: false }],
+    '@nuxtjs/markdownit'
   ],
+  /*
+  ** Render Markdown
+  */
+  markdownit: {
+    html: true,
+    linkify: true,
+    typographer: true,
+    injected: true
+  },
   /*
   ** Customize the progress bar color
   */

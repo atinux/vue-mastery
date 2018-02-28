@@ -1,7 +1,7 @@
 <template lang="pug">
   .lesson-content
     h2 {{ course.title}}
-    div.lesson-body(v-html="course.body")
+    div.lesson-body(v-html="$md.render(course.markdown)")
 </template>
 
 <script>

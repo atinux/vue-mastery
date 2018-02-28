@@ -16,7 +16,7 @@ div
           i.fa.fa-download
           | Download
         socialShare
-      courseSubscribe
+      //- courseSubscribe
       lessonresources(:resources='current.resources')
       lessonChallenges(:challenges='current.codingChallenge')
 
