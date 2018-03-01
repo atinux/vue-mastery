@@ -18,8 +18,8 @@
       PlayerPlaceholder
     .team
       h1.title About The Team
-      p Gregg Pollack &amp; Adam Jahr are passionate at teaching computer programming online and living in Orlando, Florida.
-      p Gregg previously founded Code School, and Adam previously taught at Iron Yard.
+      p The Vue Mastery team is based in Orlando, Florida where Gregg Pollack (Teacher), Adam Jahr (Teacher), Chase Gregory (Marketing), and Melissa Koch (Legal & Business) reside.
+      p Dustin Delatore (Design/Development) and Pierre Schweiger (Development) are the digital nomads on our team.  You're guess is as good as ours as to where they are at the moment.
 
       nuxt-link.button.secondary.border(to="/contact") Contact Us
 
