@@ -3,7 +3,7 @@
   .wrapper
     .contact-body
       h1.title Contact Us
-      p Here we may rinse and repeat a little bit of information about the company. Potentially offer up suggestions on how to properly contact us on all of our media channels.
+      p If you have any feedback, suggestions, or need a little support we're here to help.  If you've run into a bug with your Vue.js application and need a hand (aside from googling your error) we'd recommend the <a href="https://forum.vuejs.org/" target="_new">Vue.js Forum</a> or <a href="https://discordapp.com/invite/HBherRA" target="_new">Vue Land Chat</a>. 
       
       h3.subtitle Follow us
       .social

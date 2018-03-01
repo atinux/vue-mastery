@@ -3,8 +3,8 @@
     h2.title Free Lessons
     .media-wrapper(v-if="free" v-cloak)
       .media-block(v-for="lesson in free")
-        .media
-          nuxt-link(:to="path(lesson)")
+        nuxt-link(:to="path(lesson)")
+          .media.-video
             img(v-bind:src="lesson.image[0].url" class="-large")
         .body
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
