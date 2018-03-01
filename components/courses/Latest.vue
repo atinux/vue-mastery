@@ -4,7 +4,7 @@
     div(v-for="lesson in latests")
       nuxt-link(:to="path(lesson)")
         .media-block
-          .media
+          .media.-video
             img(v-bind:src="lesson.image[0].url")
           .body
             h4 {{ lesson.title }}
@@ -50,7 +50,7 @@ export default {
     font-size 40.5px
 
 .media-block
-  grid-column-gap 0
+  grid-column-gap 20px
   margin-bottom ($vertical-space/4)
   border-bottom solid 1px #EEE
   padding-bottom ($vertical-space/4)
