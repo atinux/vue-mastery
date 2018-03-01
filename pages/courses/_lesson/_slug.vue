@@ -1,26 +1,28 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course' v-cloak)
+  .lesson-wrapper(v-if='course' v-class="this.course.lock ? 'locked': ''" v-cloak)
+    div(v-if='this.course.lock && !account' v-cloak)
+      unlock(:account='account')
+    div(v-else v-cloak)
+      lessonHeader(:course='course')
 
-    lessonHeader(:course='course')
+      lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
 
-    lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
 
-    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
+      lessonBody(:course='current')
 
-    lessonBody(:course='current')
+      aside.lesson-aside
+        .control-group.-spaced
+          download(:courseLink='current.downloadLink', :account='account')
+          socialShare
+        //- courseSubscribe
+        lessonresources(:resources='current.resources')
+        lessonChallenges(:challenges='current.codingChallenge')
 
-    aside.lesson-aside
-      .control-group.-spaced
-        download(:courseLink='current.downloadLink')
-        socialShare
-      //- courseSubscribe
-      lessonresources(:resources='current.resources')
-      lessonChallenges(:challenges='current.codingChallenge')
+      lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
-    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
-
-    lessonPopup(@selectLesson='selectLesson')
+      lessonPopup(@selectLesson='selectLesson')
 
   .lesson-wrapper(v-else)
     .lesson-header.fake
@@ -48,6 +50,7 @@ import lessonresources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
 import download from '~/components/lessons/Download'
+import unlock from '~/components/lessons/Unlock'
 import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
@@ -83,16 +86,6 @@ export default {
 
   mounted () {
     this.$store.dispatch('getCourse', this.courseSlug)
-
-    // TODO: @dustin remove this when popup is styled
-    // setTimeout(() => {
-    //   this.$modal.show('next-lesson', {
-    //     lesson: {
-    //       title: 'Intro to Vue.JS',
-    //       description: 'If you’re just getting started with Vue, here’s where to get going. We cover all the basics and give you challenges so you can learn by doing.'
-    //     }
-    //   })
-    // }, 500)
   },
 
   components: {
@@ -106,13 +99,15 @@ export default {
     lessonPopup,
     socialShare,
     download,
+    unlock,
     courseSubscribe,
     playerPlaceholder
   },
 
   computed: {
     ...mapState({
-      course: result => result.courses.course
+      course: result => result.courses.course,
+      account: result => result.account.account
     }),
 
     current () {

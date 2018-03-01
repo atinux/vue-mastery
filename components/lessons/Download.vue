@@ -12,16 +12,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 export default {
   name: 'downloadButton',
-  props: ['courseLink'],
-  computed: {
-    ...mapState({
-      account: result => result.account.account
-    })
-  },
+  props: ['courseLink, account'],
   methods: {
     openLogin () {
       this.$modal.show('login-form', {
