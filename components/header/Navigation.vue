@@ -4,10 +4,11 @@
       router-link.navbar-item(to="/courses") Courses
       router-link.navbar-item(to="/about") About
       router-link.navbar-item(to="/contact") Contact
+      router-link.navbar-item(to="/account" v-if="account") Dashboard
     no-ssr
       .navbar-secondary(v-cloak v-if="account")
         button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
-        nuxt-link.navbar-profile(to="/account")
+        nuxt-link.navbar-profile(to="/account?section=profile")
           img(v-bind:src="account.image" v-bind:alt="account.displayName")
       .navbar-secondary(v-cloak v-else)
         button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
