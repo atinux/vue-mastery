@@ -12,7 +12,7 @@ div
 
     aside.lesson-aside
       .control-group.-spaced
-        download
+        download(:courseLink='current.downloadLink')
         socialShare
       //- courseSubscribe
       lessonresources(:resources='current.resources')
