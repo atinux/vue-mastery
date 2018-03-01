@@ -12,9 +12,7 @@ div
 
     aside.lesson-aside
       .control-group.-spaced
-        a.button.secondary.-has-icon(:href='current.downloadLink' download v-if="current")
-          i.fa.fa-download
-          | Download
+        download
         socialShare
       //- courseSubscribe
       lessonresources(:resources='current.resources')
@@ -49,6 +47,7 @@ import lessonNav from '~/components/lessons/Navigation'
 import lessonresources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
+import download from '~/components/lessons/Download'
 import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
@@ -83,7 +82,6 @@ export default {
   },
 
   mounted () {
-    console.log('getCourse')
     this.$store.dispatch('getCourse', this.courseSlug)
 
     // TODO: @dustin remove this when popup is styled
@@ -107,6 +105,7 @@ export default {
     lessonChallenges,
     lessonPopup,
     socialShare,
+    download,
     courseSubscribe,
     playerPlaceholder
   },

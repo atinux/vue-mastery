@@ -1,0 +1,34 @@
+<template lang="pug">
+  no-ssr    
+    a.button.secondary.-has-icon(v-cloak 
+             v-if="account"
+             href="courseLink"
+             download)
+      i.fa.fa-download
+      | Download
+
+    button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download
+
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  name: 'downloadButton',
+  props: ['courseLink'],
+  computed: {
+    ...mapState({
+      account: result => result.account.account
+    })
+  },
+  methods: {
+    openLogin () {
+      this.$modal.show('login-form', {
+        newAccount: true,
+        header: 'Please create a free account to download the course.'
+      })
+    }
+  }
+}
+</script>
