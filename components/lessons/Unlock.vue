@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'downloadButton',
+  name: 'unlockButton',
   props: ['courseLink', 'account'],
   methods: {
     openLogin () {
