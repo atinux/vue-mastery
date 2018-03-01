@@ -96,7 +96,7 @@ export default {
     return {
       tabs: ['Dashboard', 'Profile', 'Account Settings'],
       editing: false,
-      selectedTab: 'Dashboard',
+      selectedTab: this.$route.query.section || 'Dashboard',
       completed: {},
       recommended: {},
       uncompleted: {}

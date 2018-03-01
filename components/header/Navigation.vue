@@ -8,7 +8,7 @@
     no-ssr
       .navbar-secondary(v-cloak v-if="account")
         button.button.primary.-small(type="button" v-on:click="signOut") Sign Out
-        nuxt-link.navbar-profile(to="/account?section=profile")
+        nuxt-link.navbar-profile(to="/account?section=Profile")
           img(v-bind:src="account.image" v-bind:alt="account.displayName")
       .navbar-secondary(v-cloak v-else)
         button.button.inverted.-small(type="button" v-on:click="openSignUp") Sign Up
