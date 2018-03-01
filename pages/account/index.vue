@@ -26,14 +26,18 @@
           .empty(v-else)
             h4.empty-title You have not completed any courses yet
 
-      aside.earned-badge-list
-        h3.title Earned Badges
-        BadgeGrid(:courses="completed" :account="account"
-          v-if="Object.keys(completed).length !== 0" v-cloak)
-        .empty(v-else)
-          h5.empty-title You have not completed any courses yet
+      //- aside.earned-badge-list
+      //-   h3.title Earned Badges
+      //-   BadgeGrid(:courses="completed" :account="account"
+      //-     v-if="Object.keys(completed).length !== 0" v-cloak)
+      //-   .empty(v-else)
+      //-     h5.empty-title You have not completed any courses yet
 
-      div.recommend-course-list
+      aside.recommend-course-list
+        .card.download
+          h3 Download the Vue Cheat Sheet
+          p All the essential syntax at your fingertips
+          DownloadButton(buttonClass='inverted')
         h3.title Recommended Courses
         CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
 
@@ -53,6 +57,7 @@ import CourseList from '~/components/courses/All.vue'
 import CourseGrid from '~/components/courses/Grid.vue'
 import BadgeGrid from '~/components/courses/BadgeGrid.vue'
 import AccountSettings from '~/components/account/AccountSettings.vue'
+import DownloadButton from '~/components/static/DownloadButton'
 
 export default {
   middleware: 'authenticated',
@@ -61,7 +66,8 @@ export default {
     CourseList,
     CourseGrid,
     BadgeGrid,
-    AccountSettings
+    AccountSettings,
+    DownloadButton
   },
   computed: {
     ...mapState({
@@ -147,15 +153,13 @@ export default {
 .course-list
   display grid
   grid-template-areas "main"\
-                      "aside"\
-                      "completed"\
-                      "recommend"
+                      "recommend"\
+                      "completed"
   +tablet-up()
     grid-template-columns 63% 33%
     grid-column-gap: 4%
-    grid-template-areas "main aside"\
-                        "completed aside"\
-                        "recommend recommend"
+    grid-template-areas "main recommend"\
+                        "completed recommend"
 
 
 .main-course-list,
@@ -192,6 +196,17 @@ export default {
   margin-bottom: ($vertical-space/2)
   border-bottom solid 2px $secondary-color
 
+.download
+  // display flex
+  // flex-direction column
+  color white
+  text-align center
+  align-items center
+  background-image url(/images/bkg-cheatsheet-main.jpg)
+  margin-bottom ($vertical-space/2)
+  .button
+    margin 0 auto
+
 .tab
   display inline-block
   height $button-height-small
@@ -208,7 +223,6 @@ export default {
   &:focus
     outline none
 
-
 .active-tab
   color $secondary-color
   font-weight 600
@@ -218,8 +232,5 @@ export default {
   margin-bottom: $vertical-space
   +tablet-up()
     width 70%
-
-pre
-  white-space pre-wrap
 
 </style>
