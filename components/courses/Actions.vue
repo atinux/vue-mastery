@@ -1,7 +1,7 @@
 <template lang="pug">
 .actions
   div(v-if="course.lessonsCount" v-cloak)
-    span(v-if="course.hasOwnProperty('progression')") {{course.progression}}% completed
+    span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     span(v-else) {{ course.lessonsCount | pluralizeLesson }}
     .button.primary.-full(v-if="checkCourseStarted(course.slug)" v-cloak)
       | Resume
