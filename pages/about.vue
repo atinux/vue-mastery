@@ -27,7 +27,8 @@
       nuxt-link.button.secondary.border(to="/contact") Contact Us
 
     .why-media
-      PlayerPlaceholder
+      iframe(src="https://player.vimeo.com/video/258154307" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+      //- vimeo-player(ref="player" video-id="258154307" player-width="860")
     .why
       h1.title Why Learn Vue?
       p We worked closely with the Vue Core team to produce this video which walks you through the core principles of this JS Framework.
