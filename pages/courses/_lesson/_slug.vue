@@ -5,18 +5,18 @@ div
   //-   unlock(:account='account' v-if='current.lock && !account' v-cloak)
   //- @dustin version where the content is completly hidden
   div(v-if='course'  v-cloak)
-    .lesson-wrapper(v-if='current.lock && !account' v-cloak)
-      unlock(:account='account')
-    .lesson-wrapper(v-else v-cloak)
+    .lesson-wrapper
       lessonHeader(:course='course')
 
-      lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
+      .lesson-video.-locked(v-else :style="{backgroundImage: 'url('+current.image[0].url+')'}")
+        unlock(:account='account')
 
       lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
 
-      lessonBody(:course='current')
+      lessonBody(:course='current' :locked='locked')
 
-      aside.lesson-aside
+      aside.lesson-aside(v-if="!locked" v-cloak)
         .control-group.-spaced
           download(:courseLink='current.downloadLink', :account='account')
           socialShare
@@ -128,6 +128,10 @@ export default {
         }
       })
       return currentLesson
+    },
+
+    locked () {
+      return this.current.lock && !this.account
     }
   },
 
@@ -138,16 +142,19 @@ export default {
     },
 
     lessonCompleted () {
-      if (this.selected < this.course.lessons.length - 1) {
-        this.$modal.show('next-lesson', {
-          lesson: this.course.lessons[this.selected + 1]
-        })
-      }
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: this.lessonSlug,
         courseSlug: this.courseSlug,
         isCompleted: true
       })
+    },
+
+    lessonFinished () {
+      if (this.selected < this.course.lessons.length - 1) {
+        this.$modal.show('next-lesson', {
+          lesson: this.course.lessons[this.selected + 1]
+        })
+      }
     }
   }
 }
@@ -170,6 +177,11 @@ export default {
 
 .lesson-video
   grid-area video
+  &.-locked
+    position relative
+    background $black
+    width 100%
+    height 500px
 
 .lesson-content
   grid-area content

@@ -1,15 +1,26 @@
 <template lang="pug">
   .lesson-video(v-if="videoId" v-cloak)
-    vimeo-player(ref="player" :video-id = "videoId" player-width="860" @ended="videoEnded" @ready="onReady")
+    vimeo-player(ref="player" :video-id = "videoId" player-width="860" @progress="videoProgress" @videoEnded="videoEnded" @ready="onReady")
 </template>
 
 <script>
 export default {
   name: 'vimeo',
   props: ['videoId'],
+  data () {
+    return {
+      completed: false
+    }
+  },
   methods: {
     onReady () {
       this.$refs.player.play()
+    },
+    videoProgress (data) {
+      if (data.percent > 0.85 && !this.completed) {
+        this.$emit('lessonCompleted')
+        this.completed = true
+      }
     },
     videoEnded () {
       this.$emit('videoEnded')

@@ -1,27 +1,27 @@
 <template lang="pug">
-  //- TODO: Add class `.-locked` to list-item when course is locked/unavailable
-  .lesson-content
+  .lesson-content(:class="locked ? '-locked': 'unlock'")
     h2 {{ course.title}}
-    div.lesson-body(v-html="$md.render(course.markdown)")
-    //- div.lesson-locked
-    //-   h3 This lesson is locked.
-    //-   h5 If you wish to take this lesson please,
-    //-   .control-group
-    //-     button.button.primary(type="button" v-on:click="openSignUp") Sign Up
-    //-     button.button.link(disabled) Or
-    //-     button.button.secondary(type="button" v-on:click="openLogin") Login
+    div.lesson-body(v-html="body")
+    .lesson-locked(v-if="locked" v-cloak)
+      unlock
 </template>
 
 <script>
+import unlock from '~/components/lessons/Unlock'
+
 export default {
   name: 'body',
-  props: ['course'],
-  methods: {
-    openLogin () {
-      this.$modal.show('login-form', { newAccount: false })
-    },
-    openSignUp () {
-      this.$modal.show('login-form', { newAccount: true })
+  props: ['course', 'locked'],
+  components: {
+    unlock
+  },
+  computed: {
+    body () {
+      let text = this.course.markdown
+      if (this.locked) {
+        text = text.slice(0, 400) + '...'
+      }
+      return this.$md.render(text)
     }
   }
 }
@@ -61,29 +61,27 @@ export default {
 .lesson-body
   font-size 22px
 
-.lesson-locked
-  display none
-  flex-flow column
-  position absolute
-  color $secondary-color
-  left 0
-  right 0
-  top 50%
-  transform translateY(-50%)
-  justify-content center
-  align-items center
-  h5
-    font-weight 600
-  &:before
-    content ''
-    position absolute
-    height 240px
-    left 20%
-    right 20%
-    background white
-    z-index: -1
-    border-radius 6px
-    border solid 1px #eee
-  .button + .button
-    margin-left 20px
+// .lesson-locked
+//   display none
+//   flex-flow column
+//   position absolute
+//   color $secondary-color
+//   left 0
+//   right 0
+//   top 50%
+//   transform translateY(-50%)
+//   justify-content center
+//   align-items center
+//   h5
+//     font-weight 600
+//   &:before
+//     content ''
+//     position absolute
+//     height 240px
+//     left 20%
+//     right 20%
+//     background white
+//     z-index: -1
+//     border-radius 6px
+//     border solid 1px #eee
 </style>
