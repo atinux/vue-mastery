@@ -19,8 +19,7 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Sign up to upload the video!',
-        header: 'Please create a free account to download the course.'
+        headerTitle: 'Sign up to download the video'
       })
     }
   }
