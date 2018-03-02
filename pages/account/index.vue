@@ -82,10 +82,11 @@ export default {
         if (this.account.hasOwnProperty('courses') && this.account.courses.hasOwnProperty(course.slug)) {
           const startedCourse = this.account.courses[course.slug]
           if (startedCourse.hasOwnProperty('completedLessons')) {
-            const completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed)
+            const completedLessons = Object.values(startedCourse.completedLessons).filter(completed => completed).length
             // Check how many lessons are completed
-            course.progression = Math.round(completedLessons.length / course.lessonsCount * 100)
-            category = course.progression >= 100 ? 'completed' : 'uncompleted'
+
+            course.progression = `${completedLessons} / ${course.lessonsCount} lesson${completedLessons > 1 ? 's' : ''} completed`
+            category = completedLessons >= course.lessonsCount ? 'completed' : 'uncompleted'
           }
         }
         // TODO: Swap completed Course image with badge ?
@@ -102,7 +103,7 @@ export default {
     return {
       tabs: ['Dashboard', 'Profile', 'Account Settings'],
       editing: false,
-      selectedTab: 'Dashboard',
+      selectedTab: this.$route.query.section || 'Dashboard',
       completed: {},
       recommended: {},
       uncompleted: {}

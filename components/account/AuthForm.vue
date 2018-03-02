@@ -65,6 +65,9 @@ export default {
     newAccount: {
       default: false
     },
+    headerTitle: {
+      default: false
+    },
     header: {
       default: false
     }
@@ -82,6 +85,7 @@ export default {
   },
   computed: {
     title () {
+      if (this.headerTitle) return this.headerTitle
       let t = this.rememberPassword ? 'Welcome back!' : 'Retrieve your password'
       if (this.isNew) t = 'Let\'s Get You Signed Up.'
       return t
