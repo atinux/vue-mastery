@@ -7,14 +7,14 @@
       i.fa.fa-download
       | Download
 
-    button.button(:class="buttonClass" v-else v-cloak @click="openLogin") Download
+    button.button(v-else v-cloak @click="openLogin") Download
 
 </template>
 
 <script>
 export default {
   name: 'downloadButton',
-  props: ['courseLink, account'],
+  props: ['courseLink', 'account'],
   methods: {
     openLogin () {
       this.$modal.show('login-form', {
