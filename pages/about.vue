@@ -2,7 +2,9 @@
 .container
   .wrapper
     .mission-media
-      PlayerPlaceholder
+      iframe(src="https://player.vimeo.com/video/257980016" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+      //- vimeo-player(ref="player" video-id="257980016" player-width="860")
+
     .mission
       h1.title Our Mission
       p To be the ultimate learning resource for Vue Developers. We do this by:
@@ -15,7 +17,8 @@
       nuxt-link.button.secondary.border(to="/courses") View Our Courses
 
     .team-media
-      PlayerPlaceholder
+      img(src="/images/vue-mastery-team.jpg" alt="Vue Mastery Team")
+
     .team
       h1.title About The Team
       p The Vue Mastery team is based in Orlando, Florida where Gregg Pollack (Teacher), Adam Jahr (Teacher), Chase Gregory (Marketing), and Melissa Koch (Legal & Business) reside.
