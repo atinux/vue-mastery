@@ -1,9 +1,13 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course' v-class="this.course.lock ? 'locked': ''" v-cloak)
-    div(v-if='this.course.lock && !account' v-cloak)
+  // @Dustin: version with just the class
+  //- .lesson-wrapper(v-if='course' v-cloak :class="current.lock ? 'lock': 'unlock'")
+  //-   unlock(:account='account' v-if='current.lock && !account' v-cloak)
+  // @dustin version where the content is completly hidden
+  div(v-if='course'  v-cloak)
+    .lesson-wrapper(v-if='current.lock && !account' v-cloak)
       unlock(:account='account')
-    div(v-else v-cloak)
+    .lesson-wrapper(v-else v-cloak)
       lessonHeader(:course='course')
 
       lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
