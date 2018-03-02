@@ -61,7 +61,7 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        header: 'Please create a free account to get notified when new lessons are available.'
+        headerTitle: 'Sign Up Free to Get Notified'
       })
     }
   }
