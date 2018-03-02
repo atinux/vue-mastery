@@ -56,14 +56,12 @@ export default {
   color: $gray
 
 .grid
-  display flex
-  flex-direction column
-  justify-content flex-start
-  // +tablet-up()
-  //   justify-content space-between
-  //   flex-direction row
-  // +laptop-up()
-  //   justify-content flex-start
+  display grid
+  +tablet-up()
+    grid-template-columns repeat(2, 1fr)
+    grid-column-gap 40px
+  +laptop-up()
+    grid-template-columns repeat(1, 1fr)
 
 .grid-card
   display flex
@@ -74,13 +72,6 @@ export default {
 
 .recommend-course-list .grid-card
   width 100%
-  // +tablet-up()
-  //   width 48%
-  // +laptop-up()
-  //   width 30%
-  //   margin-right 3.5%
-  //   &:nth-child(3n)
-  //     margin-right 0
 
   .media-block
     text-align center

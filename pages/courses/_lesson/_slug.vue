@@ -1,15 +1,15 @@
 <template lang='pug'>
 div
-  // @Dustin: version with just the class
+  //- @Dustin: version with just the class
   //- .lesson-wrapper(v-if='course' v-cloak :class="current.lock ? 'lock': 'unlock'")
   //-   unlock(:account='account' v-if='current.lock && !account' v-cloak)
-  // @dustin version where the content is completly hidden
+  //- @dustin version where the content is completly hidden
   div(v-if='course'  v-cloak)
     .lesson-wrapper
       lessonHeader(:course='course')
 
       lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
-      playerPlaceholder(v-else)
+      .lesson-video.-locked(v-else :style="{backgroundImage: 'url('+current.image[0].url+')'}")
         unlock(:account='account')
 
       lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
@@ -177,6 +177,13 @@ export default {
 
 .lesson-video
   grid-area video
+  &.-locked
+    position relative
+    background $black
+    width 100%
+    height 300px
+    +tablet-up()
+      height 500px
 
 .lesson-content
   grid-area content
@@ -217,14 +224,5 @@ export default {
 
   .lesson-aside
     padding 0 8%
-
-// +desktop-up()
-//   .lesson-wrapper
-//     grid-template-columns 50% 25% 25%
-//     grid-template-areas 'header  header  header'\
-//                          'video   video   list'\
-//                          'content sidebar sidebar'\
-//                          'footer  footer  footer'
-
 
 </style>

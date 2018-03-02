@@ -16,7 +16,10 @@
         h3.title In Progress
         CourseList(:courses="inProgress" :account="account" v-if="Object.keys(inProgress).length !== 0" v-cloak)
         .empty(v-else)
-          h4.empty-title You have no courses currently in progress
+          div
+            h4.empty-title You have no courses currently in progress
+            p Get started by browsing our recommended courese list.
+            button.button.secondary.border.-small(type="button" @click="scrollTo" data-target="recommended") Browse Courses
 
       div.completed-course-list
         aside.completed-course-list
@@ -38,8 +41,9 @@
           h3 Download the Vue Cheat Sheet
           p All the essential syntax at your fingertips
           DownloadButton(buttonClass='inverted')
-        h3.title Recommended Courses
-        CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
+        #recommended
+          h3.title Recommended Courses
+          CourseGrid(:courses="recommended" :account="account" v-if="Object.keys(recommended).length !== 0" v-cloak)
 
     div.settings(v-if="selectedTab == 'Profile'" v-cloak)
       .profile-settings
@@ -116,6 +120,15 @@ export default {
     toggleEditForm () {
       this.editing = !this.editing
     },
+    scrollTo: function (e) {
+      let target = e.currentTarget.dataset.target
+      let element = document.getElementById(target)
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      element.classList.add('-flash')
+      setTimeout(function () {
+        element.classList.remove('-flash')
+      }, 1000)
+    },
     signOut () {
       this.$store.dispatch('userLogout')
         .then(() => {
@@ -156,11 +169,11 @@ export default {
   grid-template-areas "main"\
                       "recommend"\
                       "completed"
-  +tablet-up()
+  +laptop-up()
     grid-template-columns 63% 33%
     grid-column-gap: 4%
     grid-template-areas "main recommend"\
-                        "completed recommend"
+                        "completed recommend"\
 
 
 .main-course-list,
@@ -181,6 +194,7 @@ export default {
 
 .completed-course-list
   grid-area completed
+  grid-row span 2
   margin-bottom ($vertical-space/2)
 
 .recommend-course-list

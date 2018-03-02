@@ -2,7 +2,6 @@
 .player
   slot
     .play-button
-
 </template>
 
 
@@ -15,7 +14,7 @@ export default { name: 'PlayerPlaceholder' }
   .player
     height 200px
     width: 100%
-    max-width: 800px
+    // max-width: 800px
     background-color $black
     display flex
     justify-self center
@@ -43,5 +42,5 @@ export default { name: 'PlayerPlaceholder' }
   +laptop-up()
     .player
       // min-width 650px
-      height 379px
+      height 440px
 </style>

@@ -2,15 +2,19 @@
 .lessons-list(v-if="course.lessons" v-cloak)
   h3.title Lessons
   .lessons-list-scroll
+    //- TODO: Add class `.-locked` to 1list-item1 when course is locked/unavailable
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.slug)"
-               @click="selectLesson(lesson.slug)")
+               @click="selectLesson(lesson.slug)"
+               :class="lesson.lock ? '-locked': 'unlock'")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
-          i.far.fa-clock
-          span {{ lesson.duration | time}}
+          div
+            i.far.fa-clock
+            span {{ lesson.duration | time}}
       .list-item-actions(@click.stop)
+        i.fa.fa-lock
         label.checkmark
           input(type="checkbox" :checked="isCompleted(lesson.slug)" @change="toggleCompleted(lesson.slug)")
           span.check
@@ -138,12 +142,27 @@ export default {
     &:not([class*="active"]) .list-item-title
       opacity 0.4
 
+  &.-locked
+    opacity 0.4
+    &:hover
+      background transparent
+      .list-item-title
+        font-weight normal
+      .list-item-meta
+        color #A1B8BA
+    > .list-item-actions .checkmark
+      display none
+    > .list-item-actions .fa-lock
+      display block
+
 .list-item-title
   font-size 18px
   font-weight 400
 
 .list-item-actions
   margin-left 20px
+  .fa-lock
+    display none
 
 .title
   display flex

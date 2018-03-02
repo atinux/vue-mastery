@@ -1,8 +1,9 @@
 <template lang="pug">
-  .lesson-content
+  .lesson-content(:class="locked ? '-locked': 'unlock'")
     h2 {{ course.title}}
     div.lesson-body(v-html="body")
-    unlock(v-if="locked" v-cloak)
+    .lesson-locked(v-if="locked" v-cloak)
+      unlock
 </template>
 
 <script>
@@ -34,6 +35,31 @@ export default {
   +tablet-up()
     margin $vertical-space 0
 
+  &.-locked
+    position relative
+    .lesson-locked
+      display flex
+    h2
+      opacity 0.5
+    .lesson-body
+      opacity 0.5
+      position relative
+      height 300px
+      overflow hidden
+      &:after
+        content ''
+        position absolute
+        left 0
+        right 0
+        bottom 0
+        height 220px
+        background linear-gradient(to top,
+                    rgba(255,255,255,1),
+                    rgba(255,255,255,0.6),
+                    rgba(255,255,255,0))
+
 .lesson-body
-  font-size 22px
+  font-size 16px
+  +tablet-up()
+    font-size 22px
 </style>
