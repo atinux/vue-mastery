@@ -156,11 +156,11 @@ export default {
   grid-template-areas "main"\
                       "recommend"\
                       "completed"
-  +tablet-up()
+  +laptop-up()
     grid-template-columns 63% 33%
     grid-column-gap: 4%
     grid-template-areas "main recommend"\
-                        "completed recommend"
+                        "completed recommend"\
 
 
 .main-course-list,
@@ -181,6 +181,7 @@ export default {
 
 .completed-course-list
   grid-area completed
+  grid-row span 2
   margin-bottom ($vertical-space/2)
 
 .recommend-course-list
