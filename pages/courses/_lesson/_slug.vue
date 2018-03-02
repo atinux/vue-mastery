@@ -8,7 +8,7 @@ div
     .lesson-wrapper
       lessonHeader(:course='course')
 
-      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
       playerPlaceholder(v-else)
         unlock(:account='account')
 
@@ -142,16 +142,19 @@ export default {
     },
 
     lessonCompleted () {
-      if (this.selected < this.course.lessons.length - 1) {
-        this.$modal.show('next-lesson', {
-          lesson: this.course.lessons[this.selected + 1]
-        })
-      }
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: this.lessonSlug,
         courseSlug: this.courseSlug,
         isCompleted: true
       })
+    },
+
+    lessonFinished () {
+      if (this.selected < this.course.lessons.length - 1) {
+        this.$modal.show('next-lesson', {
+          lesson: this.course.lessons[this.selected + 1]
+        })
+      }
     }
   }
 }
