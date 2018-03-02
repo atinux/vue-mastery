@@ -7,7 +7,7 @@ no-ssr
 
     .progress
       p Next lesson starting in:
-      h2.blink 10
+      h2.blink(v-on:animationiteration="countdown") {{ count }}
     .form-footer
       .control-group.-spaced
         button.button.link.-full(@click="selectLesson" rel="next") Go to Next Lesson
@@ -19,7 +19,8 @@ export default {
   name: 'popup',
   data () {
     return {
-      lesson: false
+      lesson: false,
+      count: 10
     }
   },
   methods: {
@@ -29,6 +30,10 @@ export default {
     },
     beforeOpen (event) {
       this.lesson = event.params.lesson
+    },
+    countdown () {
+      this.count--
+      if (this.count === 0) this.selectLesson()
     }
   }
 }
