@@ -17,7 +17,7 @@
 
         button.button.danger.-has-icon.-small(type="button" v-on:click="deleteAccount")
           span
-            i.fa.fa-cog
+            i.fa.fa-trash-alt
             | Delete Account
 </template>
 
