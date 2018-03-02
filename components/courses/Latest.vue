@@ -1,6 +1,6 @@
 <template lang="pug">
   div(v-if="latests" v-cloak)
-    h2.title Latest Videos
+    h2.title Latest Free Videos
     div(v-for="lesson in latests")
       nuxt-link(:to="path(lesson)")
         .media-block
