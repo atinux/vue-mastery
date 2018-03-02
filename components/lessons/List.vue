@@ -4,9 +4,8 @@
   .lessons-list-scroll
     //- TODO: Add class `.-locked` to 1list-item1 when course is locked/unavailable
     .list-item(v-for="(lesson, index) in course.lessons"
-               v-bind:class="activeOrCompleted(lesson.slug)"
-               @click="selectLesson(lesson.slug)"
-               :class="lesson.lock ? '-locked': 'unlock'")
+               v-bind:class="[activeOrCompleted(lesson.slug), lesson.lock ? '-locked': 'unlock']"
+               @click="selectLesson(lesson.slug)")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
