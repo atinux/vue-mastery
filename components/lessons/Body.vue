@@ -1,13 +1,28 @@
 <template lang="pug">
   .lesson-content
     h2 {{ course.title}}
-    div.lesson-body(v-html="$md.render(course.markdown)")
+    div.lesson-body(v-html="body")
+    unlock(v-if="locked" v-cloak)
 </template>
 
 <script>
+import unlock from '~/components/lessons/Unlock'
+
 export default {
   name: 'body',
-  props: ['course']
+  props: ['course', 'locked'],
+  components: {
+    unlock
+  },
+  computed: {
+    body () {
+      let text = this.course.markdown
+      if (this.locked) {
+        text = text.slice(0, 400) + '...'
+      }
+      return this.$md.render(text)
+    }
+  }
 }
 </script>
 

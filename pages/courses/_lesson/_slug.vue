@@ -5,18 +5,18 @@ div
   //-   unlock(:account='account' v-if='current.lock && !account' v-cloak)
   // @dustin version where the content is completly hidden
   div(v-if='course'  v-cloak)
-    .lesson-wrapper(v-if='current.lock && !account' v-cloak)
-      unlock(:account='account')
-    .lesson-wrapper(v-else v-cloak)
+    .lesson-wrapper
       lessonHeader(:course='course')
 
-      lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      playerPlaceholder(v-else)
+        unlock(:account='account')
 
       lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
 
-      lessonBody(:course='current')
+      lessonBody(:course='current' :locked='locked')
 
-      aside.lesson-aside
+      aside.lesson-aside(v-if="!locked" v-cloak)
         .control-group.-spaced
           download(:courseLink='current.downloadLink', :account='account')
           socialShare
@@ -128,6 +128,10 @@ export default {
         }
       })
       return currentLesson
+    },
+
+    locked () {
+      return this.current.lock && !this.account
     }
   },
 
