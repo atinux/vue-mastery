@@ -1,4 +1,4 @@
-**Effective Date:**
+**Effective Date: 03/02/2018**
 
 Please read this Terms of Use Agreement (“Agreement”) carefully, as it constitutes a legally binding agreement and applies to your use of (a) www.vuemastery.com and all corresponding domains, subdomains, applications, web pages and websites associated therewith (the “Site”), and (b) any other content, applications, features, functionality, information and services offered on or through the Site (the foregoing subsections (a) and (b) are collectively referred to herein as the “Services”), which are offered to you by Code Pop LLC or one of our operating divisions (“Code Pop”, “VueMastery”, “we”, “us” or “our”). VueMastery.com is owned and operated by Code Pop LLC.
 
