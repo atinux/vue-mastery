@@ -4,7 +4,8 @@
       .body
         h1.title The ultimate learning resource for Vue developers
         p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
-      PlayerPlaceholder
+      iframe.video-player(src="https://player.vimeo.com/video/257962818" width="800" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+      //- vimeo-player(ref="player" video-id="257962818" player-width="800")
 
       .actions
         nuxt-link.button.secondary(to="/courses") START LEARNING
@@ -66,5 +67,8 @@ export default {
 .actions
   display flex
   justify-content center
+
+.video-player
+  margin: 0 auto
 
 </style>
