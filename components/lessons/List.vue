@@ -5,7 +5,8 @@
     //- TODO: Add class `.-locked` to 1list-item1 when course is locked/unavailable
     .list-item(v-for="(lesson, index) in course.lessons"
                v-bind:class="activeOrCompleted(lesson.slug)"
-               @click="selectLesson(lesson.slug)")
+               @click="selectLesson(lesson.slug)"
+               :class="lesson.lock ? '-locked': 'unlock'")
       .list-item-content
         h4.list-item-title {{ index + 1 }}. {{ lesson.title }}
         .list-item-meta
@@ -143,6 +144,12 @@ export default {
 
   &.-locked
     opacity 0.4
+    &:hover
+      background transparent
+      .list-item-title
+        font-weight normal
+      .list-item-meta
+        color #A1B8BA
     > .list-item-actions .checkmark
       display none
     > .list-item-actions .fa-lock

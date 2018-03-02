@@ -1,15 +1,15 @@
 <template lang="pug">
   //- TODO: Add class `.-locked` to list-item when course is locked/unavailable
-  .lesson-content.-locked
+  .lesson-content
     h2 {{ course.title}}
     div.lesson-body(v-html="$md.render(course.markdown)")
-    div.lesson-locked
-      h3 This lesson is locked.
-      h5 If you wish to take this lesson please,
-      .control-group
-        button.button.primary(type="button" v-on:click="openSignUp") Sign Up
-        button.button.link(disabled) Or
-        button.button.secondary(type="button" v-on:click="openLogin") Login
+    //- div.lesson-locked
+    //-   h3 This lesson is locked.
+    //-   h5 If you wish to take this lesson please,
+    //-   .control-group
+    //-     button.button.primary(type="button" v-on:click="openSignUp") Sign Up
+    //-     button.button.link(disabled) Or
+    //-     button.button.secondary(type="button" v-on:click="openLogin") Login
 </template>
 
 <script>
