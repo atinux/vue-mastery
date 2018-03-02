@@ -3,7 +3,6 @@
     .navbar-main
       router-link.navbar-item(to="/courses") Courses
       router-link.navbar-item(to="/about") About
-      router-link.navbar-item(to="/contact") Contact
       router-link.navbar-item(to="/account" v-if="account") Dashboard
     no-ssr
       .navbar-secondary(v-cloak v-if="account")
@@ -16,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from "vuex";
 
 export default {
   computed: {
@@ -26,178 +25,268 @@ export default {
     })
   },
   methods: {
-    ...mapActions([
-      'toggleNav'
-    ]),
-    closeNav () {
+    ...mapActions(["toggleNav"]),
+    closeNav() {
       if (this.openNav) {
-        this.toggleNav()
+        this.toggleNav();
       }
     },
-    signOut () {
-      this.$store.dispatch('userLogout')
+    signOut() {
+      this.$store
+        .dispatch("userLogout")
         .then(() => {
-          this.$router.push('/')
+          this.$router.push("/");
         })
-        .catch((error) => {
-          console.log(error)
-        })
+        .catch(error => {
+          console.log(error);
+        });
     },
-    openLogin () {
-      this.$modal.show('login-form', { newAccount: false })
+    openLogin() {
+      this.$modal.show("login-form", { newAccount: false });
     },
-    openSignUp () {
-      this.$modal.show('login-form', { newAccount: true })
+    openSignUp() {
+      this.$modal.show("login-form", { newAccount: true });
     },
-    keyboardNav (e) {
-      this.currentPage = this.pages.indexOf(this.$route.name.toLowerCase())
+    keyboardNav(e) {
+      this.currentPage = this.pages.indexOf(this.$route.name.toLowerCase());
 
       // Map keyboard shorcut to navigation
       switch (e.keyCode) {
-        case 13: { // Enter
-          this.toggleNav()
-          break
+        case 13: {
+          // Enter
+          this.toggleNav();
+          break;
         }
-        case 27: { // Escape
-          this.toggleNav()
-          break
+        case 27: {
+          // Escape
+          this.toggleNav();
+          break;
         }
-        case 39: { // Right
+        case 39: {
+          // Right
           // if (this.$route.name.match(/^(courses)$/)) this.nextLessons()
-          break
+          break;
         }
-        case 40: { // Left
+        case 40: {
+          // Left
           // if (this.$route.name.match(/^(courses)$/)) this.previousLessons()
-          break
+          break;
         }
-        default: { return null }
+        default: {
+          return null;
+        }
       }
-      return this.currentPage
+      return this.currentPage;
     },
-    created () {
+    created() {
       // Map keyboard shorcut to navigation
-      window.addEventListener('keyup', this.keyboardNav)
+      window.addEventListener("keyup", this.keyboardNav);
     },
-    beforeDestroy () {
-      window.removeEventListener('keyup')
+    beforeDestroy() {
+      window.removeEventListener("keyup");
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
-@import '~assets/css/_variables'
+@import '~assets/css/_variables';
 
-.navbar
-  position: fixed
-  height 100%
-  display flex
-  flex-wrap wrap
-  align-items center
-  justify-content center
-  flex 1
-  left 0
-  width 100%
-  flex-direction column
-  background-color #fff
-  opacity 0
-  transition opacity .2s ease-in
-  pointer-events: none
-  top 0
+.navbar {
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+  pointer-events: none;
+  top: 0;
 
-  +laptop-up()
-    background-color transparent
-    pointer-events: none
-    opacity: 1
-    justify-content space-between
-    position relative
-    height $header-height
-    flex-direction: row
+  +laptop-up() {
+    background-color: transparent;
+    pointer-events: none;
+    opacity: 1;
+    justify-content: space-between;
+    position: relative;
+    height: $header-height;
+    flex-direction: row;
+  }
+}
 
-.navbar-item
-  color $secondary-color
-  font-family $font-family-base
-  font-size 20px
-  text-decoration none
-  white-space nowrap
-  opacity: 0
+.navbar-item {
+  color: $secondary-color;
+  font-family: $font-family-base;
+  font-size: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0;
 
-  &.nuxt-link-active
-    font-weight 700
+  &.nuxt-link-active {
+    font-weight: 700;
+  }
 
-  &:last-child
-    padding-right 0
+  &:last-child {
+    padding-right: 0;
+  }
 
-  +laptop-up()
-    opacity: 1
-    padding-right 52px
+  +laptop-up() {
+    opacity: 1;
+    padding-right: 52px;
+  }
+}
 
-.button
-  opacity: 0
-  font-size: 20px
+.button {
+  opacity: 0;
+  font-size: 20px;
 
-  + button
-    margin 0
+  + button {
+    margin: 0;
+  }
 
-  +laptop-up()
-    font-size: 18px
-    opacity: 1
+  +laptop-up() {
+    font-size: 18px;
+    opacity: 1;
+  }
+}
 
+.navbar-main, .navbar-secondary {
+  display: flex;
+  flex-direction: column;
+  height: 210px;
+  text-align: center;
+  justify-content: space-evenly;
+  align-items: center;
+  pointer-events: initial;
 
-.navbar-main,
-.navbar-secondary
-  display: flex
-  flex-direction: column
-  height: 210px
-  text-align: center
-  justify-content: space-evenly
-  align-items: center
-  pointer-events: initial
+  +laptop-up() {
+    flex-direction: row;
+    height: $header-height;
 
-  +laptop-up()
-    flex-direction: row
-    height: $header-height
-    .button
-      margin-left 18px
+    .button {
+      margin-left: 18px;
+    }
+  }
+}
 
-.navbar-profile
-  display flex
-  margin-left 18px
-  border-radius 50%
-  overflow hidden
-  box-shadow 0 1px 0 0 #E4E4E4
-  width 40px
-  height 40px
+.navbar-profile {
+  display: flex;
+  margin-left: 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 1px 0 0 #E4E4E4;
+  width: 40px;
+  height: 40px;
 
-  img
-    width 100%
-
+  img {
+    width: 100%;
+  }
+}
 </style>
 
 <style lang="stylus">
-@import '~assets/css/_variables'
+@import '~assets/css/_variables';
 
-.open-nav
-  max-height: 100vh
-  overflow: hidden
+.navbar {
+  position: fixed;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  left: 0;
+  width: 100%;
+  flex-direction: column;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+  pointer-events: none;
+  top: 0;
 
-  +laptop-up()
-    max-height 100%
+  +laptop-up() {
+    background-color: transparent;
+    pointer-events: none;
+    opacity: 1;
+    justify-content: space-between;
+    position: relative;
+    height: $header-height;
+    flex-direction: row;
+  }
+}
 
-  .navbar
-    pointer-events: initial
-    opacity: 1
+.navbar-item {
+  color: $secondary-color;
+  font-family: $font-family-base;
+  font-size: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  opacity: 0;
 
-  .button,
-  .navbar-item
-    opacity: 1
-    transition-duration: .4s
-    for i in (1..2)
-      &:nth-child({i})
-        transition-delay: (i*100)ms
+  &.nuxt-link-active {
+    font-weight: 700;
+  }
 
-  .button
-    for i in (1..2)
-      &:nth-child({i})
-        transition-delay: (i*100 + 200)ms
+  &:last-child {
+    padding-right: 0;
+  }
+
+  +laptop-up() {
+    opacity: 1;
+    padding-right: 52px;
+  }
+}
+
+.button {
+  opacity: 0;
+  font-size: 20px;
+
+  + button {
+    margin: 0;
+  }
+
+  +laptop-up() {
+    font-size: 18px;
+    opacity: 1;
+  }
+}
+
+.navbar-main, .navbar-secondary {
+  display: flex;
+  flex-direction: column;
+  height: 210px;
+  text-align: center;
+  justify-content: space-evenly;
+  align-items: center;
+  pointer-events: initial;
+
+  +laptop-up() {
+    flex-direction: row;
+    height: $header-height;
+
+    .button {
+      margin-left: 18px;
+    }
+  }
+}
+
+.navbar-profile {
+  display: flex;
+  margin-left: 18px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 1px 0 0 #E4E4E4;
+  width: 40px;
+  height: 40px;
+
+  img {
+    width: 100%;
+  }
+}
 </style>
