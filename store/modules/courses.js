@@ -51,7 +51,8 @@ const actions = {
         },
         {
           field: 'lessons',
-          subFields: [ 'lessons' ]
+          subFields: [ 'lessons', 'image' ],
+          populate: [ 'image' ]
         }
       ]})
       .then(course => {

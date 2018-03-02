@@ -9,7 +9,7 @@ div
       lessonHeader(:course='course')
 
       lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
-      .lesson-video.-locked(v-else :style="{backgroundImage: 'url('+current.image[0].url+')'}")
+      .lesson-video.-locked(v-else :style="lockedStyle")
         unlock(:account='account')
 
       lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson')
@@ -132,6 +132,12 @@ export default {
 
     locked () {
       return this.current.lock && !this.account
+    },
+
+    lockedStyle () {
+      return {
+        backgroundImage: `url(${this.current.image[0].url})`
+      }
     }
   },
 
