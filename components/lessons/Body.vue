@@ -59,29 +59,7 @@ export default {
                     rgba(255,255,255,0))
 
 .lesson-body
-  font-size 22px
-
-// .lesson-locked
-//   display none
-//   flex-flow column
-//   position absolute
-//   color $secondary-color
-//   left 0
-//   right 0
-//   top 50%
-//   transform translateY(-50%)
-//   justify-content center
-//   align-items center
-//   h5
-//     font-weight 600
-//   &:before
-//     content ''
-//     position absolute
-//     height 240px
-//     left 20%
-//     right 20%
-//     background white
-//     z-index: -1
-//     border-radius 6px
-//     border solid 1px #eee
+  font-size 16px
+  +tablet-up()
+    font-size 22px
 </style>

@@ -181,7 +181,9 @@ export default {
     position relative
     background $black
     width 100%
-    height 500px
+    height 300px
+    +tablet-up()
+      height 500px
 
 .lesson-content
   grid-area content
