@@ -23,7 +23,8 @@ const createStore = () => {
     actions: {
       nuxtServerInit ({ commit }, { req }) {
         if (!firebase.apps.length) {
-          const firebaseApp = firebase.initializeApp(firebaseConfig)
+          const admin = require('firebase-admin')
+          const firebaseApp = admin.initializeApp(firebaseConfig)
           this.commit(types.APP_READY, flamelink({ firebaseApp }))
         } else {
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebase.app() }))
