@@ -18,7 +18,7 @@
         .empty(v-else)
           div
             h4.empty-title You have no courses currently in progress
-            p Get started by browsing our recommended courese list.
+            p Get started by browsing our recommended course list.
             button.button.secondary.border.-small(type="button" @click="scrollTo" data-target="recommended") Browse Courses
 
       div.completed-course-list
