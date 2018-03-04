@@ -2,7 +2,7 @@
   no-ssr
     .locked-action
       h3 This lesson is locked.
-      h5 If you wish to take this lesson please,
+      h5 Create a free account to unlock it.
       button.button.primary.-small.-has-icon(v-cloak @click="openLogin")
         i.fa.fa-unlock-alt
         | Unlock content
@@ -16,8 +16,7 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Sign up and unlock the content',
-        header: 'Please create a free account to unlock the content of the course.'
+        headerTitle: 'Sign up to unlock free content'
       })
     }
   }
