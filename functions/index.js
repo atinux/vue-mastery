@@ -32,13 +32,25 @@ module.exports = {
       if (!snapshot.child('subscribed').changed()) return null
 
       // Wait to get account email data and course title to subscribe the user
-      return Promise.all([db.account(event.params.cid), db.course(event.params.cid)])
+      return Promise.all([db.account(event.params.uid)])
         .then(results => results.map(result => result.val()))
-        .then(([account, course]) => {
+        .then(([account]) => {
           // Get or create email course list
-          subscription.getMailerList(`Course: ${course.title}`)
+          subscription.getMailerList(`Course: ${event.params.cid}`)
             .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
         })
+    }),
+
+  // Subscribe a user to a course on the mailerLite course list
+  sendContactForm: functions.database.ref('/flamelink/environments/production/content/contact/en-US/{cid}')
+    .onCreate(event => {
+      const snapshot = event.data
+      let form = snapshot.val()
+      return subscription.sendContactEmail({
+        name: form.name,
+        message: form.message,
+        email: form.email
+      })
     }),
 
   // Subscribe a user to a course on the mailerLite course list
