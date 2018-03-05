@@ -2,7 +2,7 @@
   .banner
     .wrapper
       .media
-        img(src="/images/img-cheatsheet-example.png")
+        img(src="/images/image-cheatsheet-example@2x.png")
       .body
         h2.title Get the Ultimate Vue Cheat Sheet
         p.lead All the essential syntax at your fingertips.
