@@ -22,7 +22,7 @@ export default {
     ...mapState({ courses: result => result.courses.featured })
   },
 
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('featured')
   },
 

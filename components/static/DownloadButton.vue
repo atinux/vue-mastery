@@ -25,7 +25,8 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        headerTitle: 'Please sign up to download free'
+        headerTitle: 'Please sign up to download free',
+        redirect: '/download'
       })
     }
   }

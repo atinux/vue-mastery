@@ -47,7 +47,7 @@ export default {
   //   store.dispatch('latest')
   //   store.dispatch('getAllCourses')
   // },
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('latest')
     this.$store.dispatch('getAllCourses')
   }

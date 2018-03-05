@@ -113,7 +113,7 @@ export default {
       uncompleted: {}
     }
   },
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('getAllCourses')
   },
   methods: {

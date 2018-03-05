@@ -17,11 +17,17 @@ export default {
     },
     disabled: {
       default: false
+    },
+    redirect: {
+      default: false
     }
   },
   methods: {
     GoogleButton () {
       this.$store.dispatch('userGoogleLogin')
+        .then(() => {
+          if (this.redirect) this.$router.push(this.redirect)
+        })
     }
   }
 }

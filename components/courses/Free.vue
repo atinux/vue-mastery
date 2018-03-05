@@ -36,7 +36,7 @@ export default {
     ...mapState({ courses: result => result.courses.courses })
   },
 
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('featured')
   },
 
