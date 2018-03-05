@@ -3,22 +3,22 @@
   div(v-if="course.lessonsCount" v-cloak)
     span(v-if="course.hasOwnProperty('progression')") {{course.progression}}
     span(v-else) {{ course.lessonsCount | pluralizeLesson }}
-    .button.primary.-full(v-if="checkCourseStarted(course.slug)" v-cloak)
+    .button.primary.-full(v-if="checkCourseStarted()" v-cloak)
       | Resume
 
     .button.secondary.border.-full(v-else v-cloak)
       | Play
 
   div(v-else v-cloak)
-    div(v-if="isSubscribed(course.slug)")
+    div(v-if="isSubscribed()")
       span Subscribed
     div(v-else)
       span Coming Soon
 
-      .button.primary.border.-full(@click="subscribedToMailingList(course.slug)" v-if="account" v-cloak)
+      .button.primary.border.-full(@click="subscribedToMailingList()" v-if="account" v-cloak)
         | Notify Me
 
-      button.button.primary.border.-full(v-else v-cloak @click="openLogin") Notify Me
+      button.button.primary.border.-full(v-else v-cloak @click="openLogin()") Notify Me
 </template>
 
 
@@ -34,19 +34,25 @@ export default {
     })
   },
 
+  mounted () {
+    if (this.$route.query.subscribe === this.course.slug) {
+      this.subscribedToMailingList()
+    }
+  },
+
   methods: {
-    checkCourseStarted (courseId) {
+    checkCourseStarted () {
       let started = false
       try {
-        started = this.account.courses[courseId].started
+        started = this.account.courses[this.course.slug].started
       } catch (error) {}
       return started
     },
 
-    isSubscribed (courseSlug) {
+    isSubscribed () {
       let subscribed = false
       if (this.account && typeof (this.account['courses']) !== 'undefined') {
-        const completedCourse = this.account.courses[courseSlug]
+        const completedCourse = this.account.courses[this.course.slug]
         if (completedCourse) {
           subscribed = completedCourse.subscribed || false
         }
@@ -54,15 +60,17 @@ export default {
       return subscribed
     },
 
-    subscribedToMailingList (courseSlug) {
-      this.$store.dispatch('userUpdateSubscribe', courseSlug)
+    subscribedToMailingList () {
+      this.$store.dispatch('userUpdateSubscribe', this.course.slug)
     },
 
     openLogin () {
-      this.$modal.show('login-form', {
+      let options = {
         newAccount: true,
         headerTitle: 'Sign Up Free to Get Notified'
-      })
+      }
+      if (!this.account) options.redirect = `/courses?subscribe=${this.course.slug}`
+      this.$modal.show('login-form', options)
     }
   }
 }
