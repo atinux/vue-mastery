@@ -29,13 +29,20 @@ export default {
         try {
           // Get the lessons started
           let lessons = this.account.courses[course.slug].completedLessons
+          let lastLessonFound = false
           // Get the last completed lesson
-          for (let key in lessons) {
+          for (let el of course.lessons) {
+            let key = el.slug
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              if (course.lessons[key]) {
+              if (lessons.hasOwnProperty(key) && lessons[key]) {
+                lastLessonFound = true
                 lessonSlug = key
-              } else {
-                console.log('The last completed lesson doesn\'t belong to this course anymore')
+              }
+            } else {
+              // If there is lesson after the one completed, then redirect to the next one
+              if (lastLessonFound === true) {
+                lessonSlug = key
+                lastLessonFound = false
               }
             }
           }
