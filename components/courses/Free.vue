@@ -10,7 +10,7 @@
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
             h3.title {{ lesson.title }}
             p.content {{ lesson.description }}
-          nuxt-link(to='/' class="-inverted")
+          nuxt-link(:to="path(lesson)" class="-inverted")
             div.meta
               b {{ lessonsCourse(lesson) }}
               label.-has-icon
@@ -37,16 +37,12 @@ export default {
     ...mapState({ courses: result => result.courses.courses })
   },
 
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('featured')
   },
   methods: {
     path (lesson) {
-      if (this.courses) {
-        const course = this.courses[lesson.belongsToCourse]
-        return `/courses/${course.slug}/${lesson.slug}`
-      }
-      return '#'
+      return `/courses/${lesson.belongsToCourse[0].slug}/${lesson.slug}`
     },
     lessonsCourse (lesson) {
       if (this.courses) {

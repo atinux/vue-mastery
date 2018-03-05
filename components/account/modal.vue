@@ -16,7 +16,8 @@ export default {
     return {
       newAccount: true,
       headerTitle: false,
-      header: false
+      header: false,
+      redirect: false
     }
   },
   computed: {
@@ -27,6 +28,7 @@ export default {
   watch: {
     account () {
       this.$modal.hide('login-form', { newAccount: false })
+      if (this.redirect) this.$router.push(this.redirect)
     }
   },
   methods: {
@@ -34,6 +36,7 @@ export default {
       this.newAccount = event.params.newAccount
       this.headerTitle = event.params.headerTitle
       this.header = event.params.header
+      this.redirect = event.params.redirect || false
     }
   }
 }

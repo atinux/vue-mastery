@@ -2,7 +2,8 @@
   .banner
     .wrapper
       h1.title Downloading in progress
-      p.lead Your download will start momentarily. If you do not see it, please click #[a.bold(href="/download") restart download].
+      p.lead Your download will start momentarily. If you do not see it, please click #[a.bold(href='/pdf/Vue-Essentials-Cheat-Sheet.pdf' download ref='download') restart download].
+
 </template>
 
 <script>
@@ -12,6 +13,9 @@ export default {
     return {
       title: '[Downloading...] Vue Cheat Sheet'
     }
+  },
+  mounted () {
+    this.$refs.download.click()
   }
 }
 </script>
