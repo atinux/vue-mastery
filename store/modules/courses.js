@@ -66,7 +66,7 @@ const actions = {
       populate: [ {
         field: 'free',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
-        populate: [ 'image' ]
+        populate: [ 'image', 'belongsToCourse' ]
       }, {
         field: 'featured',
         fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
