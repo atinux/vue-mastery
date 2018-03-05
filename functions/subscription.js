@@ -3,7 +3,7 @@ const Mailerlite = require('mailerlite')
 const mailerlite = new Mailerlite(functions.config().mailerlite.key)
 const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
-// const SparkPost = require('sparkpost')
+const SparkPost = require('sparkpost')
 
 // Configure Mailerlite
 const mainListId = functions.config().mailerlite.mainListId // "VueMastery.com New Users" group
@@ -31,19 +31,19 @@ module.exports = {
         return mailerliteList.addList(mailerliteListName).then(res => res.id)
       }
     })
-  }
+  },
 
-  // sendWelcomeEmail () {
-  //   const client = new SparkPost(functions.config().sparkpost.key)
-  //   client.transmissions.send({
-  //     transmissionBody: {
-  //       recipients: [{ address: { email: val.email } }],
-  //       content: { template_id: 'my-first-email' },
-  //       substitution_data: {'name': val.displayName},
-  //       campaign_id: 'welcome'
-  //     }
-  //   }, (err, res) => {
-  //     console.warn(err ? err.stack : `Email Sent for test to ${val.email}`)
-  //   })
-  // }
+  sendContactEmail (val) {
+    const client = new SparkPost(functions.config().sparkpost.key)
+    client.transmissions.send({
+      transmissionBody: {
+        recipients: [{ address: { email: 'schweiger.pierre@gmail.com' } }],
+        content: { template_id: 'contact' },
+        substitution_data: {'email': val.email, 'name': val.name, 'message': val.message},
+        campaign_id: 'Contact'
+      }
+    }, (err, res) => {
+      console.warn(err ? err.stack : `Email Sent for test to ${val.email}`)
+    })
+  }
 }
