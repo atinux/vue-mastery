@@ -8,7 +8,6 @@ div
       courseList(:course="course")
 
   fakeList(v-else)
-  
 </template>
 
 <script>
@@ -50,5 +49,24 @@ export default {
 
   +tablet-up()
     flex-direction row
+
+.coming-soon
+  position relative
+  overflow hidden
+  .media-block
+    opacity 0.4
+  &:after
+    content 'Coming soon'
+    position absolute
+    top 25px
+    right -40px
+    width 300px
+    height 50px
+    transform rotate(33deg)
+    background linear-gradient(to top right, #41B782 , #86D169)
+    line-height 50px
+    text-indent 120px
+    font-weight 600
+    color #fff
 
 </style>

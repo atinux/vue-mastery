@@ -1,5 +1,5 @@
 <template lang="pug">
-ul.list-unstyled
+ul.list-unstyled.empty-media-list
   each val in [1, 2, 3]
     li
       .media-block.fake

@@ -19,18 +19,19 @@
                 | {{ lesson.duration | time }}
 
     .media-wrapper(v-else)
-      each val in [1, 2, 3]
-        .media-block.fake
-          .media.fake.-small
-          .body.fake
+      fakeList
 
     nuxt-link.button.primary.border(to="/courses") More
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import fakeList from '~/components/courses/FakeList'
 
 export default {
+  components: {
+    fakeList
+  },
   computed: {
     ...mapState({ free: result => result.courses.free }),
     ...mapState({ courses: result => result.courses.courses })
@@ -39,7 +40,6 @@ export default {
   mounted () {
     this.$store.dispatch('featured')
   },
-
   methods: {
     path (lesson) {
       return `/courses/${lesson.belongsToCourse[0].slug}/${lesson.slug}`
@@ -76,10 +76,12 @@ export default {
 
 .media-wrapper
   height: 100%
-  padding-top: 20px
+  padding-top: 0
+  .media-block
+    padding: ($vertical-space/4) 0
+    margin-bottom: ($vertical-space/4)
 
 .media-block
-  margin-bottom ($vertical-space/2)
   grid-template-columns auto 1fr
   grid-template-areas "media body"
   .body

@@ -8,10 +8,10 @@
             img(v-bind:src="lesson.image[0].url")
           .body
             h4 {{ lesson.title }}
-            div.meta
+            .meta
               b {{ lessonsCourse(lesson) }}
+            .meta
               label.-has-icon
-                span ・
                 i.far.fa-clock
                 | {{ lesson.duration | time }}
 </template>
@@ -57,6 +57,12 @@ export default {
 
 .body p
   margin 0
+
+.media
+  max-width 160px
+
+.meta
+  margin-bottom 10px
 
 h4
   font-size 20px
