@@ -1,7 +1,7 @@
 <template lang="pug">
   .lesson-challenge.card(v-if="challenges" v-cloak)
       h3 Coding Challenge
-      div(v-html="challenges")
+      div(v-html="$md.render(challenges)")
 </template>
 
 <script>
