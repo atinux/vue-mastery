@@ -255,7 +255,10 @@ module.exports = {
     html: true,
     linkify: true,
     typographer: true,
-    injected: true
+    injected: true,
+    use: [
+      'markdown-it-implicit-figures'
+    ]
   },
   /*
   ** Customize the progress bar color
