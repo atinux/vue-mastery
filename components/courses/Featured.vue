@@ -6,9 +6,9 @@ div
       courseList(:course="course")
     .list-card.card.coming-soon(v-else)
       courseList(:course="course")
+      span soon
 
   fakeList(v-else)
-  
 </template>
 
 <script>

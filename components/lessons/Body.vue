@@ -1,6 +1,6 @@
 <template lang="pug">
   .lesson-content(:class="locked ? '-locked': 'unlock'")
-    h2 {{ course.title}}
+    h1 {{ course.title}}
     div.lesson-body(v-html="body")
     .lesson-locked(v-if="locked" v-cloak)
       unlock
