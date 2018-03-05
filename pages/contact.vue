@@ -17,28 +17,75 @@
           i.fab.fa-youtube
 
     .contact-form
-      form.form(v-on:submit.prevent="submit" action="https://docs.google.com/forms/d/e/1FAIpQLSfY8hkPIJTVCPW1Bctg1WDIDfbOaScuWMNkt9AmEhx_TvzZbw/formResponse")
+      form.form(v-on:submit.prevent="submit")
         .form-group
           label.visually-hidden Name
-          input(class="input -hollow" placeholder="Name" name="entry.716801693")
+          input(class="input -hollow" placeholder="Name" v-model="name")
         .form-group
           label.visually-hidden Email
-          input(class="input -hollow" placeholder="Email" type="email" name="entry.107063592")
+          input(class="input -hollow" placeholder="Email" type="email" v-model="email")
         .form-group
           label.visually-hidden Message
-          textarea(class="textarea -hollow" placeholder="Message" rows="5" name="entry.617438327")
+          textarea(class="textarea -hollow" placeholder="Message" rows="5" v-model="message")
+
+        .form-error
+          .-is-error(v-if="formError.length > 0" v-text="formError")
+          .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+
         .form-group
           input.button.primary(type="submit" value="Submit")
 </template>
 <script>
 export default {
   middleware: 'anonymous',
-  // head: {
-  //   title: 'Contact Us'
-  // }
   head () {
     return {
       title: 'Contact Us'
+    }
+  },
+  data () {
+    return {
+      name: '',
+      email: '',
+      message: '',
+      debounceTimer: setTimeout(() => {}),
+      formError: '',
+      formSuccess: ''
+    }
+  },
+  methods: {
+    resetFormMessages () {
+      this.formSuccess = this.formError = ''
+    },
+    updatePassword () {
+      this.resetFormMessages()
+      clearTimeout(this.debounceTimer)
+      this.debounceTimer = setTimeout(() => {
+        if (this.name === '') {
+          this.formError = 'Please enter your name'
+          return false
+        }
+        if (this.email === '') {
+          this.formError = 'Please enter a valid email'
+          return false
+        }
+        if (this.message === '') {
+          this.formError = 'Please enter a message'
+          return false
+        }
+        this.$store.dispatch('sendContactRequest', {
+          name: this.name,
+          email: this.email,
+          message: this.message
+        })
+          .then(() => {
+            this.formSuccess = 'Successfully sent your message.'
+          })
+          .catch((err) => {
+            this.formError = 'Error sending your email. Please try again later.'
+            console.error(err)
+          })
+      }, 500)
     }
   }
 }
