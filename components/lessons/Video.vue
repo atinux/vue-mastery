@@ -37,8 +37,7 @@ export default {
   overflow: hidden
   max-width: 100%
 
-  > div,
-  iframe,
+  > iframe,
   object,
   embed
     position: absolute !important

@@ -184,6 +184,7 @@ export default {
     background $black
     width 100%
     height 300px
+    background-size cover
     +tablet-up()
       height 500px
 
