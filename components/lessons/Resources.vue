@@ -2,8 +2,8 @@
   .card(v-if="resources && resources.length" v-cloak)
     h3 Lesson resource{{ resources.length > 1 ? 's' : '' }}
     ul.styled-list
-      li(v-for="resource in resources")
-        span {{ resource[Object.keys(resource)[0]] }}
+      li(v-for="resource in resources" v-html="$md.render(resource[Object.keys(resource)[0]])")
+
 </template>
 
 <script>
