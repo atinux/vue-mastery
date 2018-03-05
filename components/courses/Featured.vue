@@ -4,6 +4,8 @@ div
     nuxt-link.list-card.card(:to="`/courses/${course.slug}/${course.lessons[0].slug}`"
                               v-for="course, key in courses" :key="course.id" v-if="course.lessons")
       courseList(:course="course")
+    .list-card.card.coming-soon(v-else)
+      courseList(:course="course")
 
   fakeList(v-else)
   
@@ -37,7 +39,7 @@ export default {
 
 .list,
 .list-unstyled
-  > a
+  > .list-card
     margin-bottom: 35px
 
 .list-card
