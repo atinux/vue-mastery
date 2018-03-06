@@ -54,8 +54,7 @@ module.exports = {
     // })
     const mailOptions = {
       from: 'Vue Mastery <noreply@firebase.com>',
-      // to: 'team@vuemastery.com'
-      to: 'schweiger.pierre@gmail.com'
+      to: 'team@vuemastery.com'
     }
 
     // The user subscribed to the newsletter.
