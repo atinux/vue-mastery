@@ -178,102 +178,24 @@ export default {
 </style>
 
 <style lang='stylus'>
-@import '~assets/css/_variables';
-
-.navbar {
-  position: fixed;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  left: 0;
-  width: 100%;
-  flex-direction: column;
-  background-color: #fff;
-  opacity: 0;
-  transition: opacity 0.2s ease-in;
-  pointer-events: none;
-  top: 0;
-
-  +laptop-up() {
-    background-color: transparent;
-    pointer-events: none;
-    opacity: 1;
-    justify-content: space-between;
-    position: relative;
-    height: $header-height;
-    flex-direction: row;
-  }
-}
-
-.navbar-item {
-  color: $secondary-color;
-  font-family: $font-family-base;
-  font-size: 20px;
-  text-decoration: none;
-  white-space: nowrap;
-  opacity: 0;
-
-  &.nuxt-link-active {
-    font-weight: 700;
-  }
-
-  &:last-child {
-    padding-right: 0;
-  }
-
-  +laptop-up() {
-    opacity: 1;
-    padding-right: 52px;
-  }
-}
-
-.button {
-  opacity: 0;
-  font-size: 20px;
-
-  + button {
-    margin: 0;
-  }
-
-  +laptop-up() {
-    font-size: 18px;
-    opacity: 1;
-  }
-}
-
-.navbar-main, .navbar-secondary {
-  display: flex;
-  flex-direction: column;
-  height: 210px;
-  text-align: center;
-  justify-content: space-evenly;
-  align-items: center;
-  pointer-events: initial;
-
-  +laptop-up() {
-    flex-direction: row;
-    height: $header-height;
-
-    .button {
-      margin-left: 18px;
-    }
-  }
-}
-
-.navbar-profile {
-  display: flex;
-  margin-left: 18px;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 1px 0 0 #E4E4E4;
-  width: 40px;
-  height: 40px;
-
-  img {
-    width: 100%;
-  }
-}
+@import '~assets/css/_variables'
+.open-nav
+  max-height: 100vh
+  overflow: hidden
+  +laptop-up()
+    max-height 100%
+  .navbar
+    pointer-events: initial
+    opacity: 1
+  .button,
+  .navbar-item
+    opacity: 1
+    transition-duration: .4s
+    for i in (1..2)
+      &:nth-child({i})
+        transition-delay: (i*100)ms
+  .button
+    for i in (1..2)
+      &:nth-child({i})
+        transition-delay: (i*100 + 200)ms
 </style>
