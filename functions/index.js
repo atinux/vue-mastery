@@ -47,7 +47,7 @@ module.exports = {
     }),
 
   // Subscribe a user to a course on the mailerLite course list
-  sendContactForm: functions.database.ref('/flamelink/environments/production/content/contact/en-US/{cid}')
+  sendContactForm: functions.database.ref('/inquiries/{cid}')
     .onCreate(event => {
       const snapshot = event.data
       let form = snapshot.val()
