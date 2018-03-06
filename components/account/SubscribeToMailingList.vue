@@ -7,8 +7,8 @@ form.form.card
     span I want to receive occasional emails about new educational content
 
   .form-error
-    .-is-error(v-if="formError.length > 0" v-text="formError")
-    .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+    .callout.-error(v-if="formError.length > 0" v-text="formError")
+    .callout.-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 </template>
 
 <script>
