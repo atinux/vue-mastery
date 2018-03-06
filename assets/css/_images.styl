@@ -1,0 +1,11 @@
+$widths = 100px,200px,300px,400px,500px,600px,700px,800px
+
+img
+  width: 100%
+
+p > img
+  max-width 900px
+
+for $width in $widths
+  .img-{$width}
+    width: $width
