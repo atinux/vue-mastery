@@ -2,6 +2,7 @@
 import Vuex from 'vuex'
 import account from './modules/account'
 import courses from './modules/courses'
+import * as firebase from 'firebase'
 
 const createStore = () => {
   return new Vuex.Store({
@@ -20,6 +21,11 @@ const createStore = () => {
     actions: {
       toggleNav ({ commit }) {
         commit('toggleNav')
+      },
+      sendContactRequest ({ commit }, newData) {
+        const addr = '/inquiries/'
+        // Get a key for a new contact.
+        return firebase.database().ref(addr).push(newData)
       }
     },
     mutations: {
