@@ -1,6 +1,6 @@
 <template lang="pug">
   .lesson-video(v-if="videoId" v-cloak)
-    vimeo-player(ref="player" :video-id = "videoId" player-width="860" @progress="videoProgress" @ready="onReady")
+    vimeo-player(ref="player" :video-id = "videoId" player-width="860" @progress="videoProgress" @ready="onReady" @ended="videoEnded()")
 </template>
 
 <script>
@@ -21,9 +21,9 @@ export default {
         this.$emit('lessonCompleted')
         this.completed = true
       }
-      if (data.percent === 1) {
-        this.$emit('videoEnded')
-      }
+    },
+    videoEnded () {
+      this.$emit('videoEnded')
     }
   }
 }
