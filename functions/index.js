@@ -3,13 +3,17 @@ const subscription = require('./subscription')
 const db = require('./helpers')
 // const payment = require('./payment')
 
+const mainListId = functions.config().mailerlite.mainlistid
+
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user()
     .onCreate(event => {
       const user = event.data
+      console.log()
       // payment.register(user)
-      return subscription.subscribeUser(user, 'main', true)
+      return subscription.getMailerList(mainListId)
+        .then(listID => subscription.subscribeUser(user, listID, true))
     }),
 
   // Subscribe a user to mailerLite according to his settings.
@@ -20,7 +24,8 @@ module.exports = {
       if (!snapshot.child('subscribedToMailingList').changed()) return null
 
       const val = snapshot.val()
-      return subscription.subscribeUser(val, 'main', val.subscribedToMailingList)
+      return subscription.getMailerList(mainListId)
+        .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
     }),
 
   // Subscribe a user to a course on the mailerLite course list
