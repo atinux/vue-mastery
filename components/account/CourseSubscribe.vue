@@ -34,8 +34,11 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-  .body
-    display flex
-    justify-content: space-evenly
-    align-items: center
+.form
+  width 100%
+
+.body
+  display flex
+  justify-content: space-between
+  align-items: center
 </style>
