@@ -33,7 +33,7 @@
           .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 
         .form-group
-          input.button.primary(type="submit" value="Submit")
+          input.button.primary(type="button" value="Submit" @click="sendForm()")
 </template>
 <script>
 export default {
@@ -57,7 +57,7 @@ export default {
     resetFormMessages () {
       this.formSuccess = this.formError = ''
     },
-    updatePassword () {
+    sendForm () {
       this.resetFormMessages()
       clearTimeout(this.debounceTimer)
       this.debounceTimer = setTimeout(() => {
