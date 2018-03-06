@@ -144,7 +144,9 @@ export default {
         password: this.password
       })
         .then(() => {
-          // if (this.isNew) this.$router.push('/account')
+          if (action === 'userRetrievePassword') {
+            this.switchForm(false)
+          }
         })
         .catch((error) => {
           console.log(error)
