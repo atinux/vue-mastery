@@ -5,7 +5,8 @@ import courses from './modules/courses'
 import firebaseConfig from '~/firebase'
 import firebase from 'firebase'
 import * as types from './mutation-types'
-import flamelink from 'flamelink'
+const flamelink = (process.server ? require('flamelink') : null)
+const firebaseAdmin = (process.server ? require('firebase-admin') : null)
 
 const createStore = () => {
   return new Vuex.Store({
@@ -23,8 +24,7 @@ const createStore = () => {
     actions: {
       nuxtServerInit ({ commit }, { req }) {
         if (!firebase.apps.length) {
-          const admin = require('firebase-admin')
-          const firebaseApp = admin.initializeApp(firebaseConfig)
+          const firebaseApp = firebaseAdmin.initializeApp(firebaseConfig)
           this.commit(types.APP_READY, flamelink({ firebaseApp }))
         } else {
           this.commit(types.APP_READY, flamelink({ firebaseApp: firebase.app() }))
