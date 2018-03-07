@@ -2,11 +2,11 @@
 .media-block(v-if="course")
   .media
     img(v-bind:src="course.image[0].url")
-  
+
   .body
     h3.title {{ course.title }}
     p.content {{ course.description }}
-  
+
     .meta(v-if="showDetail" v-cloak)
       label
         b {{ course.lessons.length | pluralizeLesson }}
@@ -17,7 +17,6 @@
         span ・
         i.far.fa-clock
         | {{ course.duration | time }}
-
 </template>
 
 <script>

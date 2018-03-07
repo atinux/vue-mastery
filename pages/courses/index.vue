@@ -47,10 +47,6 @@ export default {
     await store.dispatch('latest')
     await store.dispatch('getAllCourses')
   }
-  // mounted: function () {
-  //   this.$store.dispatch('latest')
-  //   this.$store.dispatch('getAllCourses')
-  // }
 }
 </script>
 
@@ -74,11 +70,11 @@ export default {
 .courses-body
   display grid
   width 100%
-  grid-column-gap 2%
+  grid-column-gap 4%
   grid-row-gap 45px
   padding-top ($vertical-space/2)
   padding-bottom ($vertical-space/2)
 
   +laptop-up()
-    grid-template-columns 63% 35%
+    grid-template-columns 63% 33%
 </style>

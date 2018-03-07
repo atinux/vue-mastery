@@ -10,7 +10,10 @@
 @import _media-block
 @import _modals
 @import _paginate
+@import _empty
 @import _transitions
+@import _images
+@import _video
 
 *
   box-sizing: border-box
@@ -27,12 +30,26 @@ ul
   list-style-type none
   padding 0
   margin 0
-
-img
-  width: 100%
+  li
+    margin-bottom 10px
 
 .text-center
   text-align center
+
+code
+  font-size 18px
+  background #F7F9FA
+  border solid 1px #E6E8EB
+  padding 0 4px 2px 4px
+pre
+  background #F7F9FA
+  padding 10px
+  border solid 1px #E6E8EB
+  border-radius 6px
+  white-space pre-wrap
+pre > code
+  background transparent
+  border none
 
 ul
   padding 10px 20px
@@ -101,3 +118,21 @@ ul
   +laptop-up()
     margin 0 auto
     max-width 1400px
+
+.-flash
+  border-radius 6px
+  background #faf7a1
+  box-shadow 0 0 6px 6px #faf7a1
+  animation: flashfade linear 1s
+  animation-iteration-count: 1
+
+@keyframes flashfade
+	0%
+    background: rgba(#faf7a1, 1)
+    box-shadow 0 0 6px 6px rgba(#faf7a1, 1)
+  60%
+    background: rgba(#faf7a1, 1)
+    box-shadow 0 0 6px 6px rgba(#faf7a1, 1)
+	100%
+    background: rgba(#faf7a1, 0)
+    box-shadow 0 0 6px 6px rgba(#faf7a1, 0)

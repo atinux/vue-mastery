@@ -1,7 +1,7 @@
 <template lang="pug">
 div
-  .list(v-if="courses" v-cloak)
-    nuxt-link.list-card.card(:to="link(course)"
+  .grid(v-if="courses" v-cloak)
+    nuxt-link.grid-card.card(:to="link(course)"
                               v-for="course, key, index in courses" :key="course.id")
       courseList(:course="course")
       courseAction(:course="course")
@@ -29,20 +29,13 @@ export default {
         try {
           // Get the lessons started
           let lessons = this.account.courses[course.slug].completedLessons
-          let lastLessonFound = false
           // Get the last completed lesson
-          for (let el of course.lessons) {
-            let key = el.slug
+          for (let key in lessons) {
             if (lessons.hasOwnProperty(key) && lessons[key]) {
-              if (lessons.hasOwnProperty(key) && lessons[key]) {
-                lastLessonFound = true
+              if (course.lessons[key]) {
                 lessonSlug = key
-              }
-            } else {
-              // If there is lesson after the one completed, then redirect to the next one
-              if (lastLessonFound === true) {
-                lessonSlug = key
-                lastLessonFound = false
+              } else {
+                console.log('The last completed lesson doesn\'t belong to this course anymore')
               }
             }
           }
@@ -62,18 +55,33 @@ export default {
 .content
   color: $gray
 
-.list,
-.list-unstyled
-  > a
-    margin-bottom: 35px
+.grid
+  display grid
+  +tablet-up()
+    grid-template-columns repeat(2, 1fr)
+    grid-column-gap 40px
+  +laptop-up()
+    grid-template-columns repeat(1, 1fr)
 
-.list-card
+.grid-card
   display flex
   flex-direction column
   justify-content space-between
-  cursor: pointer
+  cursor pointer
+  margin-bottom ($vertical-space/2)
 
-  +tablet-up()
-    flex-direction row
+.recommend-course-list .grid-card
+  width 100%
 
+  .media-block
+    text-align center
+    grid-row-gap ($vertical-space/3)
+    margin-bottom ($vertical-space/3)
+    grid-template-columns 1fr
+    grid-template-areas "media"\
+                        "body"
+
+  .actions
+    width 100%
+    margin-left 0
 </style>

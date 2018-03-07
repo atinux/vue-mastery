@@ -5,12 +5,19 @@ const mailerliteSubscribers = mailerlite.Subscribers
 const mailerliteList = mailerlite.Lists
 // const SparkPost = require('sparkpost')
 
-// Configure Mailerlite
-const mainListId = functions.config().mailerlite.mainListId // "VueMastery.com New Users" group
+const nodemailer = require('nodemailer')
+const gmailEmail = functions.config().gmail.email
+const gmailPassword = functions.config().gmail.password
+const mailTransport = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: gmailEmail,
+    pass: gmailPassword
+  }
+})
 
 module.exports = {
   subscribeUser (account, listID, isSubcribing) {
-    if (listID === null) listID = mainListId
     if (isSubcribing) {
       console.log(`Subscribe ${account.email} to mailing list ${listID}`)
       return mailerliteSubscribers.addSubscriber(listID, account.email, account.displayName, {}, 1)
@@ -31,19 +38,30 @@ module.exports = {
         return mailerliteList.addList(mailerliteListName).then(res => res.id)
       }
     })
-  }
+  },
 
-  // sendWelcomeEmail () {
-  //   const client = new SparkPost(functions.config().sparkpost.key)
-  //   client.transmissions.send({
-  //     transmissionBody: {
-  //       recipients: [{ address: { email: val.email } }],
-  //       content: { template_id: 'my-first-email' },
-  //       substitution_data: {'name': val.displayName},
-  //       campaign_id: 'welcome'
-  //     }
-  //   }, (err, res) => {
-  //     console.warn(err ? err.stack : `Email Sent for test to ${val.email}`)
-  //   })
-  // }
+  sendContactEmail (val) {
+    // const client = new SparkPost(functions.config().sparkpost.key)
+    // client.transmissions.send({
+    //   transmissionBody: {
+    //     recipients: [{ address: { email: 'schweiger.pierre@gmail.com', name: 'Vue Mastery Team' } }],
+    //     content: { template_id: 'contact' },
+    //     substitution_data: {'email': val.email, 'name': val.name, 'message': val.message},
+    //     campaign_id: 'Contact'
+    //   }
+    // }, (err, res) => {
+    //   console.warn(err ? err.stack : `Email Sent for test to ${val.email}`)
+    // })
+    const mailOptions = {
+      from: 'Vue Mastery <noreply@firebase.com>',
+      to: 'team@vuemastery.com'
+    }
+
+    // The user subscribed to the newsletter.
+    mailOptions.subject = `Vue Mastery website Request`
+    mailOptions.text = `Message from ${val.name}: ${val.message}`
+    return mailTransport.sendMail(mailOptions).then(() => {
+      return console.log('New email sent from:', val.name)
+    })
+  }
 }

@@ -36,6 +36,39 @@
         &.-large
           width 200px
 
+    &.-video
+      position relative
+      &:before
+        content ''
+        position absolute
+        left 0
+        top 0
+        right 0
+        bottom 0
+        background rgba(0,0,0,0.4)
+        transition background 0.3s ease
+      &:after
+        content ''
+        position absolute
+        left 50%
+        top 50%
+        width 0px
+        height 0px
+        border-top 12px solid transparent
+        border-bottom 12px solid transparent
+        border-left 20px solid #fff
+        transform translate(-50%, -50%)
+        filter drop-shadow(0 2px 3px #000)
+        transition all 0.3s
+      &:hover
+        &:before
+          background rgba(0,0,0,0)
+        &:after
+          transform scale(1.1) translate(-50%, -50%)
+          filter drop-shadow(0 2px 3px #000)
+
+
+
   .body
     grid-area body
     max-width 400px
@@ -63,3 +96,7 @@
         align-items center
         i
           margin-right 5px
+
+.grid .media-block .body
+  text-align center
+  margin 0 auto

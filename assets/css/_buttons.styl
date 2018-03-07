@@ -1,7 +1,5 @@
-$button-height = 54px
-$button-height-small = ($button-height - 10px)
-
 .button
+
   display inline-block
   height $button-height-small
   width max-content
@@ -34,6 +32,12 @@ $button-height-small = ($button-height - 10px)
     &.border
       color $secondary-color
       border-color $secondary-color
+
+  &.danger
+    background linear-gradient(to top right, #EB4641, #F06372)
+    &.border
+      color: #EB4641
+      border-color: #EB4641
 
   &.inverted
     background #FFFFFF

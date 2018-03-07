@@ -1,41 +1,29 @@
 <template lang="pug">
 form.form.card
   .form-group
-    label.label Display Name
-    input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
-
-  .form-group
-    label.label Profile Image
+    label Profile Image
     .upload
       button.button.primary.border Upload Image
       input.input(type="file" accept="image/*" placeholder="Profile Image" v-on:change="updateProfileImage" ref="fileInput")
-
-  .form-group.-switched
-    .switch
-      input(id="subscribeSwitch" type="checkbox" v-model="newData.subscribedToMailingList" v-on:change="updateField('subscribedToMailingList')")
-      label(:for="subscribeSwitch")
-    span I want to receive occasional emails about new educational content
+  .form-group
+    label Display Name
+    input.input(type="email" placeholder="Display Name" v-model="newData.displayName" v-on:input="updateField('displayName')")
 
   .form-error
-    .-is-error(v-if="formError.length > 0" v-text="formError")
-    .-is-success(v-if="formSuccess.length > 0" v-text="formSuccess")
+    .callout.-error(v-if="formError.length > 0" v-text="formError")
+    .callout.-success(v-if="formSuccess.length > 0" v-text="formSuccess")
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import firebase from 'firebase'
 
 export default {
-  computed: mapState({
-    account: result => result.account.account
-  }),
-  props: ['current'],
+  props: ['account'],
   data () {
     return {
       newData: {
-        displayName: this.current.displayName,
-        image: this.current.image,
-        subscribedToMailingList: this.current.subscribedToMailingList
+        displayName: this.account.displayName,
+        image: this.account.image
       },
       debounceTimer: setTimeout(() => {}),
       formError: '',
@@ -83,6 +71,9 @@ export default {
 </script>
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
+label
+  font-weight 600
+  margin-bottom 5px
 .form-group.-switched
   display flex
   flex-direction: row

@@ -4,7 +4,7 @@
       .media
         img(v-bind:src="course.image[0].url")
       .body
-        h1.title {{ course.title }}
+        h2.title {{ course.title }}
 </template>
 
 <script>

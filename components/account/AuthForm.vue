@@ -24,8 +24,9 @@ form.form(v-on:submit.prevent="submit")
 
   .form-group(v-if="rememberPassword" v-cloak)
     label.label Password
-    input.input(v-bind:class="{ '-is-error': invalidPassword }" type="password" placeholder="Password" v-model="password")
+    input.input(v-bind:class="{ '-is-error': invalidPassword }" :type="passwordFieldType" placeholder="Password" v-model="password")
     span.help-text.-is-error(v-if="invalidPassword" v-cloak) This password is invalid
+    button(type="password" @click="switchVisibility") show / hide
 
   .form-group.-center(v-if="isNew" v-cloak)
     label.checkbox
@@ -65,6 +66,9 @@ export default {
     newAccount: {
       default: false
     },
+    headerTitle: {
+      default: false
+    },
     header: {
       default: false
     }
@@ -73,6 +77,7 @@ export default {
     return {
       email: '',
       password: '',
+      passwordFieldType: 'password',
       formError: '',
       isNew: this.newAccount,
       terms: !this.newAccount,
@@ -82,6 +87,7 @@ export default {
   },
   computed: {
     title () {
+      if (this.headerTitle) return this.headerTitle
       let t = this.rememberPassword ? 'Welcome back!' : 'Retrieve your password'
       if (this.isNew) t = 'Let\'s Get You Signed Up.'
       return t
@@ -140,12 +146,17 @@ export default {
         password: this.password
       })
         .then(() => {
-          // if (this.isNew) this.$router.push('/account')
+          if (action === 'userRetrievePassword') {
+            this.switchForm(false)
+          }
         })
         .catch((error) => {
           console.log(error)
           this.formError = error.message
         })
+    },
+    switchVisibility() {
+      this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
     }
   }
 }

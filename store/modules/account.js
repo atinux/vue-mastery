@@ -125,6 +125,15 @@ const actions = {
       console.log(error)
     })
   },
+  userUpdatePassword ({ state }, newPassword) {
+    const user = firebase.auth().currentUser
+
+    user.updatePassword(newPassword).then(() => {
+      console.log(`Update password for the account ${user.email}`)
+    }).catch((error) => {
+      console.log(`Can't update the password. Error:  ${error}`)
+    })
+  },
   userRetrievePassword ({ state }, account) {
     return firebase.auth()
       .sendPasswordResetEmail(account.email)
@@ -136,10 +145,14 @@ const actions = {
         console.log(`Can't send retrieve password email. Error:  ${error}`)
       })
   },
+  userUpdateSubscription ({ state }, subscribedToMailingList) {
+    return firebase.database().ref(`accounts/${state.user.uid}`).update({
+      subscribedToMailingList: subscribedToMailingList
+    })
+  },
   userUpdate ({ state }, newData) {
     return firebase.database().ref(`accounts/${state.user.uid}`).update({
-      displayName: newData.displayName,
-      subscribedToMailingList: newData.subscribedToMailingList
+      displayName: newData.displayName
     })
   },
   userUpdateImage ({ state }, image) {

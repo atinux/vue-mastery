@@ -3,50 +3,46 @@
     h2.title Free Lessons
     .media-wrapper(v-if="free" v-cloak)
       .media-block(v-for="lesson in free")
-        .media
-          nuxt-link(:to="path(lesson)")
+        nuxt-link(:to="path(lesson)")
+          .media.-video
             img(v-bind:src="lesson.image[0].url" class="-large")
         .body
           nuxt-link(:to="path(lesson)" class="list-free -inverted")
             h3.title {{ lesson.title }}
             p.content {{ lesson.description }}
-          nuxt-link(to='/' class="-inverted")
+          nuxt-link(:to="path(lesson)" class="-inverted")
             div.meta
-              b Associated Course
+              b {{ lesson.belongsToCourse[0].title }}
               label.-has-icon
                 span ・
                 i.far.fa-clock
                 | {{ lesson.duration | time }}
 
     .media-wrapper(v-else)
-      each val in [1, 2, 3]
-        .media-block.fake
-          .media.fake.-small
-          .body.fake
+      fakeList
 
     nuxt-link.button.primary.border(to="/courses") More
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import fakeList from '~/components/courses/FakeList'
 
 export default {
+  components: {
+    fakeList
+  },
   computed: {
     ...mapState({ free: result => result.courses.free }),
     ...mapState({ courses: result => result.courses.courses })
   },
 
-  mounted: function () {
+  mounted () {
     this.$store.dispatch('featured')
   },
-
   methods: {
     path (lesson) {
-      if (this.courses) {
-        const course = this.courses[lesson.belongsToCourse]
-        return `/courses/${course.slug}/${lesson.slug}`
-      }
-      return '#'
+      return `/courses/${lesson.belongsToCourse[0].slug}/${lesson.slug}`
     }
   }
 }
@@ -74,10 +70,12 @@ export default {
 
 .media-wrapper
   height: 100%
-  padding-top: 20px
+  padding-top: 0
+  .media-block
+    padding: ($vertical-space/4) 0
+    margin-bottom: ($vertical-space/4)
 
 .media-block
-  margin-bottom ($vertical-space/2)
   grid-template-columns auto 1fr
   grid-template-areas "media body"
   .body

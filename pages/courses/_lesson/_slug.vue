@@ -1,28 +1,28 @@
 <template lang='pug'>
 div
-  .lesson-wrapper(v-if='course' v-cloak)
+  div(v-if='course'  v-cloak)
+    .lesson-wrapper
+      lessonHeader(:course='course')
 
-    lessonHeader(:course='course')
+      lessonVideo(v-if="current && !locked" :videoId = 'current.videoEmbedId' @videoEnded='lessonFinished' @lessonCompleted='lessonCompleted')
+      .lesson-video.-locked(v-else :style="lockedStyle")
+        unlock(:account='account')
 
-    lessonVideo(v-if="current" :videoId = 'current.videoEmbedId' @videoEnded='lessonCompleted')
+      lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account')
 
-    lessonsList(:course='course' :current='lessonSlug'  @selectLesson='selectLesson', :account='account')
+      lessonBody(:course='current' :locked='locked')
 
-    lessonBody(:course='current')
+      aside.lesson-aside(v-if="!locked" v-cloak)
+        .control-group.-spaced
+          download(:courseLink='current.downloadLink', :account='account')
+          socialShare
+        //- courseSubscribe
+        lessonresources(:resources='current.resources')
+        lessonChallenges(:challenges='current.codingChallenge')
 
-    aside.lesson-aside
-      .control-group.-spaced
-        a.button.secondary.-has-icon(:href='current.downloadLink' download v-if="current")
-          i.fa.fa-download
-          | Download
-        socialShare
-      courseSubscribe
-      lessonresources(:resources='current.resources')
-      lessonChallenges(:challenges='current.codingChallenge')
+      lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
 
-    lessonNav(:lessons='course.lessons' :selected='selected' @selectLesson='selectLesson' v-if="current")
-
-    lessonPopup(@selectLesson='selectLesson')
+      lessonPopup(@selectLesson='selectLesson')
 
   .lesson-wrapper(v-else)
     .lesson-header.fake
@@ -49,11 +49,14 @@ import lessonNav from '~/components/lessons/Navigation'
 import lessonresources from '~/components/lessons/resources'
 import lessonChallenges from '~/components/lessons/Challenges'
 import lessonPopup from '~/components/lessons/Popup'
+import download from '~/components/lessons/Download'
+import unlock from '~/components/lessons/Unlock'
 import courseSubscribe from '~/components/account/CourseSubscribe'
 import socialShare from '~/components/lessons/SocialSharing'
 import playerPlaceholder from '~/components/static/PlayerPlaceholder'
 
 export default {
+  middleware: 'anonymous',
   head () {
     return {
       title: this.course.title,
@@ -95,6 +98,8 @@ export default {
     lessonChallenges,
     lessonPopup,
     socialShare,
+    download,
+    unlock,
     courseSubscribe,
     playerPlaceholder
   },
@@ -119,6 +124,16 @@ export default {
         }
       })
       return currentLesson
+    },
+
+    locked () {
+      return this.current.lock && !this.account
+    },
+
+    lockedStyle () {
+      return {
+        backgroundImage: `url(${this.current.image[0].url})`
+      }
     }
   },
 
@@ -129,16 +144,19 @@ export default {
     },
 
     lessonCompleted () {
-      if (this.selected < this.course.lessons.length - 1) {
-        this.$modal.show('next-lesson', {
-          lesson: this.course.lessons[this.selected + 1]
-        })
-      }
       this.$store.dispatch('userUpdateCompleted', {
         lessonSlug: this.lessonSlug,
         courseSlug: this.courseSlug,
         isCompleted: true
       })
+    },
+
+    lessonFinished () {
+      if (this.selected < this.course.lessons.length - 1) {
+        this.$modal.show('next-lesson', {
+          lesson: this.course.lessons[this.selected + 1]
+        })
+      }
     }
   }
 }
@@ -161,6 +179,14 @@ export default {
 
 .lesson-video
   grid-area video
+  &.-locked
+    position relative
+    background $black
+    width 100%
+    height 300px
+    background-size cover
+    +tablet-up()
+      height 500px
 
 .lesson-content
   grid-area content
@@ -201,14 +227,5 @@ export default {
 
   .lesson-aside
     padding 0 8%
-
-// +desktop-up()
-//   .lesson-wrapper
-//     grid-template-columns 50% 25% 25%
-//     grid-template-areas 'header  header  header'\
-//                          'video   video   list'\
-//                          'content sidebar sidebar'\
-//                          'footer  footer  footer'
-
 
 </style>

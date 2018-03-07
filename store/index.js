@@ -32,6 +32,11 @@ const createStore = () => {
       },
       toggleNav ({ commit }) {
         commit('toggleNav')
+      },
+      sendContactRequest ({ commit }, newData) {
+        const addr = '/inquiries/'
+        // Get a key for a new contact.
+        return firebase.database().ref(addr).push(newData)
       }
     },
     mutations: {

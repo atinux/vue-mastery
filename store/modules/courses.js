@@ -51,7 +51,8 @@ const actions = {
         // },
         {
           field: 'lessons',
-          subFields: [ 'lessons' ]
+          subFields: [ 'lessons', 'image' ],
+          populate: [ 'image' ]
         }
       ]})
       .then(course => {
@@ -69,7 +70,7 @@ const actions = {
       populate: [ {
         field: 'free',
         fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
-        populate: [ 'image' ]
+        populate: [ 'image', 'belongsToCourse' ]
       }, {
         field: 'featured',
         fields: [ 'title', 'slug', 'description', 'image', 'lessons' ],
@@ -84,7 +85,8 @@ const actions = {
     return db.get('course', {
       populate: [ {
         field: 'latests',
-        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration' ]
+        fields: [ 'title', 'slug', 'description', 'belongsToCourse', 'duration', 'image' ],
+        populate: [ 'image' ]
       }]
     }).then(latests => {
       commit(types.RECEIVE_LATEST, { latests })

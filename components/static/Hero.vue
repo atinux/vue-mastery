@@ -4,7 +4,10 @@
       .body
         h1.title The ultimate learning resource for Vue developers
         p.lead Weekly Vue.js tutorials to guide your journey to Mastery.
-      PlayerPlaceholder
+      .video
+        .video-wrapper
+          iframe(src="https://player.vimeo.com/video/257962818" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen)
+        //- vimeo-player(ref="player" video-id="257962818" player-width="800")
 
       .actions
         nuxt-link.button.secondary(to="/courses") START LEARNING
@@ -32,7 +35,7 @@ export default {
     padding-top ($header-height + $vertical-space/1.5)
     padding-bottom ($vertical-space/1.5)
 .banner
-  background-image url(/images/hero.svg)
+  background-image url(/images/hero-1.svg)
   background-position center top
   background-size cover
 
@@ -66,5 +69,12 @@ export default {
 .actions
   display flex
   justify-content center
+
+.video
+  +tablet-up()
+    width 600px
+    margin 0 auto
+  +laptop-up()
+    width 800px
 
 </style>

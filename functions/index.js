@@ -3,13 +3,17 @@ const subscription = require('./subscription')
 const db = require('./helpers')
 // const payment = require('./payment')
 
+const mainListId = functions.config().mailerlite.mainlistid
+
 module.exports = {
   // On account creation we add the user to mailerlite and create stripe account (phase 2)
   createCustomer: functions.auth.user()
     .onCreate(event => {
       const user = event.data
+      console.log()
       // payment.register(user)
-      return subscription.subscribeUser(user, 'main', true)
+      return subscription.getMailerList(mainListId)
+        .then(listID => subscription.subscribeUser(user, listID, true))
     }),
 
   // Subscribe a user to mailerLite according to his settings.
@@ -20,7 +24,8 @@ module.exports = {
       if (!snapshot.child('subscribedToMailingList').changed()) return null
 
       const val = snapshot.val()
-      return subscription.subscribeUser(val, 'main', val.subscribedToMailingList)
+      return subscription.getMailerList(mainListId)
+        .then(listID => subscription.subscribeUser(val, listID, val.subscribedToMailingList))
     }),
 
   // Subscribe a user to a course on the mailerLite course list
@@ -32,13 +37,25 @@ module.exports = {
       if (!snapshot.child('subscribed').changed()) return null
 
       // Wait to get account email data and course title to subscribe the user
-      return Promise.all([db.account(event.params.cid), db.course(event.params.cid)])
+      return Promise.all([db.account(event.params.uid)])
         .then(results => results.map(result => result.val()))
-        .then(([account, course]) => {
+        .then(([account]) => {
           // Get or create email course list
-          subscription.getMailerList(`Course: ${course.title}`)
+          subscription.getMailerList(`Course: ${event.params.cid}`)
             .then(listID => subscription.subscribeUser(account, listID, snapshot.val().subscribed))
         })
+    }),
+
+  // Subscribe a user to a course on the mailerLite course list
+  sendContactForm: functions.database.ref('/inquiries/{cid}')
+    .onCreate(event => {
+      const snapshot = event.data
+      let form = snapshot.val()
+      return subscription.sendContactEmail({
+        name: form.name,
+        message: form.message,
+        email: form.email
+      })
     }),
 
   // Subscribe a user to a course on the mailerLite course list

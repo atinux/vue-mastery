@@ -245,8 +245,26 @@ module.exports = {
    ** Site Modules
    */
   modules: [
-    ['@nuxtjs/pwa', { icon: false }]
+    ['@nuxtjs/pwa', { icon: false }],
+    '@nuxtjs/markdownit',
+    // TODO: Add google analytics id
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-'
+    }]
   ],
+  /*
+  ** Render Markdown
+  */
+  markdownit: {
+    html: true,
+    linkify: true,
+    typographer: true,
+    injected: true,
+    use: [
+      // 'markdown-it-implicit-figures',
+      'markdown-it-decorate'
+    ]
+  },
   /*
   ** Customize the progress bar color
   */

@@ -26,3 +26,4 @@ sw.*
 todo.md
 cypress/integration/example_spec.js
 cypress/screenshots/
+.nvmrc

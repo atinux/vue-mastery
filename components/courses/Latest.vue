@@ -1,15 +1,17 @@
 <template lang="pug">
   div(v-if="latests" v-cloak)
-    h2.title Latest Videos
+    h2.title Latest Free Videos
     div(v-for="lesson in latests")
       nuxt-link(:to="path(lesson)")
         .media-block
+          .media.-video
+            img(v-bind:src="lesson.image[0].url")
           .body
             h4 {{ lesson.title }}
-            div.meta
-              b Associated Course
+            .meta
+              b {{ lessonsCourse(lesson) }}
+            .meta
               label.-has-icon
-                span ・
                 i.far.fa-clock
                 | {{ lesson.duration | time }}
 </template>
@@ -26,6 +28,12 @@ export default {
         return `/courses/${course.slug}/${lesson.slug}`
       }
       return '#'
+    },
+    lessonsCourse (lesson) {
+      if (this.courses) {
+        const course = this.courses[lesson.belongsToCourse]
+        return course.title
+      }
     }
   }
 }
@@ -33,7 +41,6 @@ export default {
 
 <style lang="stylus" scoped>
 @import '~assets/css/_variables'
-
 
 .title
   color $primary-color
@@ -43,7 +50,7 @@ export default {
     font-size 40.5px
 
 .media-block
-  grid-column-gap 0
+  grid-column-gap 20px
   margin-bottom ($vertical-space/4)
   border-bottom solid 1px #EEE
   padding-bottom ($vertical-space/4)
@@ -51,8 +58,14 @@ export default {
 .body p
   margin 0
 
+.media
+  max-width 160px
+
+.meta
+  margin-bottom 10px
+
 h4
-  font-size 22px
+  font-size 20px
   font-weight: 600
   color $secondary-color
 

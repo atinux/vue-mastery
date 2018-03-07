@@ -25,7 +25,8 @@ export default {
     openLogin () {
       this.$modal.show('login-form', {
         newAccount: true,
-        header: 'Please create a free account to access our cheat sheet.'
+        headerTitle: 'Please sign up to download free',
+        redirect: '/download'
       })
     }
   }
