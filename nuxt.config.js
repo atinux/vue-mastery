@@ -246,7 +246,11 @@ module.exports = {
    */
   modules: [
     ['@nuxtjs/pwa', { icon: false }],
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    // TODO: Add google analytics id
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-'
+    }]
   ],
   /*
   ** Render Markdown
