@@ -155,7 +155,7 @@ export default {
           this.formError = error.message
         })
     },
-    switchVisibility() {
+    switchVisibility () {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
     }
   }

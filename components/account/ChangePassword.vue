@@ -60,7 +60,7 @@ export default {
         }
       }, 500)
     },
-    switchVisibility() {
+    switchVisibility () {
       this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password'
     }
   }
